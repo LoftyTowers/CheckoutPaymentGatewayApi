@@ -17,14 +17,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace CheckoutPaymentGateway.Models
 {
 	/// <summary>
-	/// This is the payment request contract for the merchant
+	/// This is the payment response contract for the merchant
 	/// </summary>
 	[DataContract]
-	public partial class PaymentRequest : IEquatable<PaymentRequest>
+	public partial class PaymentResponse : IEquatable<PaymentResponse>
 	{
 		/// <summary>
 		/// Unique Identifier of the payment
@@ -84,13 +85,27 @@ namespace CheckoutPaymentGateway.Models
 		public DateTime? RequestDate { get; set; }
 
 		/// <summary>
+		/// Descibes whether the payment was succesful or not
+		/// </summary>
+		[Required]
+		[DataMember(Name = "isSuccessful")]
+		[DefaultValue(false)]
+		public bool? IsSuccessful { get; set; }
+
+		/// <summary>
+		/// Shows any further information if required (i.e. useful error messages)
+		/// </summary>
+		[DataMember(Name = "message")]
+		public string Message { get; set; }
+
+		/// <summary>
 		/// Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
-			sb.Append("class PaymentRequest {\n");
+			sb.Append("class PaymentResponse {\n");
 			sb.Append("  Id: ").Append(Id).Append("\n");
 			sb.Append("  CurrencyCode: ").Append(CurrencyCode).Append("\n");
 			sb.Append("  Amount: ").Append(Amount).Append("\n");
@@ -121,15 +136,15 @@ namespace CheckoutPaymentGateway.Models
 		{
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((PaymentRequest)obj);
+			return obj.GetType() == GetType() && Equals((PaymentResponse)obj);
 		}
 
 		/// <summary>
-		/// Returns true if PaymentRequest instances are equal
+		/// Returns true if PaymentResponse instances are equal
 		/// </summary>
-		/// <param name="other">Instance of PaymentRequest to be compared</param>
+		/// <param name="other">Instance of PaymentResponse to be compared</param>
 		/// <returns>Boolean</returns>
-		public bool Equals(PaymentRequest other)
+		public bool Equals(PaymentResponse other)
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
@@ -210,12 +225,12 @@ namespace CheckoutPaymentGateway.Models
 		#region Operators
 #pragma warning disable 1591
 
-		public static bool operator ==(PaymentRequest left, PaymentRequest right)
+		public static bool operator ==(PaymentResponse left, PaymentResponse right)
 		{
 			return Equals(left, right);
 		}
 
-		public static bool operator !=(PaymentRequest left, PaymentRequest right)
+		public static bool operator !=(PaymentResponse left, PaymentResponse right)
 		{
 			return !Equals(left, right);
 		}

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using AcquiringBankMock.Interfaces;
+using AutoMapper;
 using Common.Models;
 using PaymentGatewayService.Interfaces;
 using Serilog;
@@ -9,14 +10,23 @@ using System.Text;
 
 namespace PaymentGatewayService
 {
+	/// <summary>
+	/// Handles payment requests and data retrieval 
+	/// </summary>
 	public class PaymentService : IPaymentService
 	{
-		public PaymentService(ILogger log, IMapper mapper)
+		public PaymentService(ILogger log, IMapper mapper, IPaymentController bankApi)
 		{
 			Log = log;
 			MyMapper = mapper;
+			BankApi = bankApi;
 		}
 
+		/// <summary>
+		/// This method validates and stores requests and payment information
+		/// </summary>
+		/// <param name="paymentRequest"></param>
+		/// <returns></returns>
 		public bool ProcessPayment(Payment paymentRequest)
 		{
 			try
@@ -36,6 +46,7 @@ namespace PaymentGatewayService
 
 		private ILogger Log { get; }
 		private IMapper MyMapper { get; }
+		private IPaymentController BankApi { get; }
 
 		#endregion
 	}

@@ -1,3 +1,4 @@
+using AcquiringBankMock.Interfaces;
 using AutoMapper;
 using Common.Models;
 using Moq;
@@ -15,6 +16,7 @@ namespace PaymentGatewayServiceTests
 
 		private Mock<ILogger> mockLogger;
 		private Mock<IMapper> mockMapper;
+		private Mock<IPaymentController> mockBankApi;
 
 		[SetUp]
 		public void SetUp()
@@ -23,17 +25,19 @@ namespace PaymentGatewayServiceTests
 
 			this.mockLogger = this.mockRepository.Create<ILogger>();
 			this.mockMapper = this.mockRepository.Create<IMapper>();
+			this.mockBankApi = this.mockRepository.Create<IPaymentController>();
 		}
 
 		private PaymentService CreateService()
 		{
 			return new PaymentService(
 					this.mockLogger.Object,
-					this.mockMapper.Object);
+					this.mockMapper.Object,
+					this.mockBankApi.Object);
 		}
 
 		[Test]
-		public void ProcessPayment_StateUnderTest_ExpectedBehavior()
+		public void ProcessPayment_PaymentSentToBank_PaymentSuccess()
 		{
 			// Arrange
 			var service = this.CreateService();
@@ -44,7 +48,7 @@ namespace PaymentGatewayServiceTests
 				paymentRequest);
 
 			// Assert
-			Assert.Fail();
+			Assert.IsTrue(result);
 			this.mockRepository.VerifyAll();
 		}
 	}

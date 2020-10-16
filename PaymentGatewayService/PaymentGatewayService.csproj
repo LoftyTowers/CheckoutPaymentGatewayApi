@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AcquiringBankMock\AcquiringBankMock.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
