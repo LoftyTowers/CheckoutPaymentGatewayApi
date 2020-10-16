@@ -1,4 +1,5 @@
 ﻿using Common.Models;
+using Microsoft.Extensions.Logging;
 using PaymentGatewayService.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace PaymentGatewayService.BankEndpoints
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public TestBankEndpoint()
+		public TestBankEndpoint(ILogger log)
 		{
-
+			Log = log;
 		}
 
 		/// <summary>
@@ -66,10 +67,17 @@ namespace PaymentGatewayService.BankEndpoints
 			}
 			catch (Exception ex)
 			{
+				Log.LogError(ex,"Failed to process payment");
 				payment.IsSuccessful = false;
 				payment.Message = ex.Message;
 				return payment;
 			}
 		}
+
+		#region Properties
+
+		public ILogger Log { get; }
+
+		#endregion
 	}
 }
