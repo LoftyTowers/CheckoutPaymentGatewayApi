@@ -1,0 +1,96 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Payment Gateway API",
+    "description" : "Validates payment requests, stores card information, forwards payment requests and accepts responses from the acquiring bank.",
+    "version" : "v1"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/CheckoutPaymentGateway/v1",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "tags" : [ {
+    "name" : "paymentrequest",
+    "description" : "Processes payments giving a succesful or unsuccessful response",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "http://swagger.io"
+    }
+  }, {
+    "name" : "paymentdetails",
+    "description" : "Retrieves details of a particular payment",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "http://swagger.io"
+    }
+  } ],
+  "paths" : {
+    "/paymentrequest" : {
+      "post" : {
+        "tags" : [ "paymentrequest" ],
+        "summary" : "Generates a payment request with the gateway",
+        "description" : "Adds a payment",
+        "operationId" : "createPayment",
+        "requestBody" : {
+          "description" : "Payment to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PaymentRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "payment created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing payment already exists"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "PaymentRequest" : {
+        "required" : [ "amount", "id", "merchantId", "requestDate" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "guid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "merchantId" : {
+            "type" : "string",
+            "format" : "guid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "amount" : {
+            "type" : "number",
+            "format" : "decimal"
+          },
+          "requestDate" : {
+            "type" : "string",
+            "format" : "date-time",
+            "example" : "2020-01-01T09:00:00.001Z"
+          },
+          "requestCompleted" : {
+            "type" : "string",
+            "format" : "date-time",
+            "example" : "2020-01-01T09:03:17.001Z"
+          },
+          "complete" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }
+      }
+    }
+  }
+}
