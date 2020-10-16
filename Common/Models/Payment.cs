@@ -6,39 +6,70 @@ using System.Text;
 namespace Common.Models
 {
 	public class Payment
-	{/// <summary>
-   /// Gets or Sets Id
-   /// </summary>
-    public string Id { get; set; }
+	{
+		/// <summary>
+		/// Unique Identifier of the payment from the merchant
+		/// </summary>
+		public Guid PaymentId { get; set; }
 
-    /// <summary>
-    /// Gets or Sets MerchantId
-    /// </summary>
-    public string MerchantId { get; set; }
+		/// <summary>
+		/// Unique Identifier of the payment from the bank
+		/// </summary>
+		public Guid? BankPaymentId { get; set; }
 
-    /// <summary>
-    /// Gets or Sets Amount
-    /// </summary>
-    public decimal? Amount { get; set; }
+		/// <summary>
+		/// The currency code the transaction is made in
+		/// </summary>
+		public string CurrencyCode { get; set; }
 
-    /// <summary>
-    /// Gets or Sets RequestDate
-    /// </summary>
-    public DateTime? RequestDate { get; set; }
+		/// <summary>
+		/// The amount of the transaction
+		/// </summary>
+		public decimal? Amount { get; set; }
 
-    /// <summary>
-    /// Gets or Sets RequestCompleted
-    /// </summary>
-    public DateTime? RequestCompleted { get; set; }
+		/// <summary>
+		/// The cvc customers card
+		/// </summary>
+		public int? CVC { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+		/// <summary>
+		/// The CardNumber for the transaction
+		/// </summary>
+		public long? CardNumber { get; set; }
+
+		/// <summary>
+		/// The FullName of the customer as shown on the card
+		/// </summary>
+		public string FullName { get; set; }
+
+		/// <summary>
+		/// The expiry date of the customers card
+		/// </summary>
+		public DateTime? CardExpiryDate { get; set; }
+
+		/// <summary>
+		/// The date the transaction was initilised
+		/// </summary>
+		public DateTime? RequestDate { get; set; }
+
+		/// <summary>
+		/// Gets or Sets RequestCompleted
+		/// </summary>
+		public DateTime? RequestCompleted { get; set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public PaymentStatus Status { get; set; }
 
 		/// <summary>
 		/// Gets or Sets Complete
 		/// </summary>
-		public bool Complete { get; set; }
-  }
+		public bool IsSuccessful { get; set; }
+
+		/// <summary>
+		/// Gets or Sets Message
+		/// </summary>
+		public string Message { get; set; }
+	}
 }

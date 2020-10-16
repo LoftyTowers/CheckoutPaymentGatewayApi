@@ -8,13 +8,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PaymentGatewayService
+namespace PaymentGatewayService.Services
 {
 	/// <summary>
 	/// Handles payment requests and data retrieval 
 	/// </summary>
 	public class PaymentService : IPaymentService
 	{
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="log"></param>
+		/// <param name="mapper"></param>
+		/// <param name="bankApi"></param>
 		public PaymentService(ILogger log, IMapper mapper, IPaymentController bankApi)
 		{
 			Log = log;
