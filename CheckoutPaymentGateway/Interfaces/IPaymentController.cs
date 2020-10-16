@@ -12,8 +12,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CheckoutPaymentGateway.Interfaces
 {
+	/// <summary>
+	/// Handles creating and retrieving payments
+	/// </summary>
 	public interface IPaymentController
 	{
+		/// <summary>
+		/// Generates a payment request with the gateway
+		/// </summary>
+		/// <remarks>Adds a payment</remarks>
+		/// <param name="body">Payment to add</param>
+		/// <response code="200">payment created</response>
+		/// <response code="400">invalid input, object invalid</response>
+		/// <response code="409">an existing payment already exists</response>
 		IActionResult CreatePayment([FromBody] PaymentRequest body);
 	}
 }

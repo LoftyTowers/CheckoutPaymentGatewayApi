@@ -28,16 +28,17 @@ using PaymentGatewayService.Interfaces;
 namespace CheckoutPaymentGateway.Controllers
 {
 	/// <summary>
-	/// 
+	/// Handles creating and retrieving payments
 	/// </summary>
 	[ApiController]
 	public class PaymentController : ControllerBase, IPaymentController
 	{
 		/// <summary>
-		/// 
+		/// Constructor
 		/// </summary>
 		/// <param name="log"></param>
 		/// <param name="mapper"></param>
+		/// <param name="paymentService"></param>
 		public PaymentController(ILogger<PaymentController> log,
 															IMapper mapper,
 															IPaymentService paymentService)
@@ -52,7 +53,7 @@ namespace CheckoutPaymentGateway.Controllers
 		/// </summary>
 		/// <remarks>Adds a payment</remarks>
 		/// <param name="body">Payment to add</param>
-		/// <response code="201">payment created</response>
+		/// <response code="200">payment created</response>
 		/// <response code="400">invalid input, object invalid</response>
 		/// <response code="409">an existing payment already exists</response>
 		[HttpPost]
