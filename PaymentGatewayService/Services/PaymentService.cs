@@ -37,6 +37,8 @@ namespace PaymentGatewayService.Services
 		{
 			try
 			{
+				//TODO: send to repo
+
 				Log.Debug("We have arrived safely");
 				return BankApi.SendPayment(paymentRequest);
 			}
