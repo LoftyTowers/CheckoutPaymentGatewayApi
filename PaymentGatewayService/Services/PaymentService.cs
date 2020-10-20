@@ -1,5 +1,5 @@
-﻿using AcquiringBankMock.Interfaces;
-using AutoMapper;
+﻿using AutoMapper;
+using Common.Enums;
 using Common.Models;
 using PaymentGatewayService.Interfaces;
 using Serilog;
@@ -21,7 +21,7 @@ namespace PaymentGatewayService.Services
 		/// <param name="log"></param>
 		/// <param name="mapper"></param>
 		/// <param name="bankApi"></param>
-		public PaymentService(ILogger log, IMapper mapper, IPaymentController bankApi)
+		public PaymentService(ILogger log, IMapper mapper, IBankEndpoint bankApi)
 		{
 			Log = log;
 			MyMapper = mapper;
@@ -33,17 +33,20 @@ namespace PaymentGatewayService.Services
 		/// </summary>
 		/// <param name="paymentRequest"></param>
 		/// <returns></returns>
-		public bool ProcessPayment(Payment paymentRequest)
+		public Payment ProcessPayment(Payment paymentRequest)
 		{
 			try
 			{
 				Log.Debug("We have arrived safely");
-				return false;
+				return BankApi.SendPayment(paymentRequest);
 			}
 			catch (Exception ex)
 			{
 				Log.Error(ex, $"Big Bang: { paymentRequest }");
-				throw;
+				paymentRequest.Status = PaymentStatus.RequestFailed;
+				paymentRequest.IsSuccessful = false;
+				paymentRequest.Message = ex.Message;
+				return paymentRequest;
 			}
 		}
 
@@ -52,7 +55,7 @@ namespace PaymentGatewayService.Services
 
 		private ILogger Log { get; }
 		private IMapper MyMapper { get; }
-		private IPaymentController BankApi { get; }
+		private IBankEndpoint BankApi { get; }
 
 		#endregion
 	}

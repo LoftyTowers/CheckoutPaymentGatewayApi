@@ -14,7 +14,7 @@ namespace PaymentGatewayService.Interfaces
 		/// This method validates and stores requests and payment information
 		/// </summary>
 		/// <param name="paymentRequest"></param>
-		/// <returns></returns>
-		bool ProcessPayment(Payment paymentRequest);
+		/// <returns>Payment</returns>
+		Payment ProcessPayment(Payment paymentRequest);
 	}
 }

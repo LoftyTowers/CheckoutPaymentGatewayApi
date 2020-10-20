@@ -30,6 +30,7 @@ using AutoMapper;
 using Common.Models;
 using CheckoutPaymentGateway.Models;
 using AutofacSerilogIntegration;
+using PaymentGatewayService.Services;
 
 namespace CheckoutPaymentGateway
 {

@@ -1,4 +1,5 @@
-﻿using Common.Models;
+﻿using Common.Enums;
+using Common.Models;
 using Microsoft.Extensions.Logging;
 using PaymentGatewayService.Interfaces;
 using System;
@@ -30,26 +31,36 @@ namespace PaymentGatewayService.BankEndpoints
 				{
 					case 374245455400126:
 						{
+							payment.Status = PaymentStatus.RequestFailed;
+							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Insuffucent Funds";
 							break;
 						}
 					case 378282246310005:
 						{
+							payment.Status = PaymentStatus.RequestFailed;
+							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Card Not Activated";
 							break;
 						}
 					case 6250941006528599:
 						{
+							payment.Status = PaymentStatus.RequestFailed;
+							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Stolen/Cancelled";
 							break;
 						}
 					case 60115564485789458:
 						{
+							payment.Status = PaymentStatus.RequestFailed;
+							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Invalid Card Credentials";
 							break;
 						}
 					case 6011000991300009:
 						{
+							payment.Status = PaymentStatus.RequestFailed;
+							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Card Expired";
 							break;
 						}
@@ -59,6 +70,7 @@ namespace PaymentGatewayService.BankEndpoints
 						}
 					default:
 						{
+							payment.Status = PaymentStatus.RequestSucceded;
 							payment.IsSuccessful = true;
 							break;
 						}
@@ -68,6 +80,7 @@ namespace PaymentGatewayService.BankEndpoints
 			catch (Exception ex)
 			{
 				Log.LogError(ex,"Failed to process payment");
+				payment.Status = PaymentStatus.RequestFailed;
 				payment.IsSuccessful = false;
 				payment.Message = ex.Message;
 				return payment;

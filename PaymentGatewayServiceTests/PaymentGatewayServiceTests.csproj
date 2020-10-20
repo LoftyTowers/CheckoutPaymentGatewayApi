@@ -18,4 +18,8 @@
     <ProjectReference Include="..\PaymentGatewayService\PaymentGatewayService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BankEndpoints\" />
+  </ItemGroup>
+
 </Project>
