@@ -90,7 +90,7 @@ namespace CheckoutPaymentGateway
 
 			services.AddDbContext<PaymentsDbContext>(options =>
 				options.UseSqlServer(
-					Configuration.GetConnectionString("DefaultConnection")));
+					Configuration.GetConnectionString("PaymentsDbEntities")));
 
 			services.AddSwaggerGen()
 			.AddSwaggerGen(c =>
@@ -137,6 +137,7 @@ namespace CheckoutPaymentGateway
 			{
 				cfg.CreateMap<PaymentRequest, Payment>();
 				cfg.CreateMap<Payment, PaymentResponse>();
+				cfg.CreateMap<Payment, Repositories.PaymentsDb.Models.Payment>().ReverseMap();
 			})).AsSelf().SingleInstance();
 
 			builder.Register(c =>

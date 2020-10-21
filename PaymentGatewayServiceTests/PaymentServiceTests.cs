@@ -7,6 +7,7 @@ using NUnit.Framework;
 using PaymentGatewayService;
 using PaymentGatewayService.Interfaces;
 using PaymentGatewayService.Services;
+using Repositories.PaymentsDb.Interfaces;
 using System;
 
 namespace PaymentGatewayServiceTests
@@ -22,9 +23,8 @@ namespace PaymentGatewayServiceTests
 			MockRepository = new MockRepository(MockBehavior.Strict);
 
 			MockLogger = MockRepository.Create<ILogger>(MockBehavior.Loose);
-			MockMapper = MockRepository.Create<IMapper>(MockBehavior.Loose);
 			MockBankEndpoint = MockRepository.Create<IBankEndpoint>();
-
+			MockPaymentRepo = MockRepository.Create<IPaymentRepo>();
 
 			MockBankEndpoint.Setup(m => m.SendPayment(
 				It.Is<Payment>(payment => payment.CardNumber == 374245455400126)))
@@ -90,7 +90,7 @@ namespace PaymentGatewayServiceTests
 		{
 			return new PaymentService(
 					MockLogger.Object,
-					MockMapper.Object,
+					MockPaymentRepo.Object,
 					MockBankEndpoint.Object);
 		}
 
@@ -321,8 +321,8 @@ namespace PaymentGatewayServiceTests
 		private MockRepository MockRepository { get; set; }
 
 		private Mock<ILogger> MockLogger { get; set; }
-		private Mock<IMapper> MockMapper { get; set; }
 		private Mock<IBankEndpoint> MockBankEndpoint { get; set; }
+		private Mock<IPaymentRepo> MockPaymentRepo { get; set; }
 
 		#endregion
 	}

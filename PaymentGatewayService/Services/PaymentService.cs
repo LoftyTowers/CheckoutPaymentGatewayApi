@@ -68,7 +68,9 @@ namespace PaymentGatewayService.Services
 			var paymentRequest = new Payment { PaymentId = paymentId };
 			try
 			{
-				throw new NotImplementedException();
+				Log.LogInformation($"Looking for Payment: {paymentRequest.PaymentId}");
+				paymentRequest = PaymentRepo.GetPayment(paymentId);
+				return paymentRequest;
 			}
 			catch (Exception ex)
 			{
