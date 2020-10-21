@@ -13,7 +13,7 @@ namespace PaymentGatewayService.BankEndpoints
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public TestBankEndpoint(ILogger log)
+		public TestBankEndpoint(ILogger<TestBankEndpoint> log)
 		{
 			Log = log;
 		}

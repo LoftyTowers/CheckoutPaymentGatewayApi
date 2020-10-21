@@ -1,12 +1,12 @@
 using AutoMapper;
 using Common.Enums;
 using Common.Models;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using PaymentGatewayService;
 using PaymentGatewayService.Interfaces;
 using PaymentGatewayService.Services;
-using Serilog;
 using System;
 
 namespace PaymentGatewayServiceTests

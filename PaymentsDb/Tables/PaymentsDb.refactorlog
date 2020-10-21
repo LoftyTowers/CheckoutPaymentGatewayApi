@@ -28,4 +28,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="StatusId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="90401d4c-b8c8-494f-a878-a7b1d4e4986d" ChangeDateTime="10/21/2020 13:44:04">
+    <Property Name="ElementName" Value="[dbo].[Card].[Number]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Card]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CardNumber" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0b41b5f2-38d9-499a-82a8-d995269b2c7d" ChangeDateTime="10/21/2020 13:51:44">
+    <Property Name="ElementName" Value="[dbo].[PaymentStatus].[Description]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PaymentStatus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StatusDesc" />
+  </Operation>
 </Operations>

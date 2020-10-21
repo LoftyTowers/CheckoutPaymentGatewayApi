@@ -60,15 +60,16 @@ namespace CheckoutPaymentGateway.Controllers
 		[Route("/checkoutpaymentgateway/paymentrequest")]
 		[ValidateModelState]
 		[SwaggerOperation("CreatePayment")]
-		public virtual IActionResult CreatePayment([FromBody] PaymentRequest body)
+		public virtual ActionResult<PaymentResponse> CreatePayment([FromBody] PaymentRequest body)
 		{
 			try
 			{
-				Log.LogDebug($"RecievedPayment");
+				Log.LogDebug($"Recieved Payment request");
 
-				var response = PaymentService.ProcessPayment(MyMapper.Map<Payment>(body));
+				var result = MyMapper.Map<PaymentResponse>(PaymentService.ProcessPayment(MyMapper.Map<Payment>(body)));
 
-				return Ok();
+				return Ok(result);
+
 
 				//TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
 				// return StatusCode(201);
@@ -86,6 +87,35 @@ namespace CheckoutPaymentGateway.Controllers
 			catch (Exception ex)
 			{
 				Log.LogError(ex,ex.Message);
+				return BadRequest(ex);
+			}
+		}
+
+		/// <summary>
+		/// Gets a payment information of a particualr request request 
+		/// </summary>
+		/// <remarks>Gets a payment</remarks>
+		/// <param name="body">Payment to add</param>
+		/// <response code="200">payment created</response>
+		/// <response code="400">invalid input, object invalid</response>
+		/// <response code="409">an existing payment already exists</response>
+		[HttpGet]
+		[Route("/checkoutpaymentgateway/getpayment")]
+		[ValidateModelState]
+		[SwaggerOperation("GetPayment")]
+		public virtual ActionResult<PaymentResponse> GetPayment([FromBody] Guid body)
+		{
+			try
+			{
+				Log.LogDebug($"Finding payment");
+
+				var result = MyMapper.Map<PaymentResponse>(PaymentService.GetPayment(body));
+
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				Log.LogError(ex, ex.Message);
 				return BadRequest(ex);
 			}
 		}

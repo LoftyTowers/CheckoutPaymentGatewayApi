@@ -9,6 +9,7 @@
  */
 using CheckoutPaymentGateway.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CheckoutPaymentGateway.Interfaces
 {
@@ -25,6 +26,13 @@ namespace CheckoutPaymentGateway.Interfaces
 		/// <response code="200">payment created</response>
 		/// <response code="400">invalid input, object invalid</response>
 		/// <response code="409">an existing payment already exists</response>
-		IActionResult CreatePayment([FromBody] PaymentRequest body);
+		ActionResult<PaymentResponse> CreatePayment([FromBody] PaymentRequest body);
+
+		/// <summary>
+		/// Gets a payment information of a particualr request request 
+		/// </summary>
+		/// <remarks>Gets a payment</remarks>
+		/// <param name="body">Payment to add</param>
+		ActionResult<PaymentResponse> GetPayment([FromBody] Guid body);
 	}
 }

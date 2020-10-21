@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Common.Enums;
 using Common.Models;
+using Microsoft.Extensions.Logging;
 using PaymentGatewayService.Interfaces;
-using Serilog;
-using Serilog.Core;
+using Repositories.PaymentsDb.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,11 +21,11 @@ namespace PaymentGatewayService.Services
 		/// <param name="log"></param>
 		/// <param name="mapper"></param>
 		/// <param name="bankApi"></param>
-		public PaymentService(ILogger log, IMapper mapper, IBankEndpoint bankApi)
+		public PaymentService(ILogger<PaymentService> log, IPaymentRepo paymentRepo, IBankEndpoint bankApi)
 		{
 			Log = log;
-			MyMapper = mapper;
 			BankApi = bankApi;
+			PaymentRepo = paymentRepo;
 		}
 
 		/// <summary>
@@ -37,16 +37,42 @@ namespace PaymentGatewayService.Services
 		{
 			try
 			{
-				//TODO: send to repo
+				Log.LogInformation($"Creating Payment: {paymentRequest.PaymentId}");
+				PaymentRepo.StorePayment(paymentRequest);
 
-				Log.Debug("We have arrived safely");
-				return BankApi.SendPayment(paymentRequest);
+				var bankResult = BankApi.SendPayment(paymentRequest);
+
+
+				Log.LogInformation($"Updating Payment: {paymentRequest.PaymentId} with banks response");
+				PaymentRepo.UpdatePayment(bankResult);
+
+				return bankResult;
 			}
 			catch (Exception ex)
 			{
-				Log.Error(ex, $"Big Bang: { paymentRequest }");
+				Log.LogError(ex, $"Big Bang: { paymentRequest }");
 				paymentRequest.Status = PaymentStatus.RequestFailed;
 				paymentRequest.IsSuccessful = false;
+				paymentRequest.Message = ex.Message;
+				return paymentRequest;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="body"></param>
+		/// <returns></returns>
+		public Payment GetPayment(Guid paymentId)
+		{
+			var paymentRequest = new Payment { PaymentId = paymentId };
+			try
+			{
+				throw new NotImplementedException();
+			}
+			catch (Exception ex)
+			{
+				Log.LogError(ex, $"Big Bang: { paymentRequest }");
 				paymentRequest.Message = ex.Message;
 				return paymentRequest;
 			}
@@ -56,8 +82,8 @@ namespace PaymentGatewayService.Services
 		#region Properties
 
 		private ILogger Log { get; }
-		private IMapper MyMapper { get; }
 		private IBankEndpoint BankApi { get; }
+		private IPaymentRepo PaymentRepo { get; }
 
 		#endregion
 	}

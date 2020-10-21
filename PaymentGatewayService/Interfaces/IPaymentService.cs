@@ -16,5 +16,12 @@ namespace PaymentGatewayService.Interfaces
 		/// <param name="paymentRequest"></param>
 		/// <returns>Payment</returns>
 		Payment ProcessPayment(Payment paymentRequest);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="body"></param>
+		/// <returns></returns>
+		Payment GetPayment(Guid paymentId);
 	}
 }

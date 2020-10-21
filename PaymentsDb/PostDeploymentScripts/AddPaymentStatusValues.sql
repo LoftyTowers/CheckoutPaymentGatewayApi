@@ -10,7 +10,7 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-declare @tempTable TABLE( Id int, [Description] nvarchar(20))
+declare @tempTable TABLE( Id int, StatusDesc nvarchar(20))
 
 insert into @tempTable values(0,'Unknown'),
 															(10,'RequestRecieved'),
@@ -20,8 +20,8 @@ insert into @tempTable values(0,'Unknown'),
 
 MERGE PaymentStatus AS TARGET
 USING @tempTable AS SOURCE ON TARGET.Id = SOURCE.Id
-WHEN MATCHED AND TARGET.[Description] <> SOURCE.[Description]
-THEN UPDATE SET TARGET.[Description] = SOURCE.[Description] 
+WHEN MATCHED AND TARGET.StatusDesc <> SOURCE.StatusDesc
+THEN UPDATE SET TARGET.StatusDesc = SOURCE.StatusDesc 
 WHEN NOT MATCHED THEN
-insert (Id, [Description]) VALUES (SOURCE.ID, SOURCE.[Description])
+insert (Id, StatusDesc) VALUES (SOURCE.ID, SOURCE.StatusDesc)
 ;

@@ -31,6 +31,10 @@ using Common.Models;
 using CheckoutPaymentGateway.Models;
 using AutofacSerilogIntegration;
 using PaymentGatewayService.Services;
+using PaymentGatewayService.BankEndpoints;
+using Repositories.PaymentsDb.DbContexts;
+using Microsoft.EntityFrameworkCore;
+using Repositories.PaymentsDb.Repos;
 
 namespace CheckoutPaymentGateway
 {
@@ -84,6 +88,9 @@ namespace CheckoutPaymentGateway
 					})
 					.AddXmlSerializerFormatters();
 
+			services.AddDbContext<PaymentsDbContext>(options =>
+				options.UseSqlServer(
+					Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddSwaggerGen()
 			.AddSwaggerGen(c =>
@@ -128,7 +135,8 @@ namespace CheckoutPaymentGateway
 
 			builder.Register(context => new MapperConfiguration(cfg =>
 			{
-				cfg.CreateMap<PaymentRequest, Payment>().ReverseMap();
+				cfg.CreateMap<PaymentRequest, Payment>();
+				cfg.CreateMap<Payment, PaymentResponse>();
 			})).AsSelf().SingleInstance();
 
 			builder.Register(c =>
@@ -138,7 +146,9 @@ namespace CheckoutPaymentGateway
 				return config.CreateMapper(context.Resolve);
 			}).As<IMapper>().InstancePerLifetimeScope();
 
-			builder.RegisterType<PaymentService>().As<IPaymentService>();
+			builder.RegisterType<PaymentService>().AsImplementedInterfaces();
+			builder.RegisterType<TestBankEndpoint>().AsImplementedInterfaces();
+			builder.RegisterType<PaymentRepo>().AsImplementedInterfaces();
 		}
 
 		/// <summary>
