@@ -8,5 +8,8 @@ namespace Repositories.PaymentsDb.Models
 	{
 		public Guid Id { get; set; }
 		public string Fullname { get; set; }
+		public DateTime DateOfBirth { get; set; }
+
+		public ICollection<Card> Cards { get; set; }
 	}
 }

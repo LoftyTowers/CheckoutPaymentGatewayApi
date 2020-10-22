@@ -15,11 +15,25 @@ namespace Repositories.PaymentsDb.Interfaces
 		/// <param name="paymentId"></param>
 		/// <returns></returns>
 		Payment GetPayment(Guid paymentId);
-	
+
 		/// <summary>
 		/// 
 		/// </summary>
-		void StorePayment(Payment paymentRequest);
+		/// <param name="user"></param>
+		/// <returns></returns>
+		Common.Models.User AddUser(Common.Models.User user);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="card"></param>
+		/// <returns></returns>
+		Common.Models.Card AddCard(Common.Models.Card card, Guid userId);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		Payment StorePayment(Payment paymentRequest);
 
 		/// <summary>
 		/// 

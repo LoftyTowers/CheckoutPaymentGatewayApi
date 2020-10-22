@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[User]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [Fullname] NVARCHAR(50) NOT NULL
+    [Fullname] NVARCHAR(50) NOT NULL, 
+    [DateOfBirth] DATETIME2 NOT NULL 
 )

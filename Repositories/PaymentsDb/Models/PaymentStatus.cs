@@ -6,10 +6,12 @@ namespace Repositories.PaymentsDb.Models
 {
 	public class PaymentStatus
 	{
-		public int Id { get; set; }
+		public Common.Enums.PaymentStatus Id { get; set; }
 		/// <summary>
 		/// Status Description
 		/// </summary>
 		public string StatusDesc { get; set; }
+
+		public ICollection<Payment> Payments { get; set; }
 	}
 }

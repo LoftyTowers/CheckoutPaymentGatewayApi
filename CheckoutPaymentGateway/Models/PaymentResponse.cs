@@ -95,12 +95,6 @@ namespace CheckoutPaymentGateway.Models
 		/// <summary>
 		/// Shows any further information if required (i.e. useful error messages)
 		/// </summary>
-		[DataMember(Name = "responseCode")]
-		public string ResponseCode { get; set; }
-
-		/// <summary>
-		/// Shows any further information if required (i.e. useful error messages)
-		/// </summary>
 		[DataMember(Name = "message")]
 		public string Message { get; set; }
 

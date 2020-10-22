@@ -8,9 +8,9 @@
     [RequestDate] DATETIME2 NOT NULL, 
     [Updated] DATETIME2 NOT NULL, 
     [RequestCompleted] DATETIME2 NULL, 
-    [StatusId] INT NOT NULL, 
+    [PaymentStatusId] INT NOT NULL, 
     [IsSuccessful] BIT NULL, 
     [Message] NVARCHAR(200) NULL, 
     CONSTRAINT [FK_Payment_Card] FOREIGN KEY ([CardId]) REFERENCES [Card]([Id]),
-    CONSTRAINT [FK_Payment_PaymentStatus] FOREIGN KEY ([StatusId]) REFERENCES [PaymentStatus]([Id])
+    CONSTRAINT [FK_Payment_PaymentStatus] FOREIGN KEY ([PaymentStatusId]) REFERENCES [PaymentStatus]([Id])
 )

@@ -24,6 +24,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Common.Models;
 using PaymentGatewayService.Interfaces;
+using Common.Enums;
 
 namespace CheckoutPaymentGateway.Controllers
 {
@@ -65,11 +66,21 @@ namespace CheckoutPaymentGateway.Controllers
 			try
 			{
 				Log.LogDebug($"Recieved Payment request");
+				var payment = MyMapper.Map<Payment>(body);
+				payment.Card = MyMapper.Map<Card>(body);
+				payment.User = MyMapper.Map<User>(body);
+				var result = PaymentService.ProcessPayment(payment);
 
-				var result = MyMapper.Map<PaymentResponse>(PaymentService.ProcessPayment(MyMapper.Map<Payment>(body)));
+				var response = MyMapper.Map<PaymentResponse>(result);
 
-				return Ok(result);
-
+				if (result.Status == PaymentStatus.RequestSucceded)
+					return Ok(response);
+				else if (result.Status == PaymentStatus.DuplicateRequest)
+					return Conflict(response);
+				else if (result.Status == PaymentStatus.Error)
+					return StatusCode(500, response);
+				else
+					return BadRequest(response);
 
 				//TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
 				// return StatusCode(201);
@@ -86,7 +97,7 @@ namespace CheckoutPaymentGateway.Controllers
 			}
 			catch (Exception ex)
 			{
-				Log.LogError(ex,ex.Message);
+				Log.LogError(ex, ex.Message);
 				return BadRequest(ex);
 			}
 		}
@@ -103,15 +114,24 @@ namespace CheckoutPaymentGateway.Controllers
 		[Route("/checkoutpaymentgateway/getpayment")]
 		[ValidateModelState]
 		[SwaggerOperation("GetPayment")]
-		public virtual ActionResult<PaymentResponse> GetPayment([FromBody] Guid body)
+		public virtual ActionResult<PaymentResponse> GetPayment(Guid body)
 		{
 			try
 			{
 				Log.LogDebug($"Finding payment");
 
-				var result = MyMapper.Map<PaymentResponse>(PaymentService.GetPayment(body));
+				var result = PaymentService.GetPayment(body);
 
-				return Ok(result);
+				var response = MyMapper.Map<PaymentResponse>(result);
+
+				if (result.Status == PaymentStatus.RequestSucceded)
+					return Ok(response);
+				else if (result.Status == PaymentStatus.RequestDoesNotExist)
+					return NotFound(response);
+				else if (result.Status == PaymentStatus.Error)
+					return StatusCode(500, response);
+				else
+					return BadRequest(response);
 			}
 			catch (Exception ex)
 			{

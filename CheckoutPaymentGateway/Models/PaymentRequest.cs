@@ -70,6 +70,13 @@ namespace CheckoutPaymentGateway.Models
 		public string FullName { get; set; }
 
 		/// <summary>
+		/// The date of birth of the card holder for authentication
+		/// </summary>
+		[Required]
+		[DataMember(Name = "dateofbirth")]
+		public string DateOfBirth { get; set; }
+
+		/// <summary>
 		/// The expiry date of the customers card
 		/// </summary>
 		[Required]

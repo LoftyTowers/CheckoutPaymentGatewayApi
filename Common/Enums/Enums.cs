@@ -10,6 +10,14 @@ namespace Common.Enums
 		RequestRecieved = 10,
 		RequestSent = 20,
 		RequestSucceded = 30,
-		RequestFailed = 99
+		RequestFailed = 999,
+		DuplicateRequest = 1009,
+		RequestDoesNotExist = 1019,
+		InsuffucentFunds = 1029,
+		CardNotActivated = 1039,
+		StolenCancelled = 1049,
+		InvalidCardCredentials = 1059,
+		CardExpired = 1069,
+		Error = 9999
 	}
 }

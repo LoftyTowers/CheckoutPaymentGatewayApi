@@ -109,7 +109,7 @@ namespace CheckoutPaymentGateway
 				});
 				c.CustomSchemaIds(type => type.FullName);
 				c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{_hostingEnv.ApplicationName}.xml");
-				
+
 				// Sets the basePath property in the Swagger document generated
 				//TODO: Check whether this is needed.
 				// c.DocumentFilter<BasePathFilter>($"/CheckoutPaymentGateway/");
@@ -135,9 +135,27 @@ namespace CheckoutPaymentGateway
 
 			builder.Register(context => new MapperConfiguration(cfg =>
 			{
-				cfg.CreateMap<PaymentRequest, Payment>();
-				cfg.CreateMap<Payment, PaymentResponse>();
-				cfg.CreateMap<Payment, Repositories.PaymentsDb.Models.Payment>().ReverseMap();
+				cfg.CreateMap<PaymentRequest, Payment>()
+					.ForMember(dest => dest.PaymentId, opt => opt.MapFrom(src => src.Id));
+				cfg.CreateMap<Payment, PaymentResponse>()
+					.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PaymentId));
+				cfg.CreateMap<PaymentRequest, User>()
+					.ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth))
+					.ForMember(dest => dest.Fullname, opt => opt.MapFrom(src => src.FullName))
+					.ForMember(dest => dest.Id, opt => opt.Ignore());
+				cfg.CreateMap<PaymentRequest, Card>()
+					.ForMember(dest => dest.CardNumber, opt => opt.MapFrom(src => src.CardNumber))
+					.ForMember(dest => dest.ExpiryDate, opt => opt.MapFrom(src => src.CardExpiryDate))
+					.ForMember(dest => dest.CVC, opt => opt.MapFrom(src => src.CVC))
+					.ForMember(dest => dest.Id, opt => opt.Ignore());
+				cfg.CreateMap<User, PaymentResponse>();
+				cfg.CreateMap<Card, PaymentResponse>();
+				cfg.CreateMap<Payment, Repositories.PaymentsDb.Models.Payment>()
+					.ForMember(dest => dest.PaymentStatusId, opt => opt.MapFrom(src => src.Status))
+					.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PaymentId))
+					.ReverseMap();
+				cfg.CreateMap<User, Repositories.PaymentsDb.Models.User>().ReverseMap();
+				cfg.CreateMap<Card, Repositories.PaymentsDb.Models.Card>().ReverseMap();
 			})).AsSelf().SingleInstance();
 
 			builder.Register(c =>
@@ -169,9 +187,9 @@ namespace CheckoutPaymentGateway
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
-							//TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
-							c.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment Gateway API");
-						});
+				//TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment Gateway API");
+			});
 
 			//TODO: Use Https Redirection
 			// app.UseHttpsRedirection();

@@ -71,5 +71,15 @@ namespace Common.Models
 		/// Gets or Sets Message
 		/// </summary>
 		public string Message { get; set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public User User { get; set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Card Card { get; set; }
 	}
 }
