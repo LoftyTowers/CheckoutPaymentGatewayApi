@@ -18,9 +18,9 @@ namespace PaymentGatewayService.Interfaces
 		Payment ProcessPayment(Payment paymentRequest);
 
 		/// <summary>
-		/// 
+		/// Finds a payment from the payment Id
 		/// </summary>
-		/// <param name="body"></param>
+		/// <param name="paymentId"></param>
 		/// <returns></returns>
 		Payment GetPayment(Guid paymentId);
 	}

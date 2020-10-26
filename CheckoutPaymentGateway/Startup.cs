@@ -75,6 +75,7 @@ namespace CheckoutPaymentGateway
 		public void ConfigureServices(IServiceCollection services)
 		{
 			// Add framework services.
+
 			services
 					.AddMvc(options =>
 					{
@@ -147,6 +148,7 @@ namespace CheckoutPaymentGateway
 					.ForMember(dest => dest.CardNumber, opt => opt.MapFrom(src => src.CardNumber))
 					.ForMember(dest => dest.ExpiryDate, opt => opt.MapFrom(src => src.CardExpiryDate))
 					.ForMember(dest => dest.CVC, opt => opt.MapFrom(src => src.CVC))
+					.ForMember(dest => dest.BankName, opt => opt.MapFrom(src => src.SendingBankName))
 					.ForMember(dest => dest.Id, opt => opt.Ignore());
 				cfg.CreateMap<User, PaymentResponse>();
 				cfg.CreateMap<Card, PaymentResponse>();
@@ -187,7 +189,6 @@ namespace CheckoutPaymentGateway
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
-				//TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment Gateway API");
 			});
 

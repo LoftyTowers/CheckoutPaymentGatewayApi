@@ -9,6 +9,7 @@ using System.Text;
 using System.Linq;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using Common.Enums;
 
 namespace Repositories.PaymentsDb.Repos
 {
@@ -29,7 +30,7 @@ namespace Repositories.PaymentsDb.Repos
 		}
 
 		/// <summary>
-		/// 
+		/// stores the raw json request from the api
 		/// </summary>
 		public void StoreRawPaymentRequest()
 		{
@@ -48,7 +49,7 @@ namespace Repositories.PaymentsDb.Repos
 		}
 
 		/// <summary>
-		/// 
+		/// adds a user
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
@@ -80,7 +81,7 @@ namespace Repositories.PaymentsDb.Repos
 		}
 
 		/// <summary>
-		/// 
+		/// adds a card
 		/// </summary>
 		/// <param name="card"></param>
 		/// <returns></returns>
@@ -114,7 +115,7 @@ namespace Repositories.PaymentsDb.Repos
 		}
 
 		/// <summary>
-		/// 
+		/// Adds a new payment
 		/// </summary>
 		public Common.Models.Payment StorePayment(Common.Models.Payment paymentRequest)
 		{
@@ -125,6 +126,8 @@ namespace Repositories.PaymentsDb.Repos
 					var dbPayment = context.Payments.FirstOrDefault(c => c.Id == paymentRequest.PaymentId);
 					if (dbPayment == null || string.IsNullOrWhiteSpace(dbPayment.Id.ToString()))
 					{
+
+						Log.LogInformation($"Adding the payment to the database: {paymentRequest.PaymentId}");
 						var newPayment = MyMapper.Map<Models.Payment>(paymentRequest);
 						newPayment.CardId = paymentRequest.Card.Id;
 						context.Payments.Add(newPayment);
@@ -132,7 +135,8 @@ namespace Repositories.PaymentsDb.Repos
 					}
 					else
 					{
-						//paymentRequest.Status = Common.Enums.PaymentStatus.DuplicateRequest;
+						Log.LogWarning($"Duplicate Payment: {paymentRequest.PaymentId}");
+						paymentRequest.Status = Common.Enums.PaymentStatus.DuplicateRequest;
 						paymentRequest.IsSuccessful = false;
 						paymentRequest.Message = $"Duplicate payment request";
 					}
@@ -149,7 +153,7 @@ namespace Repositories.PaymentsDb.Repos
 		}
 
 		/// <summary>
-		/// 
+		/// Gets a payment by PAymentId
 		/// </summary>
 		/// <param name="paymentId"></param>
 		/// <returns></returns>
@@ -164,21 +168,26 @@ namespace Repositories.PaymentsDb.Repos
 				catch (Exception ex)
 				{
 					Log.LogError(ex, "");
-					throw;
+					return new Payment
+					{
+						PaymentId = paymentId,
+						IsSuccessful = false,
+						Status = PaymentStatus.Error
+					};
 				}
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// updates a paymentr with BankPaymentId and success/failure information
 		/// </summary>
-		/// <param name="paymentRequest"></param>
 		public void UpdatePayment(Payment paymentRequest)
 		{
 			using (var context = new PaymentsDbContext(ContextOptions))
 			{
 				try
 				{
+					Log.LogInformation($"Updating Payment: {paymentRequest.PaymentId}");
 					var payment = context.Payments.First(p => p.Id == paymentRequest.PaymentId);
 					payment.BankPaymentId = paymentRequest.BankPaymentId;
 					payment.IsSuccessful = payment.IsSuccessful;

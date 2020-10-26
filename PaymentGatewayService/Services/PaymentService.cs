@@ -19,7 +19,7 @@ namespace PaymentGatewayService.Services
 		/// Constructor
 		/// </summary>
 		/// <param name="log"></param>
-		/// <param name="mapper"></param>
+		/// <param name="paymentRepo"></param>
 		/// <param name="bankApi"></param>
 		public PaymentService(ILogger<PaymentService> log, IPaymentRepo paymentRepo, IBankEndpoint bankApi)
 		{
@@ -44,15 +44,20 @@ namespace PaymentGatewayService.Services
 				paymentRequest.Card = PaymentRepo.AddCard(paymentRequest.Card, paymentRequest.User.Id);
 
 				Log.LogInformation($"Creating Payment: {paymentRequest.PaymentId}");
-				PaymentRepo.StorePayment(paymentRequest);
+				paymentRequest = PaymentRepo.StorePayment(paymentRequest);
 
-				var bankResult = BankApi.SendPayment(paymentRequest);
+				//If the request already exists return duplicate
+				if (paymentRequest.Status == PaymentStatus.DuplicateRequest)
+					return paymentRequest;
+
+				Log.LogInformation($"Sending payment: {paymentRequest.PaymentId} to bank : {paymentRequest.RecievingBankName}");
+				paymentRequest = BankApi.SendPayment(paymentRequest);
 
 
 				Log.LogInformation($"Updating Payment: {paymentRequest.PaymentId} with banks response");
-				PaymentRepo.UpdatePayment(bankResult);
+				PaymentRepo.UpdatePayment(paymentRequest);
 
-				return bankResult;
+				return paymentRequest;
 			}
 			catch (Exception ex)
 			{
@@ -65,9 +70,9 @@ namespace PaymentGatewayService.Services
 		}
 
 		/// <summary>
-		/// 
+		/// Finds a payment from the payment Id
 		/// </summary>
-		/// <param name="body"></param>
+		/// <param name="paymentId"></param>
 		/// <returns></returns>
 		public Payment GetPayment(Guid paymentId)
 		{
@@ -76,6 +81,7 @@ namespace PaymentGatewayService.Services
 			{
 				Log.LogInformation($"Looking for Payment: {paymentRequest.PaymentId}");
 				paymentRequest = PaymentRepo.GetPayment(paymentId);
+				Log.LogDebug($"Payment found: {paymentRequest.PaymentId}");
 				return paymentRequest;
 			}
 			catch (Exception ex)

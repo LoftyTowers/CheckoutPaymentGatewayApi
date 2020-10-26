@@ -58,12 +58,12 @@ namespace Common.Models
 		public DateTime? RequestCompleted { get; set; }
 
 		/// <summary>
-		/// 
+		/// gets or Sets Status
 		/// </summary>
 		public PaymentStatus Status { get; set; }
 
 		/// <summary>
-		/// Gets or Sets Complete
+		/// Gets or Sets IsSuccessful
 		/// </summary>
 		public bool IsSuccessful { get; set; }
 
@@ -73,13 +73,23 @@ namespace Common.Models
 		public string Message { get; set; }
 
 		/// <summary>
-		/// 
+		/// Gets or Sets the User
 		/// </summary>
 		public User User { get; set; }
 
 		/// <summary>
-		/// 
+		/// Gets or Sets Card
 		/// </summary>
 		public Card Card { get; set; }
+
+		/// <summary>
+		/// NAme of the bank the payment is made from
+		/// </summary>
+		public string SendingBankName { get; set; }
+
+		/// <summary>
+		/// Name of the bank the payment is sent to
+		/// </summary>
+		public string RecievingBankName { get; set; }
 	}
 }

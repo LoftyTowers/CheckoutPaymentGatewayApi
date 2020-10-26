@@ -9,6 +9,7 @@ using PaymentGatewayService.Interfaces;
 using PaymentGatewayService.Services;
 using Repositories.PaymentsDb.Interfaces;
 using System;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace PaymentGatewayServiceTests
 {
@@ -22,15 +23,50 @@ namespace PaymentGatewayServiceTests
 		{
 			MockRepository = new MockRepository(MockBehavior.Strict);
 
-			MockLogger = MockRepository.Create<ILogger>(MockBehavior.Loose);
+			MockLogger = MockRepository.Create<ILogger<PaymentService>>(MockBehavior.Loose);
 			MockBankEndpoint = MockRepository.Create<IBankEndpoint>();
-			MockPaymentRepo = MockRepository.Create<IPaymentRepo>();
+			MockPaymentRepo = MockRepository.Create<IPaymentRepo>(MockBehavior.Loose);
+
+			#region MockPaymentRepo
+
+			MockPaymentRepo.Setup(m => m.GetPayment(It.Is<Guid>(i => i == Guid.Parse("e4196f31-3019-456d-96d7-af6d6cc84be7"))))
+				.Returns((Guid paymentId) => new Payment
+				{
+					Amount = 10,
+					CardExpiryDate = DateTime.Now,
+					CardNumber = 5425233430109903,
+					CurrencyCode = "GDP",
+					CVC = 132,
+					FullName = "John Doe",
+					IsSuccessful = true,
+					PaymentId = paymentId,
+					RequestDate = DateTime.Now.AddDays(-1),
+					Status = PaymentStatus.RequestSucceded,
+					RecievingBankName = "TestBank"
+				});
+			MockPaymentRepo.Setup(m => m.GetPayment(It.Is<Guid>(i => i == Guid.Parse("21e91399-40f7-41a4-992f-429effe7a1b8"))))
+				 .Returns((Guid paymentId) => new Payment
+				 {
+					 PaymentId = paymentId,
+					 IsSuccessful = false,
+					 Status = PaymentStatus.Error
+				 });
+			MockPaymentRepo.Setup(m => m.AddUser(It.IsAny<User>()))
+				.Returns<User>(user => user);
+			MockPaymentRepo.Setup(m => m.AddCard(It.IsAny<Card>(), It.IsAny<Guid>()))
+				.Returns<Card, Guid>((card, id) => card);
+			MockPaymentRepo.Setup(m => m.StorePayment(It.IsAny<Payment>())).Returns<Payment>(p => p);
+			MockPaymentRepo.Setup(m => m.UpdatePayment(It.IsAny<Payment>()));
+
+			#endregion
+
+			#region MockBankEndpoint
 
 			MockBankEndpoint.Setup(m => m.SendPayment(
 				It.Is<Payment>(payment => payment.CardNumber == 374245455400126)))
 				.Returns<Payment>(payment => payment = new Payment
 				{
-					Status = PaymentStatus.RequestFailed,
+					Status = PaymentStatus.InsuffucentFunds,
 					IsSuccessful = false,
 					Message = "Card Declined: Insuffucent Funds"
 				});
@@ -38,7 +74,7 @@ namespace PaymentGatewayServiceTests
 				It.Is<Payment>(payment => payment.CardNumber == 378282246310005)))
 				.Returns<Payment>(payment => payment = new Payment
 				{
-					Status = PaymentStatus.RequestFailed,
+					Status = PaymentStatus.CardNotActivated,
 					IsSuccessful = false,
 					Message = "Card Declined: Card Not Activated"
 				});
@@ -46,7 +82,7 @@ namespace PaymentGatewayServiceTests
 				It.Is<Payment>(payment => payment.CardNumber == 6250941006528599)))
 				.Returns<Payment>(payment => payment = new Payment
 				{
-					Status = PaymentStatus.RequestFailed,
+					Status = PaymentStatus.StolenCancelled,
 					IsSuccessful = false,
 					Message = "Card Declined: Stolen/Cancelled"
 				});
@@ -54,7 +90,7 @@ namespace PaymentGatewayServiceTests
 				It.Is<Payment>(payment => payment.CardNumber == 60115564485789458)))
 				.Returns<Payment>(payment => payment = new Payment
 				{
-					Status = PaymentStatus.RequestFailed,
+					Status = PaymentStatus.InvalidCardCredentials,
 					IsSuccessful = false,
 					Message = "Card Declined: Invalid Card Credentials"
 				});
@@ -62,7 +98,7 @@ namespace PaymentGatewayServiceTests
 				It.Is<Payment>(payment => payment.CardNumber == 6011000991300009)))
 				.Returns<Payment>(payment => payment = new Payment
 				{
-					Status = PaymentStatus.RequestFailed,
+					Status = PaymentStatus.CardExpired,
 					IsSuccessful = false,
 					Message = "Card Declined: Card Expired"
 				});
@@ -70,7 +106,7 @@ namespace PaymentGatewayServiceTests
 				It.Is<Payment>(payment => payment.CardNumber == 3566000020000410)))
 				.Returns<Payment>(payment => payment = new Payment
 				{
-					Status = PaymentStatus.RequestFailed,
+					Status = PaymentStatus.Error,
 					IsSuccessful = false,
 					Message = "Internal Error: Please try again later or contact support."
 				});
@@ -82,6 +118,8 @@ namespace PaymentGatewayServiceTests
 					IsSuccessful = true,
 					Message = string.Empty
 				});
+
+			#endregion
 
 			MockRepository = new MockRepository(MockBehavior.Strict) { DefaultValue = DefaultValue.Empty };
 		}
@@ -96,7 +134,7 @@ namespace PaymentGatewayServiceTests
 
 		#endregion
 
-		#region Tests
+		#region StorePaymentTests
 
 		[Test]
 		public void ProcessPayment_PaymentSentToBank_PaymentSuccess()
@@ -114,7 +152,22 @@ namespace PaymentGatewayServiceTests
 				IsSuccessful = false,
 				PaymentId = Guid.NewGuid(),
 				RequestDate = DateTime.Now,
-				Status = PaymentStatus.RequestRecieved
+				Status = PaymentStatus.RequestRecieved,
+				Card = new Card
+				{
+					BankName = "TestBank",
+					CardNumber = 5425233430109903,
+					CVC = 132,
+					ExpiryDate = DateTime.Now,
+					Id = Guid.NewGuid()
+				},
+				User = new User
+				{
+					Id = Guid.NewGuid(),
+					DateOfBirth = DateTime.Now.AddYears(-22),
+					Fullname = "John Doe"
+				},
+				RecievingBankName = "TestBank"
 			};
 
 			// Act
@@ -124,7 +177,7 @@ namespace PaymentGatewayServiceTests
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsTrue(paymentResponse.IsSuccessful);
-			Assert.AreEqual(paymentResponse.Status, PaymentStatus.RequestSucceded);
+			Assert.AreEqual(PaymentStatus.RequestSucceded, paymentResponse.Status);
 			MockRepository.VerifyAll();
 		}
 
@@ -144,7 +197,22 @@ namespace PaymentGatewayServiceTests
 				IsSuccessful = false,
 				PaymentId = Guid.NewGuid(),
 				RequestDate = DateTime.Now,
-				Status = PaymentStatus.RequestRecieved
+				Status = PaymentStatus.RequestRecieved,
+				Card = new Card
+				{
+					BankName = "TestBank",
+					CardNumber = 374245455400126,
+					CVC = 132,
+					ExpiryDate = DateTime.Now,
+					Id = Guid.NewGuid()
+				},
+				User = new User
+				{
+					Id = Guid.NewGuid(),
+					DateOfBirth = DateTime.Now.AddYears(-22),
+					Fullname = "John Doe"
+				},
+				RecievingBankName = "TestBank"
 			};
 
 			// Act
@@ -154,8 +222,8 @@ namespace PaymentGatewayServiceTests
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsFalse(paymentResponse.IsSuccessful);
-			Assert.AreEqual(paymentResponse.Status, PaymentStatus.RequestFailed);
-			Assert.AreEqual(paymentResponse.Message, "Card Declined: Insuffucent Funds");
+			Assert.AreEqual(PaymentStatus.InsuffucentFunds, paymentResponse.Status);
+			Assert.AreEqual("Card Declined: Insuffucent Funds", paymentResponse.Message);
 			MockRepository.VerifyAll();
 		}
 
@@ -175,7 +243,22 @@ namespace PaymentGatewayServiceTests
 				IsSuccessful = false,
 				PaymentId = Guid.NewGuid(),
 				RequestDate = DateTime.Now,
-				Status = PaymentStatus.RequestRecieved
+				Status = PaymentStatus.RequestRecieved,
+				Card = new Card
+				{
+					BankName = "TestBank",
+					CardNumber = 378282246310005,
+					CVC = 132,
+					ExpiryDate = DateTime.Now,
+					Id = Guid.NewGuid()
+				},
+				User = new User
+				{
+					Id = Guid.NewGuid(),
+					DateOfBirth = DateTime.Now.AddYears(-22),
+					Fullname = "John Doe"
+				},
+				RecievingBankName = "TestBank"
 			};
 
 			// Act
@@ -185,8 +268,8 @@ namespace PaymentGatewayServiceTests
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsFalse(paymentResponse.IsSuccessful);
-			Assert.AreEqual(paymentResponse.Status, PaymentStatus.RequestFailed);
-			Assert.AreEqual(paymentResponse.Message, "Card Declined: Card Not Activated");
+			Assert.AreEqual(PaymentStatus.CardNotActivated, paymentResponse.Status);
+			Assert.AreEqual("Card Declined: Card Not Activated", paymentResponse.Message);
 			MockRepository.VerifyAll();
 		}
 
@@ -206,7 +289,22 @@ namespace PaymentGatewayServiceTests
 				IsSuccessful = false,
 				PaymentId = Guid.NewGuid(),
 				RequestDate = DateTime.Now,
-				Status = PaymentStatus.RequestRecieved
+				Status = PaymentStatus.RequestRecieved,
+				Card = new Card
+				{
+					BankName = "TestBank",
+					CardNumber = 6250941006528599,
+					CVC = 132,
+					ExpiryDate = DateTime.Now,
+					Id = Guid.NewGuid()
+				},
+				User = new User
+				{
+					Id = Guid.NewGuid(),
+					DateOfBirth = DateTime.Now.AddYears(-22),
+					Fullname = "John Doe"
+				},
+				RecievingBankName = "TestBank"
 			};
 
 			// Act
@@ -216,8 +314,8 @@ namespace PaymentGatewayServiceTests
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsFalse(paymentResponse.IsSuccessful);
-			Assert.AreEqual(paymentResponse.Status, PaymentStatus.RequestFailed);
-			Assert.AreEqual(paymentResponse.Message, "Card Declined: Stolen/Cancelled");
+			Assert.AreEqual(PaymentStatus.StolenCancelled, paymentResponse.Status);
+			Assert.AreEqual("Card Declined: Stolen/Cancelled", paymentResponse.Message);
 			MockRepository.VerifyAll();
 		}
 
@@ -237,7 +335,22 @@ namespace PaymentGatewayServiceTests
 				IsSuccessful = false,
 				PaymentId = Guid.NewGuid(),
 				RequestDate = DateTime.Now,
-				Status = PaymentStatus.RequestRecieved
+				Status = PaymentStatus.RequestRecieved,
+				Card = new Card
+				{
+					BankName = "TestBank",
+					CardNumber = 60115564485789458,
+					CVC = 132,
+					ExpiryDate = DateTime.Now,
+					Id = Guid.NewGuid()
+				},
+				User = new User
+				{
+					Id = Guid.NewGuid(),
+					DateOfBirth = DateTime.Now.AddYears(-22),
+					Fullname = "John Doe"
+				},
+				RecievingBankName = "TestBank"
 			};
 
 			// Act
@@ -247,8 +360,8 @@ namespace PaymentGatewayServiceTests
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsFalse(paymentResponse.IsSuccessful);
-			Assert.AreEqual(paymentResponse.Status, PaymentStatus.RequestFailed);
-			Assert.AreEqual(paymentResponse.Message, "Card Declined: Invalid Card Credentials");
+			Assert.AreEqual(PaymentStatus.InvalidCardCredentials, paymentResponse.Status);
+			Assert.AreEqual("Card Declined: Invalid Card Credentials", paymentResponse.Message);
 			MockRepository.VerifyAll();
 		}
 
@@ -268,7 +381,22 @@ namespace PaymentGatewayServiceTests
 				IsSuccessful = false,
 				PaymentId = Guid.NewGuid(),
 				RequestDate = DateTime.Now,
-				Status = PaymentStatus.RequestRecieved
+				Status = PaymentStatus.RequestRecieved,
+				Card = new Card
+				{
+					BankName = "TestBank",
+					CardNumber = 6011000991300009,
+					CVC = 132,
+					ExpiryDate = DateTime.Now,
+					Id = Guid.NewGuid()
+				},
+				User = new User
+				{
+					Id = Guid.NewGuid(),
+					DateOfBirth = DateTime.Now.AddYears(-22),
+					Fullname = "John Doe"
+				},
+				RecievingBankName = "TestBank"
 			};
 
 			// Act
@@ -278,8 +406,8 @@ namespace PaymentGatewayServiceTests
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsFalse(paymentResponse.IsSuccessful);
-			Assert.AreEqual(paymentResponse.Status, PaymentStatus.RequestFailed);
-			Assert.AreEqual(paymentResponse.Message, "Card Declined: Card Expired");
+			Assert.AreEqual(PaymentStatus.CardExpired, paymentResponse.Status);
+			Assert.AreEqual("Card Declined: Card Expired", paymentResponse.Message);
 			MockRepository.VerifyAll();
 		}
 
@@ -299,7 +427,22 @@ namespace PaymentGatewayServiceTests
 				IsSuccessful = false,
 				PaymentId = Guid.NewGuid(),
 				RequestDate = DateTime.Now,
-				Status = PaymentStatus.RequestRecieved
+				Status = PaymentStatus.RequestRecieved,
+				Card = new Card
+				{
+					BankName = "TestBank",
+					CardNumber = 3566000020000410,
+					CVC = 132,
+					ExpiryDate = DateTime.Now,
+					Id = Guid.NewGuid()
+				},
+				User = new User
+				{
+					Id = Guid.NewGuid(),
+					DateOfBirth = DateTime.Now.AddYears(-22),
+					Fullname = "John Doe"
+				},
+				RecievingBankName = "TestBank"
 			};
 
 			// Act
@@ -309,8 +452,48 @@ namespace PaymentGatewayServiceTests
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsFalse(paymentResponse.IsSuccessful);
-			Assert.AreEqual(paymentResponse.Status, PaymentStatus.RequestFailed);
-			Assert.AreEqual(paymentResponse.Message, "Internal Error: Please try again later or contact support.");
+			Assert.AreEqual(PaymentStatus.Error, paymentResponse.Status);
+			Assert.AreEqual("Internal Error: Please try again later or contact support.", paymentResponse.Message);
+			MockRepository.VerifyAll();
+		}
+
+		#endregion
+
+		#region StorePaymentTests
+
+		[Test]
+		public void GetPayment_FindPaymentFromId_PaymentFound()
+		{
+			// Arrange
+			var service = this.CreateService();
+			var paymentId = Guid.Parse("e4196f31-3019-456d-96d7-af6d6cc84be7");
+
+			// Act
+			var paymentResponse = service.GetPayment(
+				paymentId);
+
+			// Assert
+			Assert.IsNotNull(paymentResponse);
+			Assert.IsTrue(paymentResponse.IsSuccessful);
+			Assert.AreEqual(PaymentStatus.RequestSucceded, paymentResponse.Status);
+			MockRepository.VerifyAll();
+		}
+
+		[Test]
+		public void GetPayment_FindPaymentFromId_PaymentNotFound()
+		{
+			// Arrange
+			var service = this.CreateService();
+			var paymentId = Guid.Parse("21e91399-40f7-41a4-992f-429effe7a1b8");
+
+			// Act
+			var paymentResponse = service.GetPayment(
+				paymentId);
+
+			// Assert
+			Assert.IsNotNull(paymentResponse);
+			Assert.IsFalse(paymentResponse.IsSuccessful);
+			Assert.AreEqual(PaymentStatus.Error, paymentResponse.Status);
 			MockRepository.VerifyAll();
 		}
 
@@ -320,7 +503,7 @@ namespace PaymentGatewayServiceTests
 
 		private MockRepository MockRepository { get; set; }
 
-		private Mock<ILogger> MockLogger { get; set; }
+		private Mock<ILogger<PaymentService>> MockLogger { get; set; }
 		private Mock<IBankEndpoint> MockBankEndpoint { get; set; }
 		private Mock<IPaymentRepo> MockPaymentRepo { get; set; }
 

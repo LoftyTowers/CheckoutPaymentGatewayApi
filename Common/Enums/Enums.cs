@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Common.Enums
 {
+	/// <summary>
+	/// options for the status of a payment
+	/// </summary>
 	public enum PaymentStatus
 	{
 		Unknown = 0,

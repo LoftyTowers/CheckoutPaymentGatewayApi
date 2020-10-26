@@ -4,13 +4,34 @@ using System.Text;
 
 namespace Repositories.PaymentsDb.Models
 {
+	/// <summary>
+	/// Contains all card relevent information
+	/// </summary>
 	public class Card
 	{
+		/// <summary>
+		/// Database Generated unique Id for this card
+		/// </summary>
 		public Guid Id { get; set; }
+		/// <summary>
+		/// The 16 digit unmber on the front of the card
+		/// </summary>
 		public long CardNumber { get; set; }
+		/// <summary>
+		/// CVC on the back of the card
+		/// </summary>
 		public int CVC { get; set; }
+		/// <summary>
+		/// The expirary date on the card
+		/// </summary>
 		public DateTime ExpiryDate { get; set; }
-
+		/// <summary>
+		/// Name of the bank on the card
+		/// </summary>
+		public string BankName { get; set; }
+		/// <summary>
+		/// MAtches the card to the user
+		/// </summary>
 		public Guid UserId { get; set; }
 
 		public ICollection<Payment> Payments { get; set; }

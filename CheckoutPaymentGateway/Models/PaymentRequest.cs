@@ -91,6 +91,20 @@ namespace CheckoutPaymentGateway.Models
 		public DateTime? RequestDate { get; set; }
 
 		/// <summary>
+		/// NAme of the bank the payment is made from
+		/// </summary>
+		[Required]
+		[DataMember(Name = "sendingBankName")]
+		public string SendingBankName { get; set; }
+
+		/// <summary>
+		/// Name of the bank the payment is sent to
+		/// </summary>
+		[Required]
+		[DataMember(Name = "recievingBankName")]
+		public string RecievingBankName { get; set; }
+
+		/// <summary>
 		/// Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
@@ -106,6 +120,8 @@ namespace CheckoutPaymentGateway.Models
 			sb.Append("  FullName: ").Append(FullName).Append("\n");
 			sb.Append("  CardExpiryDate: ").Append(CardExpiryDate).Append("\n");
 			sb.Append("  RequestDate: ").Append(RequestDate).Append("\n");
+			sb.Append("  SendingBankName: ").Append(SendingBankName).Append("\n");
+			sb.Append("  RecievingBankName: ").Append(RecievingBankName).Append("\n");
 			sb.Append("}\n");
 			return sb.ToString();
 		}
@@ -181,6 +197,16 @@ namespace CheckoutPaymentGateway.Models
 							RequestDate == other.RequestDate ||
 							RequestDate != null &&
 							RequestDate.Equals(other.RequestDate)
+					) &&
+					(
+							SendingBankName == other.SendingBankName ||
+							SendingBankName != null &&
+							SendingBankName.Equals(other.SendingBankName)
+					) &&
+					(
+							RecievingBankName == other.RecievingBankName ||
+							RecievingBankName != null &&
+							RecievingBankName.Equals(other.RecievingBankName)
 					);
 		}
 
@@ -210,6 +236,10 @@ namespace CheckoutPaymentGateway.Models
 					hashCode = hashCode * 59 + CardExpiryDate.GetHashCode();
 				if (RequestDate != null)
 					hashCode = hashCode * 59 + RequestDate.GetHashCode();
+				if (SendingBankName != null)
+					hashCode = hashCode * 59 + SendingBankName.GetHashCode();
+				if (RecievingBankName != null)
+					hashCode = hashCode * 59 + RecievingBankName.GetHashCode();
 				return hashCode;
 			}
 		}

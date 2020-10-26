@@ -54,9 +54,10 @@ namespace CheckoutPaymentGateway.Controllers
 		/// </summary>
 		/// <remarks>Adds a payment</remarks>
 		/// <param name="body">Payment to add</param>
-		/// <response code="200">payment created</response>
+		/// <response code="200">payment successfully created</response>
 		/// <response code="400">invalid input, object invalid</response>
 		/// <response code="409">an existing payment already exists</response>
+		/// <response code="500">an error has occured</response>
 		[HttpPost]
 		[Route("/checkoutpaymentgateway/paymentrequest")]
 		[ValidateModelState]
@@ -65,7 +66,7 @@ namespace CheckoutPaymentGateway.Controllers
 		{
 			try
 			{
-				Log.LogDebug($"Recieved Payment request");
+				Log.LogDebug($"Recieved Payment request {body.Id}");
 				var payment = MyMapper.Map<Payment>(body);
 				payment.Card = MyMapper.Map<Card>(body);
 				payment.User = MyMapper.Map<User>(body);
@@ -74,26 +75,25 @@ namespace CheckoutPaymentGateway.Controllers
 				var response = MyMapper.Map<PaymentResponse>(result);
 
 				if (result.Status == PaymentStatus.RequestSucceded)
+				{
+					Log.LogDebug($"Payment response 200 {body.Id}");
 					return Ok(response);
+				}
 				else if (result.Status == PaymentStatus.DuplicateRequest)
+				{
+					Log.LogDebug($"Payment response 409 {body.Id}");
 					return Conflict(response);
+				}
 				else if (result.Status == PaymentStatus.Error)
+				{
+					Log.LogDebug($"Payment response 500 {body.Id}");
 					return StatusCode(500, response);
+				}
 				else
+				{
+					Log.LogDebug($"Payment response 400 {body.Id}");
 					return BadRequest(response);
-
-				//TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-				// return StatusCode(201);
-
-				//TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-				// return StatusCode(400);
-
-				//TODO: Uncomment the next line to return response 410 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-				// return StatusCode(410);
-
-				//TODO: Uncomment the next line to return response 420 or use other options such as return this.Duplicate(), return this.BadRequest(..), ...
-				// return StatusCode(420);
-
+				}
 			}
 			catch (Exception ex)
 			{
@@ -106,10 +106,11 @@ namespace CheckoutPaymentGateway.Controllers
 		/// Gets a payment information of a particualr request request 
 		/// </summary>
 		/// <remarks>Gets a payment</remarks>
-		/// <param name="body">Payment to add</param>
-		/// <response code="200">payment created</response>
+		/// <param name="body">Payment to find</param>
+		/// <response code="200">payment successfully found</response>
 		/// <response code="400">invalid input, object invalid</response>
-		/// <response code="409">an existing payment already exists</response>
+		/// <response code="404">Payment not found</response>
+		/// <response code="500">an error has occured</response>
 		[HttpGet]
 		[Route("/checkoutpaymentgateway/getpayment")]
 		[ValidateModelState]
@@ -118,20 +119,32 @@ namespace CheckoutPaymentGateway.Controllers
 		{
 			try
 			{
-				Log.LogDebug($"Finding payment");
+				Log.LogDebug($"Finding payment {body}");
 
 				var result = PaymentService.GetPayment(body);
 
 				var response = MyMapper.Map<PaymentResponse>(result);
 
 				if (result.Status == PaymentStatus.RequestSucceded)
+				{
+					Log.LogDebug($"Payment response 200 {body}");
 					return Ok(response);
+				}
 				else if (result.Status == PaymentStatus.RequestDoesNotExist)
+				{
+					Log.LogDebug($"Payment response 404 {body}");
 					return NotFound(response);
+				}
 				else if (result.Status == PaymentStatus.Error)
+				{
+					Log.LogDebug($"Payment response 500 {body}");
 					return StatusCode(500, response);
+				}
 				else
+				{
+					Log.LogDebug($"Payment response 400 {body}");
 					return BadRequest(response);
+				}
 			}
 			catch (Exception ex)
 			{

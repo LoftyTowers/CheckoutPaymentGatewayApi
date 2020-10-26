@@ -19,10 +19,10 @@ namespace PaymentGatewayService.BankEndpoints
 		}
 
 		/// <summary>
-		/// 
+		/// Retireves Money and pays merchant
 		/// </summary>
-		/// <param name="payment"></param>
-		/// <returns></returns>
+		/// <param name="paymentrequest"></param>
+		/// <returns>PaymentResponse</returns>
 		public Payment SendPayment(Payment payment)
 		{
 			try
