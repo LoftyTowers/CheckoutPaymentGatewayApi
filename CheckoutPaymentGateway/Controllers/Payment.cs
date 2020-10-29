@@ -11,12 +11,12 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using CheckoutPaymentGateway.Attributes;
 
-using Microsoft.AspNetCore.Authorization;
 using CheckoutPaymentGateway.Models;
 using CheckoutPaymentGateway.Interfaces;
 using Serilog;
@@ -25,6 +25,8 @@ using Microsoft.Extensions.Logging;
 using Common.Models;
 using PaymentGatewayService.Interfaces;
 using Common.Enums;
+using Newtonsoft.Json.Bson;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace CheckoutPaymentGateway.Controllers
 {
@@ -47,6 +49,16 @@ namespace CheckoutPaymentGateway.Controllers
 			Log = log;
 			MyMapper = mapper;
 			PaymentService = paymentService;
+		}
+
+
+		[HttpGet]
+		[Route("/checkoutpaymentgateway/KnockKnock")]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "PeterPolicy")]
+		[SwaggerOperation("KnockKnock")]
+		public ActionResult<string> KnockKnock()
+		{
+			return "Oh NO!!!!";
 		}
 
 		/// <summary>

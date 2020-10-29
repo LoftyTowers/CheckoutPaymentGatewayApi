@@ -35,6 +35,10 @@ using PaymentGatewayService.BankEndpoints;
 using Repositories.PaymentsDb.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Repositories.PaymentsDb.Repos;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace CheckoutPaymentGateway
 {
@@ -43,11 +47,12 @@ namespace CheckoutPaymentGateway
 	/// </summary>
 	public class Startup
 	{
+		private const string IssuerSigningKeyString = "WeAllLoveMrCrumbsHardWork";
 		private readonly IWebHostEnvironment _hostingEnv;
 
 		private IConfiguration Configuration { get; }
 
-		public ILifetimeScope AutofacContainer { get; }
+		private ILifetimeScope AutofacContainer { get; }
 
 		/// <summary>
 		/// Constructor
@@ -89,9 +94,66 @@ namespace CheckoutPaymentGateway
 					})
 					.AddXmlSerializerFormatters();
 
+			//services.Configure<TokenManagement>(Configuration.GetSection("tokenManagement"));
+			//var token = Configuration.GetSection("tokenManagement").Get<TokenManagement>();
+			//var secret = Encoding.ASCII.GetBytes(token.Secret);
+
 			services.AddDbContext<PaymentsDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("PaymentsDbEntities")));
+
+			services.AddAuthentication(options =>
+			{
+				//options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				//options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				//options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme
+			})
+			.AddJwtBearer(options =>
+			{
+				options.SaveToken = true;
+				options.RequireHttpsMetadata = false;
+				options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidAudience = "https://localhost:6001",
+					ValidIssuer = "https://localhost:6001",
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(IssuerSigningKeyString))
+				};
+			});
+
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("PeterPolicy",
+				policy =>
+				{
+					policy.RequireClaim("Peter");
+				});
+			});
+
+			#region BootstrapperForTokeIssuerToken
+
+			var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(IssuerSigningKeyString));
+
+
+
+			var authClaims = new[]
+			{
+				new Claim("Peter","Pumpy")
+			};
+			foreach (var audience in new[] { "https://localhost:6001" })
+			{
+				var token = new JwtSecurityToken(
+							 audience: audience,
+							 issuer: "https://localhost:6001",
+							 expires: DateTime.Now.AddYears(3),
+							 claims: authClaims,
+							 signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+				);
+				var tokenIssuer = new JwtSecurityTokenHandler().WriteToken(token);
+			}
+
+			#endregion
 
 			services.AddSwaggerGen()
 			.AddSwaggerGen(c =>
