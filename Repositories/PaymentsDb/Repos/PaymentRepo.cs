@@ -10,6 +10,7 @@ using System.Linq;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Common.Enums;
+using Microsoft.Data.SqlClient;
 
 namespace Repositories.PaymentsDb.Repos
 {
@@ -91,20 +92,11 @@ namespace Repositories.PaymentsDb.Repos
 			{
 				try
 				{
-					var dbCard = context.Cards.FirstOrDefault(c => c.CardNumber == card.CardNumber);
-					if (dbCard == null || string.IsNullOrWhiteSpace(dbCard.Id.ToString()))
-					{
-						card.Id = Guid.NewGuid();
-						var newCard = MyMapper.Map<Models.Card>(card);
-						newCard.UserId = userId;
-						context.Cards.Add(newCard);
-						context.SaveChanges();
-					}
-					else
-					{
-						card.Id = dbCard.Id;
-					}
-					return card;
+					var result = context.Database.ExecuteSqlInterpolated($"AddCard {card.CardNumber},{card.CVC},{card.ExpiryDate},{card.BankName},{userId}");
+
+					var toReturn = MyMapper.Map<Common.Models.Card>(result);
+
+					return toReturn;
 				}
 				catch (Exception ex)
 				{

@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dbo].[Card]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-		[CardNumber] BIGINT NOT NULL, 
-		[CVC] INT NOT NULL, 
+		[CardNumber_encrypt] BIGINT NOT NULL, 
+		[CVC_encrypt] INT NOT NULL, 
 		[ExpiryDate] DATETIME2 NOT NULL, 
-		[BankName] VARCHAR(50) NOT NULL, 
+		[BankName] NVARCHAR(50) NOT NULL, 
 		[UserId] UNIQUEIDENTIFIER NOT NULL, 
     CONSTRAINT [FK_Card_User] FOREIGN KEY ([UserId]) REFERENCES [User]([Id])
 )

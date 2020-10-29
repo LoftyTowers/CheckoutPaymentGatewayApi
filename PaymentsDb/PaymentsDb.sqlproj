@@ -66,6 +66,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </PostDeploy>
     <Build Include="StoredProcedures\AddPayment.sql" />
+    <Build Include="StoredProcedures\AddCard.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Tables\PaymentsDb.refactorlog" />
