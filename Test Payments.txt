@@ -1,5 +1,21 @@
 
 /*
+Alternate Bank
+*/
+{
+  "id": "9e7a9212-7b4b-4f76-8a55-6f1e4304eda4",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 374245455400126,
+  "fullName": "Jim Frost",
+  "dateOfBirth": "1977-08-22",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "AlternateBank",
+  "recievingBankName": "AlternateBank"
+}
+/*
 Success
 */
 {

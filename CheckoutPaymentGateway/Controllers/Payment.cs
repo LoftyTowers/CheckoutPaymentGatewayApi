@@ -51,14 +51,18 @@ namespace CheckoutPaymentGateway.Controllers
 			PaymentService = paymentService;
 		}
 
-
+		/// <summary>
+		/// Used to test the authentication
+		/// </summary>
+		/// <param name="echo"></param>
+		/// <returns></returns>
 		[HttpGet]
-		[Route("/checkoutpaymentgateway/KnockKnock")]
+		[Route("/checkoutpaymentgateway/Echo")]
 		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "PeterPolicy")]
-		[SwaggerOperation("KnockKnock")]
-		public ActionResult<string> KnockKnock()
+		[SwaggerOperation("Echo")]
+		public ActionResult<string> Echo(string echo)
 		{
-			return "Oh NO!!!!";
+			return echo;
 		}
 
 		/// <summary>
@@ -79,6 +83,9 @@ namespace CheckoutPaymentGateway.Controllers
 			try
 			{
 				Log.LogDebug($"Recieved Payment request {body.Id}");
+
+				// Grab raw json request to store for auditing and in case of error
+
 				var payment = MyMapper.Map<Payment>(body);
 				payment.Card = MyMapper.Map<Card>(body);
 				payment.User = MyMapper.Map<User>(body);

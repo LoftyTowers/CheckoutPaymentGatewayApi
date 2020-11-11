@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Autofac.Features.Indexed;
+using AutoMapper;
 using Common.Enums;
 using Common.Models;
 using Microsoft.Extensions.Logging;
@@ -21,7 +22,7 @@ namespace PaymentGatewayService.Services
 		/// <param name="log"></param>
 		/// <param name="paymentRepo"></param>
 		/// <param name="bankApi"></param>
-		public PaymentService(ILogger<PaymentService> log, IPaymentRepo paymentRepo, IBankEndpoint bankApi)
+		public PaymentService(ILogger<PaymentService> log, IPaymentRepo paymentRepo, IIndex<string, IBankEndpoint> bankApi)
 		{
 			Log = log;
 			BankApi = bankApi;
@@ -51,7 +52,8 @@ namespace PaymentGatewayService.Services
 					return paymentRequest;
 
 				Log.LogInformation($"Sending payment: {paymentRequest.PaymentId} to bank : {paymentRequest.RecievingBankName}");
-				paymentRequest = BankApi.SendPayment(paymentRequest);
+				paymentRequest = BankApi[paymentRequest.RecievingBankName].SendPayment(paymentRequest);
+				//paymentRequest = BankApi.SendPayment(paymentRequest);
 
 
 				Log.LogInformation($"Updating Payment: {paymentRequest.PaymentId} with banks response");
@@ -96,7 +98,7 @@ namespace PaymentGatewayService.Services
 		#region Properties
 
 		private ILogger Log { get; }
-		private IBankEndpoint BankApi { get; }
+		private IIndex<string, IBankEndpoint> BankApi { get; }
 		private IPaymentRepo PaymentRepo { get; }
 
 		#endregion

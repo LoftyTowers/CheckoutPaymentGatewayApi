@@ -10,6 +10,9 @@ using PaymentGatewayService.Services;
 using Repositories.PaymentsDb.Interfaces;
 using System;
 using Microsoft.Extensions.Logging.Abstractions;
+using Autofac.Features.Indexed;
+using Autofac;
+using PaymentGatewayService.BankEndpoints;
 
 namespace PaymentGatewayServiceTests
 {
@@ -21,11 +24,19 @@ namespace PaymentGatewayServiceTests
 		[SetUp]
 		public void SetUp()
 		{
+			var builder = new ContainerBuilder();
+
+			builder.RegisterType<TestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>("TestBank");
+			builder.RegisterType<AlternateTestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>("AlternateBank");
+
+			builder.Build();
+
 			MockRepository = new MockRepository(MockBehavior.Strict);
 
 			MockLogger = MockRepository.Create<ILogger<PaymentService>>(MockBehavior.Loose);
-			MockBankEndpoint = MockRepository.Create<IBankEndpoint>();
+			MockBankEndpoint = MockRepository.Create<IIndex<string, IBankEndpoint>>();
 			MockPaymentRepo = MockRepository.Create<IPaymentRepo>(MockBehavior.Loose);
+
 
 			#region MockPaymentRepo
 
@@ -504,7 +515,9 @@ namespace PaymentGatewayServiceTests
 		private MockRepository MockRepository { get; set; }
 
 		private Mock<ILogger<PaymentService>> MockLogger { get; set; }
-		private Mock<IBankEndpoint> MockBankEndpoint { get; set; }
+		private Mock<IIndex<string, IBankEndpoint>> MockBankEndpoint { get; set; }
+		private Mock<IBankEndpoint> MockTestBankEndpoint { get; set; }
+		private Mock<IBankEndpoint> MockAlternateBankEndpoint { get; set; }
 		private Mock<IPaymentRepo> MockPaymentRepo { get; set; }
 
 		#endregion

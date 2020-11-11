@@ -233,17 +233,8 @@ namespace CheckoutPaymentGateway
 			builder.RegisterType<PaymentRepo>().AsImplementedInterfaces();
 
 
-			builder.RegisterType<TestBankEndpoint>().AsImplementedInterfaces();
-			//builder.RegisterType<AlternateTestBankEndpoint>().AsImplementedInterfaces();
-
-			//builder.RegisterType<TestBankEndpoint>()
-			// .WithParameter(
-			//	 new ResolvedParameter(
-			//		 (pi, ctx) => pi.ParameterType == typeof(IBankEndpoint),
-			//		 (pi, ctx) => ctx.ResolveKeyed<IBankEndpoint>()));
-			//builder.RegisterType<TestBankEndpoint>()
-			//		 .As<IBankEndpoint>()
-			//		 .Keyed<ISender>("order");
+			builder.RegisterType<TestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>("TestBank");
+			builder.RegisterType<AlternateTestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>("AlternateBank");
 		}
 
 		/// <summary>
