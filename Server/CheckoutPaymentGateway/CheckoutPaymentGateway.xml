@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CheckoutPaymentGateway</name>
+    </assembly>
+    <members>
+        <member name="T:CheckoutPaymentGateway.Attributes.ValidateModelStateAttribute">
+            <summary>
+            Model state validation attribute
+            </summary>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Attributes.ValidateModelStateAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called before the action method is invoked
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:CheckoutPaymentGateway.Controllers.PaymentController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Controllers.PaymentController.#ctor(Serilog.ILogger,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="log"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Controllers.PaymentController.CreatePayment(CheckoutPaymentGateway.Models.PaymentRequest)">
+            <summary>
+            Generates a payment request with the gateway
+            </summary>
+            <remarks>Adds a payment</remarks>
+            <param name="body">Payment to add</param>
+            <response code="201">payment created</response>
+            <response code="400">invalid input, object invalid</response>
+            <response code="409">an existing payment already exists</response>
+        </member>
+        <member name="T:CheckoutPaymentGateway.Filters.BasePathFilter">
+            <summary>
+            BasePath Document Filter sets BasePath property of Swagger and removes it from the individual URL paths
+            </summary>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Filters.BasePathFilter.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="basePath">BasePath to remove from Operations</param>
+        </member>
+        <member name="P:CheckoutPaymentGateway.Filters.BasePathFilter.BasePath">
+            <summary>
+            Gets the BasePath of the Swagger Doc
+            </summary>
+            <returns>The BasePath of the Swagger Doc</returns>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Filters.BasePathFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            Apply the filter
+            </summary>
+            <param name="swaggerDoc">OpenApiDocument</param>
+            <param name="context">FilterContext</param>
+        </member>
+        <member name="T:CheckoutPaymentGateway.Filters.GeneratePathParamsValidationFilter">
+            <summary>
+            Path Parameter Validation Rules Filter
+            </summary>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Filters.GeneratePathParamsValidationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="operation">Operation</param>
+            <param name="context">OperationFilterContext</param>
+        </member>
+        <member name="T:CheckoutPaymentGateway.Models.PaymentRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CheckoutPaymentGateway.Models.PaymentRequest.Id">
+            <summary>
+            Gets or Sets Id
+            </summary>
+        </member>
+        <member name="P:CheckoutPaymentGateway.Models.PaymentRequest.MerchantId">
+            <summary>
+            Gets or Sets MerchantId
+            </summary>
+        </member>
+        <member name="P:CheckoutPaymentGateway.Models.PaymentRequest.Amount">
+            <summary>
+            Gets or Sets Amount
+            </summary>
+        </member>
+        <member name="P:CheckoutPaymentGateway.Models.PaymentRequest.RequestDate">
+            <summary>
+            Gets or Sets RequestDate
+            </summary>
+        </member>
+        <member name="P:CheckoutPaymentGateway.Models.PaymentRequest.RequestCompleted">
+            <summary>
+            Gets or Sets RequestCompleted
+            </summary>
+        </member>
+        <member name="P:CheckoutPaymentGateway.Models.PaymentRequest.Complete">
+            <summary>
+            Gets or Sets Complete
+            </summary>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Models.PaymentRequest.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Models.PaymentRequest.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Models.PaymentRequest.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Models.PaymentRequest.Equals(CheckoutPaymentGateway.Models.PaymentRequest)">
+            <summary>
+            Returns true if PaymentRequest instances are equal
+            </summary>
+            <param name="other">Instance of PaymentRequest to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Models.PaymentRequest.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:CheckoutPaymentGateway.Program">
+            <summary>
+            Program
+            </summary>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Program.Main(System.String[])">
+            <summary>
+            Main
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Create the host builder.
+            </summary>
+            <param name="args"></param>
+            <returns>IHostBuilder</returns>
+        </member>
+        <member name="T:CheckoutPaymentGateway.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Startup.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="env"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Startup.ConfigureContainer(Autofac.ContainerBuilder)">
+            <summary>
+             ConfigureContainer is where you can register things directly
+             with Autofac. This runs after ConfigureServices so the things
+             here will override registrations made in ConfigureServices.
+             Don't build the container; that gets done for you by the factory.
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:CheckoutPaymentGateway.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="loggerFactory"></param>
+        </member>
+    </members>
+</doc>

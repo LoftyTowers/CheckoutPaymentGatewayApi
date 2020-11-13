@@ -1,0 +1,163 @@
+
+/*
+Alternate Bank
+*/
+{
+  "id": "9e7a9212-7b4b-4f76-8a55-6f1e4304eda4",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 374245455400126,
+  "fullName": "Jim Frost",
+  "dateOfBirth": "1977-08-22",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "AlternateBank",
+  "recievingBankName": "AlternateBank"
+}
+/*
+Success
+*/
+{
+  "id": "9e492581-ce4c-434e-b17b-5b0a094c09d1",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 5425233430109903,
+  "fullName": "Jim Frost",
+  "dateOfBirth": "1977-08-22",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "TestBank",
+  "recievingBankName": "TestBank"
+}
+
+/*
+Insuffucent Funds
+*/
+{
+  "id": "8eeabdf1-2282-48c6-af43-cd8cb2f77f8a",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 374245455400126,
+  "fullName": "Jim Frost",
+  "dateOfBirth": "1977-08-22",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "TestBank",
+  "recievingBankName": "TestBank"
+}
+
+/*
+Card Not Activated
+*/
+{
+  "id": "f6498b13-31ad-4f96-96cb-b4edfcf5eec3",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 378282246310005,
+  "fullName": "John Doe",
+  "dateOfBirth": "1992-08-22T08:09:10.150Z",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "TestBank",
+  "recievingBankName": "TestBank"
+}
+
+/*
+Stolen/Cancelled
+*/
+{
+  "id": "629b8981-02b0-4083-a0bc-1753230be5cc",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 6250941006528599,
+  "fullName": "Jim Frost",
+  "dateOfBirth": "1977-08-22",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "TestBank",
+  "recievingBankName": "TestBank"
+}
+
+/*
+Invalid Card Credentials
+*/
+{
+  "id": "9bbd03e5-7f89-4d33-ad16-3febc0d05b23",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 60115564485789458,
+  "fullName": "Jim Frost",
+  "dateOfBirth": "1977-08-22",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "TestBank",
+  "recievingBankName": "TestBank"
+}
+
+/*
+Card Expired
+*/
+{
+  "id": "fc01c3a8-c68d-41e8-b8b7-b6b214e935c9",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 6011000991300009,
+  "fullName": "Jim Frost",
+  "dateOfBirth": "1977-08-22",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "TestBank",
+  "recievingBankName": "TestBank"
+}
+
+/*
+Error
+*/
+{
+  "id": "c53f6379-6543-4199-84f6-25a28687121c",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 3566000020000410,
+  "fullName": "Jim Frost",
+  "dateOfBirth": "1977-08-22",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "TestBank",
+  "recievingBankName": "TestBank"
+}
+
+
+/*
+Duplicate
+*/
+{
+  "id": "9e492581-ce4c-434e-b17b-5b0a094c09d1",
+  "currencyCode": "GDP",
+  "amount": 10.00,
+  "cvc": 123,
+  "cardNumber": 374245455400126,
+  "fullName": "Jim Frost",
+  "dateOfBirth": "1977-08-22",
+  "cardExpiryDate": "2022-10-22T08:09:10.150Z",
+  "requestDate": "2020-10-22T08:09:10.150Z",
+  "sendingBankName": "TestBank",
+  "recievingBankName": "TestBank"
+}
+
+/*
+GetPayment
+*/
+9e492581-ce4c-434e-b17b-5b0a094c09d1
+
+/*
+Payment does not exist
+*/
+57da3e0e-ac0a-45ad-9ae8-65f39f1b7b12
