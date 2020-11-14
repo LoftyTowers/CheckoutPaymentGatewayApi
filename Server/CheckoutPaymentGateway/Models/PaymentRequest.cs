@@ -74,7 +74,7 @@ namespace CheckoutPaymentGateway.Models
 		/// </summary>
 		[Required]
 		[DataMember(Name = "dateofbirth")]
-		public string DateOfBirth { get; set; }
+		public DateTime? DateOfBirth { get; set; }
 
 		/// <summary>
 		/// The expiry date of the customers card

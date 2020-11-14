@@ -2,9 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentGatewayAPIClient", "PaymentGatewayAPIClient\PaymentGatewayAPIClient.csproj", "{AEE5C7FA-E2F3-4096-B122-720908A4A71C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGatewayAPIClient", "PaymentGatewayAPIClient\PaymentGatewayAPIClient.csproj", "{AEE5C7FA-E2F3-4096-B122-720908A4A71C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentGatewayAPIClientTests", "PaymentGatewayAPIClientTests\PaymentGatewayAPIClientTests.csproj", "{D3ED1030-4A0F-490D-96D5-698C7F782191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGatewayAPIClientTests", "PaymentGatewayAPIClientTests\PaymentGatewayAPIClientTests.csproj", "{D3ED1030-4A0F-490D-96D5-698C7F782191}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayLoadTest", "GatewayLoadTest\GatewayLoadTest.csproj", "{C0E2DD48-E2FC-4B0A-BE24-EB016F17EBFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{D3ED1030-4A0F-490D-96D5-698C7F782191}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3ED1030-4A0F-490D-96D5-698C7F782191}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3ED1030-4A0F-490D-96D5-698C7F782191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0E2DD48-E2FC-4B0A-BE24-EB016F17EBFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0E2DD48-E2FC-4B0A-BE24-EB016F17EBFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0E2DD48-E2FC-4B0A-BE24-EB016F17EBFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0E2DD48-E2FC-4B0A-BE24-EB016F17EBFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

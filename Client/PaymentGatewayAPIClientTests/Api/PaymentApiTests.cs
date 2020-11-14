@@ -67,9 +67,11 @@ namespace PaymentGatewayAPIClient.Test
 		[Test, Category("EchoTests")]
 		public void CheckoutpaymentgatewayEchoGetTest()
 		{
-			string echo = null;
+			string echo = "Please Respond";
 			var response = instance.CheckoutpaymentgatewayEchoGet(echo);
 			Assert.IsInstanceOf<string>(response, "response is string");
+			Assert.AreEqual("Please Respond", response);
+
 		}
 		/// <summary>
 		/// Test CheckoutpaymentgatewayGetpaymentGet
@@ -80,6 +82,17 @@ namespace PaymentGatewayAPIClient.Test
 			Guid? body = null;
 			var response = instance.CheckoutpaymentgatewayGetpaymentGet(body);
 			Assert.IsInstanceOf<CheckoutPaymentGatewayModelsPaymentResponse>(response, "response is CheckoutPaymentGatewayModelsPaymentResponse");
+			Assert.IsNotNull(response);
+			Assert.IsNotNull(response.Amount);
+			Assert.IsNotNull(response.CardExpiryDate);
+			Assert.IsNotNull(response.CardNumber);
+			Assert.IsNotNull(response.CurrencyCode);
+			Assert.IsNotNull(response.Cvc);
+			Assert.IsNotNull(response.FullName);
+			Assert.IsNotNull(response.Id);
+			Assert.IsNotNull(response.IsSuccessful);
+			Assert.IsNotNull(response.RequestDate);
+			Assert.IsTrue(response.IsSuccessful);
 		}
 		/// <summary>
 		/// Test CheckoutpaymentgatewayPaymentrequestPost
@@ -90,6 +103,17 @@ namespace PaymentGatewayAPIClient.Test
 			CheckoutPaymentGatewayModelsPaymentRequest body = null;
 			var response = instance.CheckoutpaymentgatewayPaymentrequestPost(body);
 			Assert.IsInstanceOf<CheckoutPaymentGatewayModelsPaymentResponse>(response, "response is CheckoutPaymentGatewayModelsPaymentResponse");
+			Assert.IsNotNull(response);
+			Assert.IsNotNull(response.Amount);
+			Assert.IsNotNull(response.CardExpiryDate);
+			Assert.IsNotNull(response.CardNumber);
+			Assert.IsNotNull(response.CurrencyCode);
+			Assert.IsNotNull(response.Cvc);
+			Assert.IsNotNull(response.FullName);
+			Assert.IsNotNull(response.Id);
+			Assert.IsNotNull(response.IsSuccessful);
+			Assert.IsNotNull(response.RequestDate);
+			Assert.IsTrue(response.IsSuccessful);
 		}
 	}
 
