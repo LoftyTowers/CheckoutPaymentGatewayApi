@@ -73,62 +73,62 @@ namespace PaymentGatewayServiceTests
 
 			#region MockBankEndpoint
 
-			MockBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 374245455400126)))
-				.Returns<Payment>(payment => payment = new Payment
-				{
-					Status = PaymentStatus.InsuffucentFunds,
-					IsSuccessful = false,
-					Message = "Card Declined: Insuffucent Funds"
-				});
-			MockBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 378282246310005)))
-				.Returns<Payment>(payment => payment = new Payment
-				{
-					Status = PaymentStatus.CardNotActivated,
-					IsSuccessful = false,
-					Message = "Card Declined: Card Not Activated"
-				});
-			MockBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 6250941006528599)))
-				.Returns<Payment>(payment => payment = new Payment
-				{
-					Status = PaymentStatus.StolenCancelled,
-					IsSuccessful = false,
-					Message = "Card Declined: Stolen/Cancelled"
-				});
-			MockBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 60115564485789458)))
-				.Returns<Payment>(payment => payment = new Payment
-				{
-					Status = PaymentStatus.InvalidCardCredentials,
-					IsSuccessful = false,
-					Message = "Card Declined: Invalid Card Credentials"
-				});
-			MockBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 6011000991300009)))
-				.Returns<Payment>(payment => payment = new Payment
-				{
-					Status = PaymentStatus.CardExpired,
-					IsSuccessful = false,
-					Message = "Card Declined: Card Expired"
-				});
-			MockBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 3566000020000410)))
-				.Returns<Payment>(payment => payment = new Payment
-				{
-					Status = PaymentStatus.Error,
-					IsSuccessful = false,
-					Message = "Internal Error: Please try again later or contact support."
-				});
-			MockBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 5425233430109903)))
-				.Returns<Payment>(payment => payment = new Payment
-				{
-					Status = PaymentStatus.RequestSucceded,
-					IsSuccessful = true,
-					Message = string.Empty
-				});
+			//MockBankEndpoint.Setup(m => m.SendPayment(
+			//	It.Is<Payment>(payment => payment.CardNumber == 374245455400126)))
+			//	.Returns<Payment>(payment => payment = new Payment
+			//	{
+			//		Status = PaymentStatus.InsuffucentFunds,
+			//		IsSuccessful = false,
+			//		Message = "Card Declined: Insuffucent Funds"
+			//	});
+			//MockBankEndpoint.Setup(m => m.SendPayment(
+			//	It.Is<Payment>(payment => payment.CardNumber == 378282246310005)))
+			//	.Returns<Payment>(payment => payment = new Payment
+			//	{
+			//		Status = PaymentStatus.CardNotActivated,
+			//		IsSuccessful = false,
+			//		Message = "Card Declined: Card Not Activated"
+			//	});
+			//MockBankEndpoint.Setup(m => m.SendPayment(
+			//	It.Is<Payment>(payment => payment.CardNumber == 6250941006528599)))
+			//	.Returns<Payment>(payment => payment = new Payment
+			//	{
+			//		Status = PaymentStatus.StolenCancelled,
+			//		IsSuccessful = false,
+			//		Message = "Card Declined: Stolen/Cancelled"
+			//	});
+			//MockBankEndpoint.Setup(m => m.SendPayment(
+			//	It.Is<Payment>(payment => payment.CardNumber == 60115564485789458)))
+			//	.Returns<Payment>(payment => payment = new Payment
+			//	{
+			//		Status = PaymentStatus.InvalidCardCredentials,
+			//		IsSuccessful = false,
+			//		Message = "Card Declined: Invalid Card Credentials"
+			//	});
+			//MockBankEndpoint.Setup(m => m.SendPayment(
+			//	It.Is<Payment>(payment => payment.CardNumber == 6011000991300009)))
+			//	.Returns<Payment>(payment => payment = new Payment
+			//	{
+			//		Status = PaymentStatus.CardExpired,
+			//		IsSuccessful = false,
+			//		Message = "Card Declined: Card Expired"
+			//	});
+			//MockBankEndpoint.Setup(m => m.SendPayment(
+			//	It.Is<Payment>(payment => payment.CardNumber == 3566000020000410)))
+			//	.Returns<Payment>(payment => payment = new Payment
+			//	{
+			//		Status = PaymentStatus.Error,
+			//		IsSuccessful = false,
+			//		Message = "Internal Error: Please try again later or contact support."
+			//	});
+			//MockBankEndpoint.Setup(m => m.SendPayment(
+			//	It.Is<Payment>(payment => payment.CardNumber == 5425233430109903)))
+			//	.Returns<Payment>(payment => payment = new Payment
+			//	{
+			//		Status = PaymentStatus.RequestSucceded,
+			//		IsSuccessful = true,
+			//		Message = string.Empty
+			//	});
 
 			#endregion
 
