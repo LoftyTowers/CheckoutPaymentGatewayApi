@@ -121,7 +121,6 @@ namespace Repositories.PaymentsDb.Repos
 
 						Log.LogInformation($"Adding the payment to the database: {paymentRequest.PaymentId}");
 						var newPayment = MyMapper.Map<Models.Payment>(paymentRequest);
-						newPayment.CardId = paymentRequest.Card.Id;
 						context.Payments.Add(newPayment);
 						context.SaveChanges();
 					}
