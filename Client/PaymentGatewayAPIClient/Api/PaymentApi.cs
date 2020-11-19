@@ -95,16 +95,6 @@ namespace PaymentGatewayAPIClient.Api
 		}
 
 		/// <summary>
-		/// Gets the default header.
-		/// </summary>
-		/// <returns>Dictionary of HTTP header</returns>
-		[Obsolete("DefaultHeader is deprecated, please use Configuration.DefaultHeader instead.")]
-		public IDictionary<String, String> DefaultHeader()
-		{
-			return new ReadOnlyDictionary<string, string>(this.Configuration.DefaultHeader);
-		}
-
-		/// <summary>
 		/// Used to test the authentication 
 		/// </summary>
 		/// <exception cref="PaymentGatewayAPIClient.Client.ApiException">Thrown when fails to make API call</exception>
@@ -151,6 +141,12 @@ namespace PaymentGatewayAPIClient.Api
 				localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
 			if (echo != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "echo", echo)); // query parameter
+
+			// authentication (Bearer) required
+			if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+			{
+				localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+			}
 
 			// make the HTTP request
 			IRestResponse localVarResponse = (IRestResponse)this.Configuration.ApiClient.CallApi(localVarPath,

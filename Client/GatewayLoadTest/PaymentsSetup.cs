@@ -22,24 +22,29 @@ namespace GatewayLoadTest
 
 			for (var payment = 0; payment < numberOfPayments; payment++)
 			{
-				Random random = new Random();
-				var user = new UserData(random.Next(0, 9));
-				payments.Add(new CheckoutPaymentGatewayModelsPaymentRequest(
-						Guid.NewGuid(), // Id
-						"GDP",// CurrencyCode
-						random.GetRandomNumber(1, 999.99),// Amount
-						user.Cvc,// Cvc
-						user.CardNumber,// CardNumber
-						user.FullName,// FullName
-						user.DateOfBirth,// DateOfBirth
-						user.CardExpiryDate,// CardExpiryDate
-						DateTime.Now,// RequestDate
-						user.SendingBankName,// SendingBankName
-						user.RecievingBankName// RecievingBankName
-					));
+				payments.Add(GeneratePayment());
 			}
 
 			return payments;
+		}
+
+		public CheckoutPaymentGatewayModelsPaymentRequest GeneratePayment(long cardNumber = 0)
+		{
+			Random random = new Random();
+			var user = new UserData(random.Next(0, 9));
+			return new CheckoutPaymentGatewayModelsPaymentRequest(
+					 Guid.NewGuid(), // Id
+					 "GDP",// CurrencyCode
+					 random.GetRandomNumber(1, 999.99),// Amount
+					 user.Cvc,// Cvc
+					 cardNumber == 0 ? user.CardNumber : cardNumber,// CardNumber
+					 user.FullName,// FullName
+					 user.DateOfBirth,// DateOfBirth
+					 user.CardExpiryDate,// CardExpiryDate
+					 DateTime.Now,// RequestDate
+					 user.SendingBankName,// SendingBankName
+					 user.RecievingBankName// RecievingBankName
+				 );
 		}
 
 		public PaymentResponseData SendPayments(List<CheckoutPaymentGatewayModelsPaymentRequest> payments)

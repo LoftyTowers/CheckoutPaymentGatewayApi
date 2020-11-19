@@ -82,31 +82,6 @@ namespace Repositories.PaymentsDb.Repos
 		}
 
 		/// <summary>
-		/// adds a card
-		/// </summary>
-		/// <param name="card"></param>
-		/// <returns></returns>
-		public Common.Models.Card AddCard(Common.Models.Card card, Guid userId)
-		{
-			using (var context = new PaymentsDbContext(ContextOptions))
-			{
-				try
-				{
-					var result = context.Database.ExecuteSqlInterpolated($"AddCard {card.CardNumber},{card.CVC},{card.ExpiryDate},{card.BankName},{userId}");
-
-					var toReturn = MyMapper.Map<Common.Models.Card>(result);
-
-					return toReturn;
-				}
-				catch (Exception ex)
-				{
-					Log.LogError(ex, "");
-					throw ex;
-				}
-			}
-		}
-
-		/// <summary>
 		/// Adds a new payment
 		/// </summary>
 		public Common.Models.Payment StorePayment(Common.Models.Payment paymentRequest)
@@ -154,7 +129,32 @@ namespace Repositories.PaymentsDb.Repos
 			{
 				try
 				{
-					return MyMapper.Map<Common.Models.Payment>(context.Payments.Find(paymentId));
+					var payment = (from p in context.Payments
+												 join u in context.Users on p.UserId equals u.Id
+												 where p.Id == paymentId
+												 select new Common.Models.Payment
+												 {
+													 Amount = p.Amount,
+													 BankPaymentId = p.BankPaymentId,
+													 CurrencyCode = p.CurrencyCode,
+													 FullName = u.Fullname,
+													 IsSuccessful = p.IsSuccessful,
+													 Message = p.Message,
+													 PaymentId = p.Id,
+													 RequestCompleted = p.RequestCompleted,
+													 RequestDate = p.RequestDate,
+													 Status = p.PaymentStatusId
+												 }).FirstOrDefault();
+
+					return payment;
+
+					//var payment = context.Payments.Include(p => context.Users.Select(u => u.Id == p.UserId).FirstOrDefault()).Where(payment => payment.Id == paymentId).Select(payment => payment).FirstOrDefault();
+
+					//var toReturn = MyMapper.Map<Common.Models.Payment>(payment);
+					//toReturn.User = MyMapper.Map<Common.Models.User>(payment.);
+					//toReturn.FullName = toReturn.User.Fullname;
+
+					//return toReturn;
 				}
 				catch (Exception ex)
 				{

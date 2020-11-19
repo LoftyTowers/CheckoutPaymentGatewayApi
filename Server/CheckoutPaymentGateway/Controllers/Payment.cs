@@ -60,9 +60,9 @@ namespace CheckoutPaymentGateway.Controllers
 		[Route("/checkoutpaymentgateway/Echo")]
 		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "PeterPolicy")]
 		[SwaggerOperation("Echo")]
-		public ActionResult<string> Echo(string echo)
+		public ActionResult<string> Echo(string echo = "Echo")
 		{
-			return echo;
+			return Ok(echo);
 		}
 
 		/// <summary>
@@ -77,6 +77,7 @@ namespace CheckoutPaymentGateway.Controllers
 		[HttpPost]
 		[Route("/checkoutpaymentgateway/paymentrequest")]
 		[ValidateModelState]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "PeterPolicy")]
 		[SwaggerOperation("CreatePayment")]
 		public virtual ActionResult<PaymentResponse> CreatePayment([FromBody] PaymentRequest body)
 		{
@@ -133,6 +134,7 @@ namespace CheckoutPaymentGateway.Controllers
 		[HttpGet]
 		[Route("/checkoutpaymentgateway/getpayment")]
 		[ValidateModelState]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "PeterPolicy")]
 		[SwaggerOperation("GetPayment")]
 		public virtual ActionResult<PaymentResponse> GetPayment(Guid body)
 		{

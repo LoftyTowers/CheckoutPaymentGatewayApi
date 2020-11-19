@@ -64,8 +64,6 @@ namespace PaymentGatewayServiceTests
 				 });
 			MockPaymentRepo.Setup(m => m.AddUser(It.IsAny<User>()))
 				.Returns<User>(user => user);
-			MockPaymentRepo.Setup(m => m.AddCard(It.IsAny<Card>(), It.IsAny<Guid>()))
-				.Returns<Card, Guid>((card, id) => card);
 			MockPaymentRepo.Setup(m => m.StorePayment(It.IsAny<Payment>())).Returns<Payment>(p => p);
 			MockPaymentRepo.Setup(m => m.UpdatePayment(It.IsAny<Payment>()));
 

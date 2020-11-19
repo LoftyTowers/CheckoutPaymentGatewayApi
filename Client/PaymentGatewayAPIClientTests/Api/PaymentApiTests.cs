@@ -19,6 +19,10 @@ using NUnit.Framework;
 using PaymentGatewayAPIClient.Client;
 using PaymentGatewayAPIClient.Api;
 using PaymentGatewayAPIClient.Model;
+using GatewayLoadTest;
+using Moq;
+using Microsoft.Extensions.Logging;
+using PaymentGatewayAPIClient.Interfaces;
 
 namespace PaymentGatewayAPIClient.Test
 {
@@ -38,9 +42,16 @@ namespace PaymentGatewayAPIClient.Test
 		/// Setup before each unit test
 		/// </summary>
 		[SetUp]
-		public void Init()
+		public void SetUp()
 		{
 			instance = new PaymentApi();
+
+
+			MockRepository = new MockRepository(MockBehavior.Strict);
+			MockLogger = MockRepository.Create<ILogger<PaymentsSetup>>(MockBehavior.Loose);
+			MockPaymentApi = MockRepository.Create<IPaymentApi>(MockBehavior.Loose);
+
+			MockRepository = new MockRepository(MockBehavior.Strict) { DefaultValue = DefaultValue.Empty };
 		}
 
 		/// <summary>
@@ -70,29 +81,29 @@ namespace PaymentGatewayAPIClient.Test
 			string echo = "Please Respond";
 			var response = instance.CheckoutpaymentgatewayEchoGet(echo);
 			Assert.IsInstanceOf<string>(response, "response is string");
-			Assert.AreEqual("Please Respond", response);
+			Assert.AreEqual("\"Please Respond\"", response);
 
 		}
 		/// <summary>
 		/// Test CheckoutpaymentgatewayGetpaymentGet
 		/// </summary>
+		//[Ignore("Needs PaymentId from the payment table in the API database")]
 		[Test, Category("GetPaymentTests")]
 		public void CheckoutpaymentgatewayGetpaymentGetTest()
 		{
-			Guid? body = null;
+			//TODO: after a payment has been created get the ID from the db and insert it below, then coment out the ignore attribute.
+			//NOTE: Please return to this state when development is done so others do not get false negative tests.
+			Guid? body = new Guid("B6ACBE15-72E1-4D88-A989-34ED994372E5");
 			var response = instance.CheckoutpaymentgatewayGetpaymentGet(body);
 			Assert.IsInstanceOf<CheckoutPaymentGatewayModelsPaymentResponse>(response, "response is CheckoutPaymentGatewayModelsPaymentResponse");
 			Assert.IsNotNull(response);
 			Assert.IsNotNull(response.Amount);
-			Assert.IsNotNull(response.CardExpiryDate);
-			Assert.IsNotNull(response.CardNumber);
 			Assert.IsNotNull(response.CurrencyCode);
-			Assert.IsNotNull(response.Cvc);
 			Assert.IsNotNull(response.FullName);
 			Assert.IsNotNull(response.Id);
 			Assert.IsNotNull(response.IsSuccessful);
 			Assert.IsNotNull(response.RequestDate);
-			Assert.IsTrue(response.IsSuccessful);
+			Assert.IsNotNull(response.IsSuccessful);
 		}
 		/// <summary>
 		/// Test CheckoutpaymentgatewayPaymentrequestPost
@@ -100,8 +111,9 @@ namespace PaymentGatewayAPIClient.Test
 		[Test, Category("SendPaymentTests")]
 		public void CheckoutpaymentgatewayPaymentrequestPostTest()
 		{
-			CheckoutPaymentGatewayModelsPaymentRequest body = null;
-			var response = instance.CheckoutpaymentgatewayPaymentrequestPost(body);
+			var genPayment = new PaymentsSetup(MockLogger.Object, MockPaymentApi.Object);
+
+			var response = instance.CheckoutpaymentgatewayPaymentrequestPost(genPayment.GeneratePayment(5425233430109903));
 			Assert.IsInstanceOf<CheckoutPaymentGatewayModelsPaymentResponse>(response, "response is CheckoutPaymentGatewayModelsPaymentResponse");
 			Assert.IsNotNull(response);
 			Assert.IsNotNull(response.Amount);
@@ -115,6 +127,15 @@ namespace PaymentGatewayAPIClient.Test
 			Assert.IsNotNull(response.RequestDate);
 			Assert.IsTrue(response.IsSuccessful);
 		}
-	}
 
+
+		#region Properties 
+
+		private MockRepository MockRepository { get; set; }
+
+		private Mock<ILogger<PaymentsSetup>> MockLogger { get; set; }
+		private Mock<IPaymentApi> MockPaymentApi { get; set; }
+
+		#endregion
+	}
 }

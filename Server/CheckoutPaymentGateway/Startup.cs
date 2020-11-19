@@ -40,6 +40,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Prometheus;
+using System.Collections.Generic;
 
 namespace CheckoutPaymentGateway
 {
@@ -52,8 +53,6 @@ namespace CheckoutPaymentGateway
 		private readonly IWebHostEnvironment _hostingEnv;
 
 		private IConfiguration Configuration { get; }
-
-		private ILifetimeScope AutofacContainer { get; }
 
 		/// <summary>
 		/// Constructor
@@ -94,10 +93,6 @@ namespace CheckoutPaymentGateway
 						opts.SerializerSettings.Converters.Add(new StringEnumConverter(new CamelCaseNamingStrategy()));
 					})
 					.AddXmlSerializerFormatters();
-
-			//services.Configure<TokenManagement>(Configuration.GetSection("tokenManagement"));
-			//var token = Configuration.GetSection("tokenManagement").Get<TokenManagement>();
-			//var secret = Encoding.ASCII.GetBytes(token.Secret);
 
 			services.AddDbContext<PaymentsDbContext>(options =>
 				options.UseSqlServer(
@@ -174,13 +169,34 @@ namespace CheckoutPaymentGateway
 				c.CustomSchemaIds(type => type.FullName);
 				c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{_hostingEnv.ApplicationName}.xml");
 
-				// Sets the basePath property in the Swagger document generated
-				//TODO: Check whether this is needed.
-				// c.DocumentFilter<BasePathFilter>($"/CheckoutPaymentGateway/");
-
 				// Include DataAnnotation attributes on Controller Action parameters as Swagger validation rules (e.g required, pattern, ..)
 				// Use [ValidateModelState] on Actions to actually validate it in C# as well!
 				c.OperationFilter<GeneratePathParamsValidationFilter>();
+				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				{
+					Description = "JWT Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+					In = ParameterLocation.Header,
+					Name = "Authorization",
+					Type = SecuritySchemeType.Http,
+					Scheme = "Bearer"
+				});
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+				{
+					{
+						new OpenApiSecurityScheme
+						{
+							Reference = new OpenApiReference
+							{
+								Type = ReferenceType.SecurityScheme,
+								Id = "Bearer"
+							},
+							Scheme = "oauth2",
+							Name = "Bearer",
+							In = ParameterLocation.Header,
+						},
+						new List<string>()
+					}
+				});
 			});
 		}
 

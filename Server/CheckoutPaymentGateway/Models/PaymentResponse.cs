@@ -52,14 +52,12 @@ namespace CheckoutPaymentGateway.Models
 		/// <summary>
 		/// The cvc customers card
 		/// </summary>
-		[Required]
 		[DataMember(Name = "cvc")]
 		public int? CVC { get; set; }
 
 		/// <summary>
 		/// The CardNumber for the transaction
 		/// </summary>
-		[Required]
 		[DataMember(Name = "cardNumber")]
 		public long? CardNumber { get; set; }
 
@@ -73,7 +71,6 @@ namespace CheckoutPaymentGateway.Models
 		/// <summary>
 		/// The expiry date of the customers card
 		/// </summary>
-		[Required]
 		[DataMember(Name = "cardExpiryDate")]
 		public DateTime? CardExpiryDate { get; set; }
 

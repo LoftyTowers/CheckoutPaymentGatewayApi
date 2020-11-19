@@ -24,13 +24,6 @@ namespace Repositories.PaymentsDb.Interfaces
 		Common.Models.User AddUser(Common.Models.User user);
 
 		/// <summary>
-		/// adds a card
-		/// </summary>
-		/// <param name="card"></param>
-		/// <returns></returns>
-		Common.Models.Card AddCard(Common.Models.Card card, Guid userId);
-
-		/// <summary>
 		/// Adds a new payment
 		/// </summary>
 		Payment StorePayment(Payment paymentRequest);
