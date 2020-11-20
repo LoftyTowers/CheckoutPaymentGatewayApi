@@ -65,14 +65,11 @@
     <PostDeploy Include="PostDeploymentScripts\00_PostDeployment.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </PostDeploy>
-    <Build Include="StoredProcedures\AddPayment.sql" />
-    <Build Include="StoredProcedures\AddCard.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Tables\PaymentsDb.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Card.sql" />
     <Build Include="Tables\Payment.sql" />
     <Build Include="Tables\PaymentStatus.sql" />
   </ItemGroup>

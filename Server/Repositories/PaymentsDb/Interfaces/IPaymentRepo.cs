@@ -31,10 +31,6 @@ namespace Repositories.PaymentsDb.Interfaces
 		/// <summary>
 		/// updates a paymentr with BankPaymentId and success/failure information
 		/// </summary>
-		void UpdatePayment(Payment paymentRequest);
-		/// <summary>
-		/// stores the raw json request from the api
-		/// </summary>
-		void StoreRawPaymentRequest();
+		Payment UpdatePayment(Payment paymentRequest);
 	}
 }

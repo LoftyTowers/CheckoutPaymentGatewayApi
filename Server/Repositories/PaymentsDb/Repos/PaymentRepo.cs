@@ -31,25 +31,6 @@ namespace Repositories.PaymentsDb.Repos
 		}
 
 		/// <summary>
-		/// stores the raw json request from the api
-		/// </summary>
-		public void StoreRawPaymentRequest()
-		{
-			using (var context = new PaymentsDbContext(ContextOptions))
-			{
-				try
-				{
-					throw new NotImplementedException();
-				}
-				catch (Exception ex)
-				{
-					Log.LogError(ex, "");
-					throw ex;
-				}
-			}
-		}
-
-		/// <summary>
 		/// adds a user
 		/// </summary>
 		/// <param name="user"></param>
@@ -75,7 +56,7 @@ namespace Repositories.PaymentsDb.Repos
 				}
 				catch (Exception ex)
 				{
-					Log.LogError(ex, "");
+					Log.LogError(ex, $"Failed to create user");
 					throw ex;
 				}
 			}
@@ -112,8 +93,9 @@ namespace Repositories.PaymentsDb.Repos
 				}
 				catch (Exception ex)
 				{
-					Log.LogError(ex, "");
-					throw ex;
+					Log.LogError(ex, "Failed to store payment");
+					paymentRequest.Status = PaymentStatus.PaymentNotStored;
+					return paymentRequest;
 				}
 			}
 		}
@@ -147,23 +129,17 @@ namespace Repositories.PaymentsDb.Repos
 												 }).FirstOrDefault();
 
 					return payment;
-
-					//var payment = context.Payments.Include(p => context.Users.Select(u => u.Id == p.UserId).FirstOrDefault()).Where(payment => payment.Id == paymentId).Select(payment => payment).FirstOrDefault();
-
-					//var toReturn = MyMapper.Map<Common.Models.Payment>(payment);
-					//toReturn.User = MyMapper.Map<Common.Models.User>(payment.);
-					//toReturn.FullName = toReturn.User.Fullname;
-
-					//return toReturn;
 				}
 				catch (Exception ex)
 				{
-					Log.LogError(ex, "");
+					//TODO error logging
+					Log.LogError(ex, $"Failed to get payment information {paymentId}");
 					return new Payment
 					{
 						PaymentId = paymentId,
 						IsSuccessful = false,
-						Status = PaymentStatus.Error
+						Status = PaymentStatus.Error,
+						Message = ex.Message
 					};
 				}
 			}
@@ -172,7 +148,7 @@ namespace Repositories.PaymentsDb.Repos
 		/// <summary>
 		/// updates a paymentr with BankPaymentId and success/failure information
 		/// </summary>
-		public void UpdatePayment(Payment paymentRequest)
+		public Payment UpdatePayment(Payment paymentRequest)
 		{
 			using (var context = new PaymentsDbContext(ContextOptions))
 			{
@@ -188,11 +164,14 @@ namespace Repositories.PaymentsDb.Repos
 					payment.RequestCompleted = paymentRequest.RequestCompleted.GetValueOrDefault();
 
 					context.SaveChanges();
+
+					return paymentRequest;
 				}
 				catch (Exception ex)
 				{
-					Log.LogError(ex, "");
-					throw;
+					Log.LogError(ex, $"Failed tgo Update the payment {paymentRequest.PaymentId}");
+					paymentRequest.Message = ex.Message;
+					return paymentRequest;
 				}
 			}
 		}

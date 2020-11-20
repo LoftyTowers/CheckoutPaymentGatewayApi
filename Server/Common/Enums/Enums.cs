@@ -21,6 +21,7 @@ namespace Common.Enums
 		StolenCancelled = 1049,
 		InvalidCardCredentials = 1059,
 		CardExpired = 1069,
+		PaymentNotStored = 1100,
 		Error = 9999
 	}
 }

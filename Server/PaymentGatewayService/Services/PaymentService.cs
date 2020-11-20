@@ -59,7 +59,7 @@ namespace PaymentGatewayService.Services
 			}
 			catch (Exception ex)
 			{
-				Log.LogError(ex, $"Big Bang: { paymentRequest }");
+				Log.LogError(ex, $"Failed to process payment request: { paymentRequest }");
 				paymentRequest.Status = PaymentStatus.RequestFailed;
 				paymentRequest.IsSuccessful = false;
 				paymentRequest.Message = ex.Message;
@@ -84,7 +84,7 @@ namespace PaymentGatewayService.Services
 			}
 			catch (Exception ex)
 			{
-				Log.LogError(ex, $"Big Bang: { paymentRequest }");
+				Log.LogError(ex, $"Failed to get payment request: { paymentRequest }");
 				paymentRequest.Message = ex.Message;
 				return paymentRequest;
 			}

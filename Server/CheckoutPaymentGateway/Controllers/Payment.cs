@@ -27,6 +27,7 @@ using PaymentGatewayService.Interfaces;
 using Common.Enums;
 using Newtonsoft.Json.Bson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 
 namespace CheckoutPaymentGateway.Controllers
 {
@@ -36,10 +37,13 @@ namespace CheckoutPaymentGateway.Controllers
 	[ApiController]
 	public class PaymentController : ControllerBase, IPaymentController
 	{
+		private const string JwtPolicy = "PeterPolicy";
+
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="log"></param>
+		/// <param name="jwtOptions"></param>
 		/// <param name="mapper"></param>
 		/// <param name="paymentService"></param>
 		public PaymentController(ILogger<PaymentController> log,
@@ -58,7 +62,7 @@ namespace CheckoutPaymentGateway.Controllers
 		/// <returns></returns>
 		[HttpGet]
 		[Route("/checkoutpaymentgateway/Echo")]
-		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "PeterPolicy")]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = JwtPolicy)]
 		[SwaggerOperation("Echo")]
 		public ActionResult<string> Echo(string echo = "Echo")
 		{
@@ -77,7 +81,7 @@ namespace CheckoutPaymentGateway.Controllers
 		[HttpPost]
 		[Route("/checkoutpaymentgateway/paymentrequest")]
 		[ValidateModelState]
-		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "PeterPolicy")]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = JwtPolicy)]
 		[SwaggerOperation("CreatePayment")]
 		public virtual ActionResult<PaymentResponse> CreatePayment([FromBody] PaymentRequest body)
 		{
@@ -134,7 +138,7 @@ namespace CheckoutPaymentGateway.Controllers
 		[HttpGet]
 		[Route("/checkoutpaymentgateway/getpayment")]
 		[ValidateModelState]
-		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "PeterPolicy")]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = JwtPolicy)]
 		[SwaggerOperation("GetPayment")]
 		public virtual ActionResult<PaymentResponse> GetPayment(Guid body)
 		{

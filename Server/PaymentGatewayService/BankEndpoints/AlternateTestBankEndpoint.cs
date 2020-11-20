@@ -10,6 +10,8 @@ namespace PaymentGatewayService.BankEndpoints
 {
 	public class AlternateTestBankEndpoint : IBankEndpoint
 	{
+		public const string TestAlternateBankName = "AlternateBank";
+
 		/// <summary>
 		/// Constructor
 		/// </summary>

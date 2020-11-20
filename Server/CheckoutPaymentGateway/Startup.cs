@@ -49,7 +49,11 @@ namespace CheckoutPaymentGateway
 	/// </summary>
 	public class Startup
 	{
+		// Left as a const string to avoid having this in config files. 
 		private const string IssuerSigningKeyString = "WeAllLoveMrCrumbsHardWork";
+		private const string ConfigurationFilename = "appsettings";
+		private const string ConfigurationFileType = "json";
+		private const string PaymentDatabaseName = "PaymentsDbEntities";
 		private readonly IWebHostEnvironment _hostingEnv;
 
 		private IConfiguration Configuration { get; }
@@ -67,8 +71,8 @@ namespace CheckoutPaymentGateway
 			// In ASP.NET Core 3.0 `env` will be an IWebHostEnvironment, not IHostingEnvironment.
 			var builder = new ConfigurationBuilder()
 					.SetBasePath(env.ContentRootPath)
-					.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-					.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+					.AddJsonFile((ConfigurationFilename + "." + ConfigurationFilename), optional: true, reloadOnChange: true)
+					.AddJsonFile($"{ConfigurationFilename}.{env.EnvironmentName}.{ConfigurationFileType}", optional: true)
 					.AddEnvironmentVariables();
 			this.Configuration = builder.Build();
 		}
@@ -94,9 +98,19 @@ namespace CheckoutPaymentGateway
 					})
 					.AddXmlSerializerFormatters();
 
+
+			var jwtOptions = new JwtTokenOptions();
+			var jwtOptionsRaw = Configuration.GetSection(JwtTokenOptions.JwtToken);
+			jwtOptionsRaw.Bind(jwtOptions);
+
+
+			var swaggerOptions = new MySwaggerOptions();
+			var swaggerOptionsRaw = Configuration.GetSection(MySwaggerOptions.SwaggerGen);
+			swaggerOptionsRaw.Bind(swaggerOptions);
+
 			services.AddDbContext<PaymentsDbContext>(options =>
 				options.UseSqlServer(
-					Configuration.GetConnectionString("PaymentsDbEntities")));
+					Configuration.GetConnectionString(PaymentDatabaseName)));
 
 			services.AddAuthentication(options =>
 			{
@@ -112,18 +126,18 @@ namespace CheckoutPaymentGateway
 				{
 					ValidateIssuer = true,
 					ValidateAudience = true,
-					ValidAudience = "https://localhost:6001",
-					ValidIssuer = "https://localhost:6001",
+					ValidAudience = jwtOptions.Issuer,
+					ValidIssuer = jwtOptions.Issuer,
 					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(IssuerSigningKeyString))
 				};
 			});
 
 			services.AddAuthorization(options =>
 			{
-				options.AddPolicy("PeterPolicy",
+				options.AddPolicy(jwtOptions.Policy,
 				policy =>
 				{
-					policy.RequireClaim("Peter");
+					policy.RequireClaim(jwtOptions.Claim.Type);
 				});
 			});
 
@@ -135,14 +149,14 @@ namespace CheckoutPaymentGateway
 
 			var authClaims = new[]
 			{
-				new Claim("Peter","Pumpy")
+				new Claim(jwtOptions.Claim.Type,jwtOptions.Claim.Value)
 			};
-			foreach (var audience in new[] { "https://localhost:6001" })
+			foreach (var audience in new[] { jwtOptions.Issuer })
 			{
 				var token = new JwtSecurityToken(
 							 audience: audience,
-							 issuer: "https://localhost:6001",
-							 expires: DateTime.Now.AddYears(3),
+							 issuer: jwtOptions.Issuer,
+							 //expires: DateTime.Now.AddYears(3),
 							 claims: authClaims,
 							 signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
 				);
@@ -154,17 +168,17 @@ namespace CheckoutPaymentGateway
 			services.AddSwaggerGen()
 			.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo
+				c.SwaggerDoc(swaggerOptions.Version.ToLower(), new OpenApiInfo
 				{
-					Version = "V1",
-					Title = "Payment Gateway API",
-					Description = "Payment Gateway API (ASP.NET Core 3.1)",
-					Contact = new OpenApiContact()
-					{
-						Name = "Swagger Codegen Contributors",
-						Url = new Uri("https://github.com/swagger-api/swagger-codegen"),
-						Email = string.Empty
-					}
+					Version = swaggerOptions.Version.ToUpper(),
+					Title = swaggerOptions.Title,
+					Description = swaggerOptions.Description,
+					//Contact = new OpenApiContact()
+					//{
+					//	Name = "Swagger Codegen Contributors",
+					//	Url = new Uri("https://github.com/swagger-api/swagger-codegen"),
+					//	Email = string.Empty
+					//}
 				});
 				c.CustomSchemaIds(type => type.FullName);
 				c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{_hostingEnv.ApplicationName}.xml");
@@ -172,14 +186,16 @@ namespace CheckoutPaymentGateway
 				// Include DataAnnotation attributes on Controller Action parameters as Swagger validation rules (e.g required, pattern, ..)
 				// Use [ValidateModelState] on Actions to actually validate it in C# as well!
 				c.OperationFilter<GeneratePathParamsValidationFilter>();
-				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+
+				c.AddSecurityDefinition(jwtOptions.Scheme, new OpenApiSecurityScheme
 				{
-					Description = "JWT Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+					Description = jwtOptions.Description,
 					In = ParameterLocation.Header,
-					Name = "Authorization",
+					Name = jwtOptions.Name,
 					Type = SecuritySchemeType.Http,
-					Scheme = "Bearer"
+					Scheme = jwtOptions.Scheme
 				});
+
 				c.AddSecurityRequirement(new OpenApiSecurityRequirement()
 				{
 					{
@@ -188,10 +204,10 @@ namespace CheckoutPaymentGateway
 							Reference = new OpenApiReference
 							{
 								Type = ReferenceType.SecurityScheme,
-								Id = "Bearer"
+								Id = jwtOptions.Scheme
 							},
-							Scheme = "oauth2",
-							Name = "Bearer",
+							Scheme = jwtOptions.SecurityType,
+							Name = jwtOptions.Scheme,
 							In = ParameterLocation.Header,
 						},
 						new List<string>()
@@ -249,8 +265,8 @@ namespace CheckoutPaymentGateway
 			builder.RegisterType<PaymentRepo>().AsImplementedInterfaces();
 
 
-			builder.RegisterType<TestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>("TestBank");
-			builder.RegisterType<AlternateTestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>("AlternateBank");
+			builder.RegisterType<TestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>(TestBankEndpoint.TestBankName);
+			builder.RegisterType<AlternateTestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>(AlternateTestBankEndpoint.TestAlternateBankName);
 		}
 
 		/// <summary>
@@ -274,22 +290,20 @@ namespace CheckoutPaymentGateway
 			});
 
 			// Custom Metrics to count requests for each endpoint and the method
-			//var counter = Metrics.CreateCounter("paymentgatewayapi_counter", "Counts requests to the Payment Gateway API endpoints", new CounterConfiguration
-			//{
-			//	LabelNames = new[] { "method", "endpoint" }
-			//});
-			//app.Use((context, next) =>
-			//{
-			//	counter.WithLabels(context.Request.Method, context.Request.Path).Inc();
-			//	return next();
-			//});
-			//// Use the Prometheus middleware
-			//app.UseMetricServer();
-			//app.UseHttpMetrics();
+			var counter = Metrics.CreateCounter("paymentgatewayapi_counter", "Counts requests to the Payment Gateway API endpoints", new CounterConfiguration
+			{
+				LabelNames = new[] { "method", "endpoint" }
+			});
+			app.Use((context, next) =>
+			{
+				counter.WithLabels(context.Request.Method, context.Request.Path).Inc();
+				return next();
+			});
+			// Use the Prometheus middleware
+			app.UseMetricServer();
+			app.UseHttpMetrics();
 
-
-			//TODO: Use Https Redirection
-			// app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 
 			app.UseEndpoints(endpoints =>
 			{
@@ -302,7 +316,6 @@ namespace CheckoutPaymentGateway
 			}
 			else
 			{
-				//TODO: Enable production exception handling (https://docs.microsoft.com/en-us/aspnet/core/fundamentals/error-handling)
 				app.UseExceptionHandler("/Error");
 
 				app.UseHsts();
