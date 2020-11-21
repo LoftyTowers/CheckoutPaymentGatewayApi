@@ -37,6 +37,9 @@ namespace PaymentGatewayAPIClient.Client
 		/// <remarks>See https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx#Anchor_8 for more information.</remarks>
 		// ReSharper disable once InconsistentNaming
 		public const string ISO8601_DATETIME_FORMAT = "o";
+		private const string BearerTokenKey = "Authorization";
+		private const string BearerTokenPrefix = "Bearer";
+		private const string BearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJQZXRlciI6IlB1bXB5IiwiZXhwIjoxNjk4NTc3NTI0LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo2MDAxIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMSJ9.8_qyzWbfrw8CfAymD7gaZJk2bw83zNc_PxkC_7-8qUE";
 
 		#endregion Constants
 
@@ -120,6 +123,10 @@ namespace PaymentGatewayAPIClient.Client
 			ApiKey = new ConcurrentDictionary<string, string>();
 			ApiKeyPrefix = new ConcurrentDictionary<string, string>();
 
+			//Adding the bearer token 
+			ApiKey.Add(BearerTokenKey, BearerToken);
+			ApiKeyPrefix.Add(BearerTokenKey, BearerTokenPrefix);
+
 			Timeout = 100000;
 		}
 
@@ -157,6 +164,10 @@ namespace PaymentGatewayAPIClient.Client
 			{
 				ApiKeyPrefix.Add(keyValuePair);
 			}
+
+			//Adding the bearer token 
+			ApiKey.Add(BearerTokenKey, BearerToken);
+			ApiKeyPrefix.Add(BearerTokenKey, BearerTokenPrefix);
 		}
 
 		#endregion Constructors

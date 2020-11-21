@@ -10,13 +10,22 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-declare @tempTable TABLE( Id int, StatusDesc nvarchar(20))
+declare @tempTable TABLE( Id int, StatusDesc nvarchar(50))
 
 insert into @tempTable values(0,'Unknown'),
 															(10,'RequestRecieved'),
 															(20,'RequestSent'),
 															(30,'RequestSucceded'),
-															(99,'RequestFailed')
+															(999,'RequestFailed'),
+															(1009,'DuplicateRequest'),
+															(1019,'RequestDoesNotExist'),
+															(1029,'InsuffucentFunds'),
+															(1039,'CardNotActivated'),
+															(1049,'StolenCancelled'),
+															(1059,'InvalidCardCredentials'),
+															(1069,'CardExpired'),
+															(1100,'PaymentNotStored'),
+															(9999,'Error')
 
 MERGE PaymentStatus AS TARGET
 USING @tempTable AS SOURCE ON TARGET.Id = SOURCE.Id

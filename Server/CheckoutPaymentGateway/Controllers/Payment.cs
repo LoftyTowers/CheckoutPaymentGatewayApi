@@ -43,7 +43,6 @@ namespace CheckoutPaymentGateway.Controllers
 		/// Constructor
 		/// </summary>
 		/// <param name="log"></param>
-		/// <param name="jwtOptions"></param>
 		/// <param name="mapper"></param>
 		/// <param name="paymentService"></param>
 		public PaymentController(ILogger<PaymentController> log,

@@ -44,14 +44,15 @@ namespace PaymentGatewayAPIClient.Test
 		[SetUp]
 		public void SetUp()
 		{
-			instance = new PaymentApi();
-
-
 			MockRepository = new MockRepository(MockBehavior.Strict);
-			MockLogger = MockRepository.Create<ILogger<PaymentsSetup>>(MockBehavior.Loose);
+			SetupMockLogger = MockRepository.Create<ILogger<PaymentsSetup>>(MockBehavior.Loose);
+			ApiMockLogger = MockRepository.Create<ILogger<PaymentApi>>(MockBehavior.Loose);
 			MockPaymentApi = MockRepository.Create<IPaymentApi>(MockBehavior.Loose);
 
 			MockRepository = new MockRepository(MockBehavior.Strict) { DefaultValue = DefaultValue.Empty };
+
+
+			instance = new PaymentApi(ApiMockLogger.Object);
 		}
 
 		/// <summary>
@@ -87,13 +88,14 @@ namespace PaymentGatewayAPIClient.Test
 		/// <summary>
 		/// Test CheckoutpaymentgatewayGetpaymentGet
 		/// </summary>
-		//[Ignore("Needs PaymentId from the payment table in the API database")]
+		[Ignore("Needs PaymentId from the payment table in the API database")]
 		[Test, Category("GetPaymentTests")]
 		public void CheckoutpaymentgatewayGetpaymentGetTest()
 		{
 			//TODO: after a payment has been created get the ID from the db and insert it below, then coment out the ignore attribute.
 			//NOTE: Please return to this state when development is done so others do not get false negative tests.
-			Guid? body = new Guid("B6ACBE15-72E1-4D88-A989-34ED994372E5");
+			//Guid? body = new Guid("");
+			Guid? body = null;
 			var response = instance.CheckoutpaymentgatewayGetpaymentGet(body);
 			Assert.IsInstanceOf<CheckoutPaymentGatewayModelsPaymentResponse>(response, "response is CheckoutPaymentGatewayModelsPaymentResponse");
 			Assert.IsNotNull(response);
@@ -111,7 +113,7 @@ namespace PaymentGatewayAPIClient.Test
 		[Test, Category("SendPaymentTests")]
 		public void CheckoutpaymentgatewayPaymentrequestPostTest()
 		{
-			var genPayment = new PaymentsSetup(MockLogger.Object, MockPaymentApi.Object);
+			var genPayment = new PaymentsSetup(SetupMockLogger.Object, MockPaymentApi.Object);
 
 			var response = instance.CheckoutpaymentgatewayPaymentrequestPost(genPayment.GeneratePayment(5425233430109903));
 			Assert.IsInstanceOf<CheckoutPaymentGatewayModelsPaymentResponse>(response, "response is CheckoutPaymentGatewayModelsPaymentResponse");
@@ -133,7 +135,8 @@ namespace PaymentGatewayAPIClient.Test
 
 		private MockRepository MockRepository { get; set; }
 
-		private Mock<ILogger<PaymentsSetup>> MockLogger { get; set; }
+		private Mock<ILogger<PaymentsSetup>> SetupMockLogger { get; set; }
+		private Mock<ILogger<PaymentApi>> ApiMockLogger { get; set; }
 		private Mock<IPaymentApi> MockPaymentApi { get; set; }
 
 		#endregion

@@ -15,6 +15,7 @@ using RestSharp;
 using PaymentGatewayAPIClient.Client;
 using PaymentGatewayAPIClient.Model;
 using PaymentGatewayAPIClient.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace PaymentGatewayAPIClient.Api
 {
@@ -29,8 +30,10 @@ namespace PaymentGatewayAPIClient.Api
 		/// Initializes a new instance of the <see cref="PaymentApi"/> class.
 		/// </summary>
 		/// <returns></returns>
-		public PaymentApi(String basePath)
+		public PaymentApi(ILogger<PaymentApi> log, String basePath)
 		{
+			Log = log;
+
 			this.Configuration = new PaymentGatewayAPIClient.Client.Configuration { BasePath = basePath };
 
 			ExceptionFactory = PaymentGatewayAPIClient.Client.Configuration.DefaultExceptionFactory;
@@ -40,8 +43,11 @@ namespace PaymentGatewayAPIClient.Api
 		/// Initializes a new instance of the <see cref="PaymentApi"/> class
 		/// </summary>
 		/// <returns></returns>
-		public PaymentApi()
+		public PaymentApi(ILogger<PaymentApi> log)
 		{
+			Log = log;
+
+
 			this.Configuration = PaymentGatewayAPIClient.Client.Configuration.Default;
 
 			ExceptionFactory = PaymentGatewayAPIClient.Client.Configuration.DefaultExceptionFactory;
@@ -53,8 +59,11 @@ namespace PaymentGatewayAPIClient.Api
 		/// </summary>
 		/// <param name="configuration">An instance of Configuration</param>
 		/// <returns></returns>
-		public PaymentApi(PaymentGatewayAPIClient.Client.Configuration configuration = null)
+		public PaymentApi(ILogger<PaymentApi> log, PaymentGatewayAPIClient.Client.Configuration configuration = null)
 		{
+			Log = log;
+
+
 			if (configuration == null) // use the default one in Configuration
 				this.Configuration = PaymentGatewayAPIClient.Client.Configuration.Default;
 			else
@@ -71,6 +80,8 @@ namespace PaymentGatewayAPIClient.Api
 		{
 			return this.Configuration.ApiClient.RestClient.BaseUrl.ToString();
 		}
+
+		private ILogger<PaymentApi> Log { get; }
 
 		/// <summary>
 		/// Gets or sets the configuration object
@@ -158,7 +169,11 @@ namespace PaymentGatewayAPIClient.Api
 			if (ExceptionFactory != null)
 			{
 				Exception exception = ExceptionFactory("CheckoutpaymentgatewayEchoGet", localVarResponse);
-				if (exception != null) throw exception;
+				if (exception != null)
+				{
+					Log.LogError(exception, "An Exception occured in the PaymentApi Server.");
+					//throw exception;
+				}
 			}
 
 			return new ApiResponse<string>(localVarStatusCode,
@@ -215,6 +230,12 @@ namespace PaymentGatewayAPIClient.Api
 
 			if (echo != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "echo", echo)); // query parameter
 
+			// authentication (Bearer) required
+			if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+			{
+				localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+			}
+
 			// make the HTTP request
 			IRestResponse localVarResponse = (IRestResponse)await this.Configuration.ApiClient.CallApiAsync(localVarPath,
 					Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -225,7 +246,11 @@ namespace PaymentGatewayAPIClient.Api
 			if (ExceptionFactory != null)
 			{
 				Exception exception = ExceptionFactory("CheckoutpaymentgatewayEchoGet", localVarResponse);
-				if (exception != null) throw exception;
+				if (exception != null)
+				{
+					Log.LogError(exception, "An Exception occured in the PaymentApi Server.");
+					//throw exception;
+				}
 			}
 
 			return new ApiResponse<string>(localVarStatusCode,
@@ -281,6 +306,12 @@ namespace PaymentGatewayAPIClient.Api
 
 			if (body != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "body", body)); // query parameter
 
+			// authentication (Bearer) required
+			if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+			{
+				localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+			}
+
 			// make the HTTP request
 			IRestResponse localVarResponse = (IRestResponse)this.Configuration.ApiClient.CallApi(localVarPath,
 					Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -291,7 +322,11 @@ namespace PaymentGatewayAPIClient.Api
 			if (ExceptionFactory != null)
 			{
 				Exception exception = ExceptionFactory("CheckoutpaymentgatewayGetpaymentGet", localVarResponse);
-				if (exception != null) throw exception;
+				if (exception != null)
+				{
+					Log.LogError(exception, "An Exception occured in the PaymentApi Server.");
+					//throw exception;
+				}
 			}
 
 			return new ApiResponse<CheckoutPaymentGatewayModelsPaymentResponse>(localVarStatusCode,
@@ -358,7 +393,11 @@ namespace PaymentGatewayAPIClient.Api
 			if (ExceptionFactory != null)
 			{
 				Exception exception = ExceptionFactory("CheckoutpaymentgatewayGetpaymentGet", localVarResponse);
-				if (exception != null) throw exception;
+				if (exception != null)
+				{
+					Log.LogError(exception, "An Exception occured in the PaymentApi Server.");
+					//throw exception;
+				}
 			}
 
 			return new ApiResponse<CheckoutPaymentGatewayModelsPaymentResponse>(localVarStatusCode,
@@ -419,6 +458,12 @@ namespace PaymentGatewayAPIClient.Api
 			if (localVarHttpHeaderAccept != null)
 				localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+			// authentication (Bearer) required
+			if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+			{
+				localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+			}
+
 			if (body != null && body.GetType() != typeof(byte[]))
 			{
 				localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
@@ -438,7 +483,11 @@ namespace PaymentGatewayAPIClient.Api
 			if (ExceptionFactory != null)
 			{
 				Exception exception = ExceptionFactory("CheckoutpaymentgatewayPaymentrequestPost", localVarResponse);
-				if (exception != null) throw exception;
+				if (exception != null)
+				{
+					Log.LogError(exception, "An Exception occured in the PaymentApi Server.");
+					//throw exception;
+				}
 			}
 
 			return new ApiResponse<CheckoutPaymentGatewayModelsPaymentResponse>(localVarStatusCode,
@@ -519,7 +568,11 @@ namespace PaymentGatewayAPIClient.Api
 			if (ExceptionFactory != null)
 			{
 				Exception exception = ExceptionFactory("CheckoutpaymentgatewayPaymentrequestPost", localVarResponse);
-				if (exception != null) throw exception;
+				if (exception != null)
+				{
+					Log.LogError(exception, "An Exception occured in the PaymentApi Server.");
+					//throw exception;
+				}
 			}
 
 			return new ApiResponse<CheckoutPaymentGatewayModelsPaymentResponse>(localVarStatusCode,

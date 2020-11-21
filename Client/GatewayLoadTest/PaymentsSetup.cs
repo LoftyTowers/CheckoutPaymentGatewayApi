@@ -31,7 +31,7 @@ namespace GatewayLoadTest
 		public CheckoutPaymentGatewayModelsPaymentRequest GeneratePayment(long cardNumber = 0)
 		{
 			Random random = new Random();
-			var user = new UserData(random.Next(0, 9));
+			var user = new UserData(random.Next(0, 9), random.Next(0, 100));
 			return new CheckoutPaymentGatewayModelsPaymentRequest(
 					 Guid.NewGuid(), // Id
 					 "GDP",// CurrencyCode
