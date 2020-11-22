@@ -23,6 +23,7 @@ namespace CheckoutPaymentGateway
 			Log.Logger = new LoggerConfiguration()
 						 .Enrich.FromLogContext()
 						 .WriteTo.Console()
+						 .WriteTo.Elasticsearch()
 						 .MinimumLevel.Debug()
 						 .CreateLogger();
 			try
