@@ -4,7 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <StartupObject>CheckoutPaymentGateway.Program</StartupObject>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+
+    <UserSecretsId>b6b15d26-de64-4807-b91e-51b46e68189b</UserSecretsId>
   </PropertyGroup>
+  
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>G:\Programming\CheckoutGatewayTest\CheckoutPaymentGateway\CheckoutPaymentGateway\CheckoutPaymentGateway.xml</DocumentationFile>
@@ -31,6 +35,7 @@
     <PackageReference Include="Serilog.Extensions.Autofac.DependencyInjection" Version="2.1.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
@@ -43,6 +48,15 @@
   <ItemGroup>
     <ProjectReference Include="..\PaymentGatewayService\PaymentGatewayService.csproj" />
     <ProjectReference Include="..\Repositories\Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CheckoutPaymentGateway.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="prometheus.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 

@@ -1,59 +1,38 @@
-#FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+##See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+#
+#FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 #WORKDIR /app
+#EXPOSE 80
 #
-##ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
+#FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+#WORKDIR /src
+#COPY ["CheckoutPaymentGateway/CheckoutPaymentGateway.csproj", "CheckoutPaymentGateway/"]
+#COPY ["PaymentGatewayService/PaymentGatewayService.csproj", "PaymentGatewayService/"]
+#COPY ["Common/Common.csproj", "Common/"]
+#COPY ["Repositories/Repositories.csproj", "Repositories/"]
+#RUN dotnet restore "CheckoutPaymentGateway/CheckoutPaymentGateway.csproj"
+#COPY . .
+#WORKDIR "/src/CheckoutPaymentGateway"
+#RUN dotnet build "CheckoutPaymentGateway.csproj" -c Release -o /app/build
 #
-## copy csproj and restore as distinct layers
-#COPY *.csproj ./
-#RUN dotnet restore
+#FROM build AS publish
+#RUN dotnet publish "CheckoutPaymentGateway.csproj" -c Release -o /app/publish
 #
-## copy everything else and build
-#COPY . ./
-#RUN dotnet publish -c Release -o out
-#
-## build runtime image
-#FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+#FROM base AS final
 #WORKDIR /app
-#COPY --from=build-env /app/out .
-#
+#COPY --from=publish /app/publish .
 #ENTRYPOINT ["dotnet", "CheckoutPaymentGateway.dll"]
-
-
 #
-#FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
-#WORKDIR /app
- #
-##ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
- #
-## copy csproj and restore as distinct layers
-#COPY *.csproj ./
-##RUN dotnet restore
- #
-## copy everything else and build
-#COPY . ./
-#RUN dotnet publish CheckoutPaymentGateway -c Release -o out
- #
-## build runtime image
-#FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
-#WORKDIR /app
-#COPY --from=build-env /app/CheckoutPaymentGateway/out .
- #
-#ENTRYPOINT ["dotnet", "CheckoutPaymentGateway.dll"]
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
+EXPOSE 443
 
-# copy csproj and restore as distinct layers
-COPY *.sln .
-COPY *.csproj ./CheckoutPaymentGateway/
-#RUN dotnet restore
+COPY . ./
+RUN dotnet publish CheckoutPaymentGateway -c Release -o out
 
-# copy everything else and build app
-COPY . ./CheckoutPaymentGateway/
-WORKDIR /app/CheckoutPaymentGateway
-RUN dotnet publish -c Release -o out
-
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
-COPY --from=build /app/CheckoutPaymentGateway/out ./
-ENTRYPOINT ["dotnet", "CheckoutPaymentGateway.dll"]
+COPY --from=build-env /app/out .
+
+ENTRYPOINT ["dotnet", "CheckoutPaymentGateway.dll", "--environment=Development"]

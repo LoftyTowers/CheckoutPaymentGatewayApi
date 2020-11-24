@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  checkoutpaymentgateway:
+    image: ${DOCKER_REGISTRY-}checkoutpaymentgateway
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=443
+    ports:
+      - "6000:80"
+      - "6001:443"
+    build:
+      context: .
+      dockerfile: CheckoutPaymentGateway/Dockerfile
+    networks:
+      - checkoutpaymentgateway
+
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command: "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      - checkoutpaymentgateway
+
+  grafana: 
+    image: grafana/grafana
+    #command:
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=P@ssw0rd
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - checkoutpaymentgateway
+
+### put all the networks here
+networks:
+  checkoutpaymentgateway:

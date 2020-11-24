@@ -289,8 +289,6 @@ namespace CheckoutPaymentGateway
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment Gateway API");
 			});
 
-
-			//TODO Fix metric
 			// Custom Metrics to count requests for each endpoint and the method
 			var counter = Metrics.CreateCounter("paymentgatewayapi_counter", "Counts requests to the Payment Gateway API endpoints", new CounterConfiguration
 			{
@@ -301,7 +299,7 @@ namespace CheckoutPaymentGateway
 				counter.WithLabels(context.Request.Method, context.Request.Path).Inc();
 				return next();
 			});
-			// Use the Prometheus middleware
+			//Use the Prometheus middleware
 			app.UseMetricServer();
 			app.UseHttpMetrics();
 
