@@ -22,9 +22,9 @@ scrape_configs:
         #ca_file_path: "/etc/etcd/etcd-client-ca.crt"
         #cert_file_path: "/etc/etcd/etcd-client.crt"
         #key_file_path: "/etc/etcd/etcd-client.key"
-      tls_config:
-        ca_file_path: "/etc/etcd/etcd-client-ca.crt"
-        cert_file_path: "/etc/etcd/etcd-client.crt"
-        key_file_path: "/etc/etcd/etcd-client.key"
+      #tls_config:
+        #ca_file_path: "/etc/etcd/etcd-client-ca.crt"
+        #cert_file_path: "/etc/etcd/etcd-client.crt"
+        # key_file_path: "/etc/etcd/etcd-client.key"
     #bearer_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJQZXRlciI6IlB1bXB5IiwiZXhwIjoxNjk4NTc3NTI0LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo2MDAxIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMSJ9.8_qyzWbfrw8CfAymD7gaZJk2bw83zNc_PxkC_7-8qUE
 

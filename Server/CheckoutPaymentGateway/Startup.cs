@@ -68,7 +68,7 @@ namespace CheckoutPaymentGateway
 			_hostingEnv = env;
 			Configuration = configuration;
 
-			// In ASP.NET Core 3.0 `env` will be an IWebHostEnvironment, not IHostingEnvironment.
+			// In ASP.NET 5 `env` will be an IWebHostEnvironment, not IHostingEnvironment.
 			var builder = new ConfigurationBuilder()
 					.SetBasePath(env.ContentRootPath)
 					.AddJsonFile((ConfigurationFilename + "." + ConfigurationFilename), optional: true, reloadOnChange: true)

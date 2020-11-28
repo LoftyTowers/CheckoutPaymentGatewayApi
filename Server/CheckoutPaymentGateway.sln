@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGatewayServiceTests", "PaymentGatewayServiceTests\PaymentGatewayServiceTests.csproj", "{D3BD2298-57E7-4C81-946E-8FEDF84EB86F}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PaymentsDb", "PaymentsDb\PaymentsDb.sqlproj", "{06498B0B-CB19-4F2F-9FA9-290F030BA391}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{30C0E6C9-AD5A-4A0D-9E69-D9CF101C9CA5}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B8F6E45A-0207-4DE6-85D2-79C37031E460}"
@@ -45,12 +43,6 @@ Global
 		{D3BD2298-57E7-4C81-946E-8FEDF84EB86F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3BD2298-57E7-4C81-946E-8FEDF84EB86F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3BD2298-57E7-4C81-946E-8FEDF84EB86F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06498B0B-CB19-4F2F-9FA9-290F030BA391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06498B0B-CB19-4F2F-9FA9-290F030BA391}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06498B0B-CB19-4F2F-9FA9-290F030BA391}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{06498B0B-CB19-4F2F-9FA9-290F030BA391}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06498B0B-CB19-4F2F-9FA9-290F030BA391}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06498B0B-CB19-4F2F-9FA9-290F030BA391}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{30C0E6C9-AD5A-4A0D-9E69-D9CF101C9CA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30C0E6C9-AD5A-4A0D-9E69-D9CF101C9CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30C0E6C9-AD5A-4A0D-9E69-D9CF101C9CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
