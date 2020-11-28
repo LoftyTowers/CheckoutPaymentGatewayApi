@@ -11,7 +11,6 @@ namespace Repositories.PaymentsDb.DbContexts
 	{
 		public PaymentsDbContext(DbContextOptions<PaymentsDbContext> options) : base(options)
 		{
-
 		}
 
 		public DbSet<User> Users { get; set; }
