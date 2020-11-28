@@ -109,8 +109,7 @@ namespace CheckoutPaymentGateway
 			swaggerOptionsRaw.Bind(swaggerOptions);
 
 			services.AddDbContext<PaymentsDbContext>(options =>
-				options.UseSqlServer(
-					Configuration.GetConnectionString(PaymentDatabaseName)));
+				options.UseSqlServer(Configuration.GetConnectionString(PaymentDatabaseName)));
 
 			services.AddAuthentication(options =>
 			{
@@ -290,7 +289,7 @@ namespace CheckoutPaymentGateway
 			});
 
 			// Custom Metrics to count requests for each endpoint and the method
-			var counter = Metrics.CreateCounter("paymentgatewayapi_counter", "Counts requests to the Payment Gateway API endpoints", new CounterConfiguration
+			var counter = Metrics.CreateCounter("checkoutpaymentgateway_counter", "Counts requests to the Payment Gateway API endpoints", new CounterConfiguration
 			{
 				LabelNames = new[] { "method", "endpoint" }
 			});
