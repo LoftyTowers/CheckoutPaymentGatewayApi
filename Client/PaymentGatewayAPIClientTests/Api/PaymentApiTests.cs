@@ -95,7 +95,7 @@ namespace PaymentGatewayAPIClient.Test
 			//TODO: after a payment has been created get the ID from the db and insert it below, then coment out the ignore attribute.
 			//NOTE: Please return to this state when development is done so others do not get false negative tests.
 			//Guid? body = new Guid("");
-			Guid? body = null;
+			Guid? body = Guid.NewGuid();
 			var response = instance.CheckoutpaymentgatewayGetpaymentGet(body);
 			Assert.IsInstanceOf<CheckoutPaymentGatewayModelsPaymentResponse>(response, "response is CheckoutPaymentGatewayModelsPaymentResponse");
 			Assert.IsNotNull(response);

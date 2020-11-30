@@ -25,8 +25,8 @@ namespace PaymentGatewayService.Services
 		public PaymentService(ILogger<PaymentService> log, IPaymentRepo paymentRepo, IIndex<string, IBankEndpoint> bankApi)
 		{
 			Log = log;
-			BankApi = bankApi;
 			PaymentRepo = paymentRepo;
+			BankApi = bankApi;
 		}
 
 		/// <summary>

@@ -111,6 +111,12 @@ namespace Repositories.PaymentsDb.Repos
 			{
 				try
 				{
+					var defaultResponse = new Common.Models.Payment
+					{
+						PaymentId = paymentId,
+						Status = PaymentStatus.RequestDoesNotExist,
+						Message = $"The payment: {paymentId} does not exist"
+					};
 					var payment = (from p in context.Payments
 												 join u in context.Users on p.UserId equals u.Id
 												 where p.Id == paymentId
@@ -128,11 +134,13 @@ namespace Repositories.PaymentsDb.Repos
 													 Status = p.PaymentStatusId
 												 }).FirstOrDefault();
 
+					if (payment == null)
+						payment = defaultResponse;
+
 					return payment;
 				}
 				catch (Exception ex)
 				{
-					//TODO error logging
 					Log.LogError(ex, $"Failed to get payment information {paymentId}");
 					return new Payment
 					{

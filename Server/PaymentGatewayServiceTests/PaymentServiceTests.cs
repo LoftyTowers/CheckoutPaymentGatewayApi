@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Autofac.Features.Indexed;
 using Autofac;
 using PaymentGatewayService.BankEndpoints;
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PaymentGatewayServiceTests
 {
@@ -24,18 +26,14 @@ namespace PaymentGatewayServiceTests
 		[SetUp]
 		public void SetUp()
 		{
-			var builder = new ContainerBuilder();
+			var MockRepository = new MockRepository(MockBehavior.Strict);
 
-			builder.RegisterType<TestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>("TestBank");
-			builder.RegisterType<AlternateTestBankEndpoint>().AsImplementedInterfaces().Keyed<IBankEndpoint>("AlternateBank");
+			var MockLogger = MockRepository.Create<ILogger<PaymentService>>(MockBehavior.Loose);
+			var MockPaymentRepo = MockRepository.Create<IPaymentRepo>(MockBehavior.Loose);
 
-			builder.Build();
+			var MockTestBankEndpoint = MockRepository.Create<IBankEndpoint>();
 
-			MockRepository = new MockRepository(MockBehavior.Strict);
-
-			MockLogger = MockRepository.Create<ILogger<PaymentService>>(MockBehavior.Loose);
-			MockBankEndpoint = MockRepository.Create<IIndex<string, IBankEndpoint>>();
-			MockPaymentRepo = MockRepository.Create<IPaymentRepo>(MockBehavior.Loose);
+			var test = new Dictionary<string, IBankEndpoint>();
 
 
 			#region MockPaymentRepo
@@ -71,89 +69,92 @@ namespace PaymentGatewayServiceTests
 
 			#region MockBankEndpoint
 
-			//MockBankEndpoint.Setup(m => m.SendPayment(
-			//	It.Is<Payment>(payment => payment.CardNumber == 374245455400126)))
-			//	.Returns<Payment>(payment => payment = new Payment
-			//	{
-			//		Status = PaymentStatus.InsuffucentFunds,
-			//		IsSuccessful = false,
-			//		Message = "Card Declined: Insuffucent Funds"
-			//	});
-			//MockBankEndpoint.Setup(m => m.SendPayment(
-			//	It.Is<Payment>(payment => payment.CardNumber == 378282246310005)))
-			//	.Returns<Payment>(payment => payment = new Payment
-			//	{
-			//		Status = PaymentStatus.CardNotActivated,
-			//		IsSuccessful = false,
-			//		Message = "Card Declined: Card Not Activated"
-			//	});
-			//MockBankEndpoint.Setup(m => m.SendPayment(
-			//	It.Is<Payment>(payment => payment.CardNumber == 6250941006528599)))
-			//	.Returns<Payment>(payment => payment = new Payment
-			//	{
-			//		Status = PaymentStatus.StolenCancelled,
-			//		IsSuccessful = false,
-			//		Message = "Card Declined: Stolen/Cancelled"
-			//	});
-			//MockBankEndpoint.Setup(m => m.SendPayment(
-			//	It.Is<Payment>(payment => payment.CardNumber == 60115564485789458)))
-			//	.Returns<Payment>(payment => payment = new Payment
-			//	{
-			//		Status = PaymentStatus.InvalidCardCredentials,
-			//		IsSuccessful = false,
-			//		Message = "Card Declined: Invalid Card Credentials"
-			//	});
-			//MockBankEndpoint.Setup(m => m.SendPayment(
-			//	It.Is<Payment>(payment => payment.CardNumber == 6011000991300009)))
-			//	.Returns<Payment>(payment => payment = new Payment
-			//	{
-			//		Status = PaymentStatus.CardExpired,
-			//		IsSuccessful = false,
-			//		Message = "Card Declined: Card Expired"
-			//	});
-			//MockBankEndpoint.Setup(m => m.SendPayment(
-			//	It.Is<Payment>(payment => payment.CardNumber == 3566000020000410)))
-			//	.Returns<Payment>(payment => payment = new Payment
-			//	{
-			//		Status = PaymentStatus.Error,
-			//		IsSuccessful = false,
-			//		Message = "Internal Error: Please try again later or contact support."
-			//	});
-			//MockBankEndpoint.Setup(m => m.SendPayment(
-			//	It.Is<Payment>(payment => payment.CardNumber == 5425233430109903)))
-			//	.Returns<Payment>(payment => payment = new Payment
-			//	{
-			//		Status = PaymentStatus.RequestSucceded,
-			//		IsSuccessful = true,
-			//		Message = string.Empty
-			//	});
+			MockTestBankEndpoint.Setup(m => m.SendPayment(
+				It.Is<Payment>(payment => payment.CardNumber == 374245455400126)))
+				.Returns<Payment>(payment => payment = new Payment
+				{
+					Status = PaymentStatus.InsuffucentFunds,
+					IsSuccessful = false,
+					Message = "Card Declined: Insuffucent Funds"
+				});
+			MockTestBankEndpoint.Setup(m => m.SendPayment(
+				It.Is<Payment>(payment => payment.CardNumber == 378282246310005)))
+				.Returns<Payment>(payment => payment = new Payment
+				{
+					Status = PaymentStatus.CardNotActivated,
+					IsSuccessful = false,
+					Message = "Card Declined: Card Not Activated"
+				});
+			MockTestBankEndpoint.Setup(m => m.SendPayment(
+				It.Is<Payment>(payment => payment.CardNumber == 6250941006528599)))
+				.Returns<Payment>(payment => payment = new Payment
+				{
+					Status = PaymentStatus.StolenCancelled,
+					IsSuccessful = false,
+					Message = "Card Declined: Stolen/Cancelled"
+				});
+			MockTestBankEndpoint.Setup(m => m.SendPayment(
+				It.Is<Payment>(payment => payment.CardNumber == 60115564485789458)))
+				.Returns<Payment>(payment => payment = new Payment
+				{
+					Status = PaymentStatus.InvalidCardCredentials,
+					IsSuccessful = false,
+					Message = "Card Declined: Invalid Card Credentials"
+				});
+			MockTestBankEndpoint.Setup(m => m.SendPayment(
+				It.Is<Payment>(payment => payment.CardNumber == 6011000991300009)))
+				.Returns<Payment>(payment => payment = new Payment
+				{
+					Status = PaymentStatus.CardExpired,
+					IsSuccessful = false,
+					Message = "Card Declined: Card Expired"
+				});
+			MockTestBankEndpoint.Setup(m => m.SendPayment(
+				It.Is<Payment>(payment => payment.CardNumber == 3566000020000410)))
+				.Returns<Payment>(payment => payment = new Payment
+				{
+					Status = PaymentStatus.Error,
+					IsSuccessful = false,
+					Message = "Internal Error: Please try again later or contact support."
+				});
+			MockTestBankEndpoint.Setup(m => m.SendPayment(
+				It.Is<Payment>(payment => payment.CardNumber == 5425233430109903)))
+				.Returns<Payment>(payment => payment = new Payment
+				{
+					Status = PaymentStatus.RequestSucceded,
+					IsSuccessful = true,
+					Message = string.Empty
+				});
 
 			#endregion
 
-			///////////////////////////////////
-			///////////////////////////////////
-			///////////////////////////////////
-			///////////////////////////////////
 			MockRepository = new MockRepository(MockBehavior.Strict) { DefaultValue = DefaultValue.Empty };
-		}
 
-		private PaymentService CreateService()
-		{
-			return new PaymentService(
-					MockLogger.Object,
-					MockPaymentRepo.Object,
-					MockBankEndpoint.Object);
+
+			///////////////////////////////////
+			///////////////////////////////////
+			///////////////////////////////////
+			///////////////////////////////////
+			var builder = new ContainerBuilder();
+
+			builder.RegisterInstance(MockTestBankEndpoint.Object).AsImplementedInterfaces().Keyed<IBankEndpoint>("TestBank");
+			builder.RegisterInstance(MockLogger.Object).AsImplementedInterfaces();
+			builder.RegisterInstance(MockPaymentRepo.Object).AsImplementedInterfaces();
+			builder.RegisterType<PaymentService>().AsImplementedInterfaces();
+
+			Container = builder.Build();
+
+			Service = Container.Resolve<IPaymentService>();
 		}
 
 		#endregion
 
 		#region StorePaymentTests
 
-		[Test]
+		[Test, Category("Service Store Payment Tests")]
 		public void ProcessPayment_PaymentSentToBank_PaymentSuccess()
 		{
 			// Arrange
-			var service = this.CreateService();
 			var paymentRequest = new Payment
 			{
 				Amount = 10,
@@ -184,21 +185,20 @@ namespace PaymentGatewayServiceTests
 			};
 
 			// Act
-			var paymentResponse = service.ProcessPayment(
+			var paymentResponse = Service.ProcessPayment(
 				paymentRequest);
 
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsTrue(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.RequestSucceded, paymentResponse.Status);
-			MockRepository.VerifyAll();
+			
 		}
 
-		[Test]
+		[Test, Category("Service Store Payment Tests")]
 		public void ProcessPayment_PaymentSentToBank_InsufficantFunds()
 		{
 			// Arrange
-			var service = this.CreateService();
 			var paymentRequest = new Payment
 			{
 				Amount = 10,
@@ -229,7 +229,7 @@ namespace PaymentGatewayServiceTests
 			};
 
 			// Act
-			var paymentResponse = service.ProcessPayment(
+			var paymentResponse = Service.ProcessPayment(
 				paymentRequest);
 
 			// Assert
@@ -237,14 +237,13 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.InsuffucentFunds, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Insuffucent Funds", paymentResponse.Message);
-			MockRepository.VerifyAll();
+			
 		}
 
-		[Test]
+		[Test, Category("Service Store Payment Tests")]
 		public void ProcessPayment_PaymentSentToBank_CardNotActive()
 		{
 			// Arrange
-			var service = this.CreateService();
 			var paymentRequest = new Payment
 			{
 				Amount = 10,
@@ -275,7 +274,7 @@ namespace PaymentGatewayServiceTests
 			};
 
 			// Act
-			var paymentResponse = service.ProcessPayment(
+			var paymentResponse = Service.ProcessPayment(
 				paymentRequest);
 
 			// Assert
@@ -283,14 +282,13 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.CardNotActivated, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Card Not Activated", paymentResponse.Message);
-			MockRepository.VerifyAll();
+			
 		}
 
-		[Test]
+		[Test, Category("Service Store Payment Tests")]
 		public void ProcessPayment_PaymentSentToBank_CardStolenCancelled()
 		{
 			// Arrange
-			var service = this.CreateService();
 			var paymentRequest = new Payment
 			{
 				Amount = 10,
@@ -321,7 +319,7 @@ namespace PaymentGatewayServiceTests
 			};
 
 			// Act
-			var paymentResponse = service.ProcessPayment(
+			var paymentResponse = Service.ProcessPayment(
 				paymentRequest);
 
 			// Assert
@@ -329,14 +327,13 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.StolenCancelled, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Stolen/Cancelled", paymentResponse.Message);
-			MockRepository.VerifyAll();
+			
 		}
 
-		[Test]
+		[Test, Category("Service Store Payment Tests")]
 		public void ProcessPayment_PaymentSentToBank_InvalidCardCredentials()
 		{
 			// Arrange
-			var service = this.CreateService();
 			var paymentRequest = new Payment
 			{
 				Amount = 10,
@@ -367,7 +364,7 @@ namespace PaymentGatewayServiceTests
 			};
 
 			// Act
-			var paymentResponse = service.ProcessPayment(
+			var paymentResponse = Service.ProcessPayment(
 				paymentRequest);
 
 			// Assert
@@ -375,14 +372,13 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.InvalidCardCredentials, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Invalid Card Credentials", paymentResponse.Message);
-			MockRepository.VerifyAll();
+			
 		}
 
-		[Test]
+		[Test, Category("Service Store Payment Tests")]
 		public void ProcessPayment_PaymentSentToBank_CardExpired()
 		{
 			// Arrange
-			var service = this.CreateService();
 			var paymentRequest = new Payment
 			{
 				Amount = 10,
@@ -413,7 +409,7 @@ namespace PaymentGatewayServiceTests
 			};
 
 			// Act
-			var paymentResponse = service.ProcessPayment(
+			var paymentResponse = Service.ProcessPayment(
 				paymentRequest);
 
 			// Assert
@@ -421,14 +417,13 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.CardExpired, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Card Expired", paymentResponse.Message);
-			MockRepository.VerifyAll();
+			
 		}
 
-		[Test]
+		[Test, Category("Service Store Payment Tests")]
 		public void ProcessPayment_PaymentSentToBank_PaymentError()
 		{
 			// Arrange
-			var service = this.CreateService();
 			var paymentRequest = new Payment
 			{
 				Amount = 10,
@@ -459,7 +454,7 @@ namespace PaymentGatewayServiceTests
 			};
 
 			// Act
-			var paymentResponse = service.ProcessPayment(
+			var paymentResponse = Service.ProcessPayment(
 				paymentRequest);
 
 			// Assert
@@ -467,47 +462,45 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.Error, paymentResponse.Status);
 			Assert.AreEqual("Internal Error: Please try again later or contact support.", paymentResponse.Message);
-			MockRepository.VerifyAll();
+			
 		}
 
 		#endregion
 
-		#region StorePaymentTests
+		#region GetPaymentTests
 
-		[Test]
+		[Test, Category("Service Get Payment Tests")]
 		public void GetPayment_FindPaymentFromId_PaymentFound()
 		{
 			// Arrange
-			var service = this.CreateService();
 			var paymentId = Guid.Parse("e4196f31-3019-456d-96d7-af6d6cc84be7");
 
 			// Act
-			var paymentResponse = service.GetPayment(
+			var paymentResponse = Service.GetPayment(
 				paymentId);
 
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsTrue(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.RequestSucceded, paymentResponse.Status);
-			MockRepository.VerifyAll();
+			
 		}
 
-		[Test]
+		[Test, Category("Service Get Payment Tests")]
 		public void GetPayment_FindPaymentFromId_PaymentNotFound()
 		{
 			// Arrange
-			var service = this.CreateService();
 			var paymentId = Guid.Parse("21e91399-40f7-41a4-992f-429effe7a1b8");
 
 			// Act
-			var paymentResponse = service.GetPayment(
+			var paymentResponse = Service.GetPayment(
 				paymentId);
 
 			// Assert
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.Error, paymentResponse.Status);
-			MockRepository.VerifyAll();
+			
 		}
 
 		#endregion
@@ -516,10 +509,12 @@ namespace PaymentGatewayServiceTests
 
 		private MockRepository MockRepository { get; set; }
 
+		private static IContainer Container { get; set; }
+
+		private IPaymentService Service { get; set; }
+
 		private Mock<ILogger<PaymentService>> MockLogger { get; set; }
-		private Mock<IIndex<string, IBankEndpoint>> MockBankEndpoint { get; set; }
-		private Mock<IBankEndpoint> MockTestBankEndpoint { get; set; }
-		private Mock<IBankEndpoint> MockAlternateBankEndpoint { get; set; }
+		private Mock<IBankEndpoint> MockBankEndpoint { get; set; }
 		private Mock<IPaymentRepo> MockPaymentRepo { get; set; }
 
 		#endregion
