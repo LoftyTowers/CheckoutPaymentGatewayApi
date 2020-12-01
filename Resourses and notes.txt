@@ -1,0 +1,42 @@
+
+//Docker certificate issues
+https://tomssl.com/how-to-run-asp-net-core-3-1-over-https-in-docker-using-linux-containers/
+
+//Validate mniddle layer pocos
+http://learnwitherik.com/post/poco-validation
+
+//Metrics
+https://medium.com/@dale.bingham_30375/net-core-web-api-metrics-with-prometheus-and-grafana-fe84a52d9843
+
+https://apifriends.com/api-management/api-metrics/
+
+//Sql Containers
+https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-powershell
+
+//docker commandline 
+https://docs.docker.com/engine/reference/commandline/docker/
+
+//deploy docker
+cd G:\Programming\CheckoutPaymentGatewayApi\Server
+docker build -f Dockerfile -t checkoutpaymentgateway ..
+docker images | more 
+
+docker-compose up 
+
+
+
+bearer token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJQZXRlciI6IlB1bXB5IiwiZXhwIjoxNjk4NTc3NTI0LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo2MDAxIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMSJ9.8_qyzWbfrw8CfAymD7gaZJk2bw83zNc_PxkC_7-8qUE
+
+
+//Test Prom
+cd G:\Programming\dotnet-core-prometheus-grafana 
+cd peopleapi 
+docker build -f Dockerfile -t peopleapi . 
+cd ../locationsapi 
+docker build -f Dockerfile -t locationsapi . 
+cd .. 
+docker images | more 
+
+docker-compose up 
+
+telnet host port
