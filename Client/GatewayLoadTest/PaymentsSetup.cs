@@ -4,6 +4,7 @@ using PaymentGatewayAPIClient.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Json;
 using System.Text;
 
 namespace GatewayLoadTest
@@ -82,7 +83,7 @@ namespace GatewayLoadTest
 				using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "WriteLines.txt"), true))
 				{
 					// TODO: convert to JSON instead of tostring
-					outputFile.WriteLine(errors.ToString());
+					outputFile.WriteLine(ToJsonString(errors));
 				}
 				return docPath;
 			}
@@ -92,6 +93,19 @@ namespace GatewayLoadTest
 				Log.LogError(ex, errorMessage);
 				return errorMessage;
 			}
+		}
+
+		public string ToJsonString(object value)
+		{
+			var jsonSerializer = new DataContractJsonSerializer(value.GetType());
+			var jsonResponse = string.Empty;
+			using (var stream = new MemoryStream())
+			{
+				jsonSerializer.WriteObject(stream, value);
+				jsonResponse = Encoding.Default.GetString(stream.ToArray());
+			}
+
+			return jsonResponse.Replace("'", @"\'");
 		}
 
 		#region Properties

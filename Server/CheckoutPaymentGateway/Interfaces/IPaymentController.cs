@@ -34,5 +34,12 @@ namespace CheckoutPaymentGateway.Interfaces
 		/// <remarks>Gets a payment</remarks>
 		/// <param name="body">Payment to add</param>
 		ActionResult<PaymentResponse> GetPayment([FromBody] Guid body);
+
+		/// <summary>
+		/// Reflects the string input. used to test if the service is up.
+		/// </summary>
+		/// <param name="echo"></param>
+		/// <returns></returns>
+		ActionResult<string> Echo(string echo);
 	}
 }

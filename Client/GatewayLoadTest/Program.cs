@@ -34,7 +34,6 @@ namespace GatewayLoadTest
 			var filePath = runner.StoreErrors(paymentResponses.Errors);
 
 			Log.LogInformation($"Total Payments: {totalPayments}");
-			Log.LogInformation($"Time taken to process all payments: {paymentResponses.TotalTime}");
 			Log.LogInformation($"Successfull Payments: {paymentResponses.SuccessCount}");
 			Log.LogInformation($"Failed Payments: {paymentResponses.FailedCount}");
 			Log.LogInformation($"failed payment responses file path: {filePath}");

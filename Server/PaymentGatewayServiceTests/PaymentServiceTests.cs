@@ -33,8 +33,6 @@ namespace PaymentGatewayServiceTests
 
 			var MockTestBankEndpoint = MockRepository.Create<IBankEndpoint>();
 
-			var test = new Dictionary<string, IBankEndpoint>();
-
 
 			#region MockPaymentRepo
 
@@ -192,7 +190,7 @@ namespace PaymentGatewayServiceTests
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsTrue(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.RequestSucceded, paymentResponse.Status);
-			
+
 		}
 
 		[Test, Category("Service Store Payment Tests")]
@@ -237,7 +235,7 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.InsuffucentFunds, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Insuffucent Funds", paymentResponse.Message);
-			
+
 		}
 
 		[Test, Category("Service Store Payment Tests")]
@@ -282,7 +280,7 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.CardNotActivated, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Card Not Activated", paymentResponse.Message);
-			
+
 		}
 
 		[Test, Category("Service Store Payment Tests")]
@@ -327,7 +325,7 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.StolenCancelled, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Stolen/Cancelled", paymentResponse.Message);
-			
+
 		}
 
 		[Test, Category("Service Store Payment Tests")]
@@ -372,7 +370,7 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.InvalidCardCredentials, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Invalid Card Credentials", paymentResponse.Message);
-			
+
 		}
 
 		[Test, Category("Service Store Payment Tests")]
@@ -417,7 +415,7 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.CardExpired, paymentResponse.Status);
 			Assert.AreEqual("Card Declined: Card Expired", paymentResponse.Message);
-			
+
 		}
 
 		[Test, Category("Service Store Payment Tests")]
@@ -462,7 +460,7 @@ namespace PaymentGatewayServiceTests
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.Error, paymentResponse.Status);
 			Assert.AreEqual("Internal Error: Please try again later or contact support.", paymentResponse.Message);
-			
+
 		}
 
 		#endregion
@@ -483,7 +481,7 @@ namespace PaymentGatewayServiceTests
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsTrue(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.RequestSucceded, paymentResponse.Status);
-			
+
 		}
 
 		[Test, Category("Service Get Payment Tests")]
@@ -500,7 +498,7 @@ namespace PaymentGatewayServiceTests
 			Assert.IsNotNull(paymentResponse);
 			Assert.IsFalse(paymentResponse.IsSuccessful);
 			Assert.AreEqual(PaymentStatus.Error, paymentResponse.Status);
-			
+
 		}
 
 		#endregion
