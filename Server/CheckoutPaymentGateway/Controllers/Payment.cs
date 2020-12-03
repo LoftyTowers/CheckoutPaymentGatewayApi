@@ -37,7 +37,7 @@ namespace CheckoutPaymentGateway.Controllers
 	[ApiController]
 	public class PaymentController : ControllerBase, IPaymentController
 	{
-		private const string JwtPolicy = "PeterPolicy";
+		private const string JwtPolicy = "CheckoutTestPolicy";
 
 		/// <summary>
 		/// Constructor

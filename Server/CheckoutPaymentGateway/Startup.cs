@@ -304,6 +304,8 @@ namespace CheckoutPaymentGateway
 
 			app.UseHttpsRedirection();
 
+			PrepDb.PrepPopulation(app);
+
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();

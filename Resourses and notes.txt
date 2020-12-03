@@ -1,4 +1,7 @@
 
+//JWT Token issue/Test
+https://jwt.io/
+
 //Docker certificate issues
 https://tomssl.com/how-to-run-asp-net-core-3-1-over-https-in-docker-using-linux-containers/
 
@@ -12,6 +15,8 @@ https://apifriends.com/api-management/api-metrics/
 
 //Sql Containers
 https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-powershell
+
+https://www.youtube.com/watch?v=4V7CwC_4oss
 
 //docker commandline 
 https://docs.docker.com/engine/reference/commandline/docker/
