@@ -82,7 +82,6 @@ namespace GatewayLoadTest
 				// Append text to an existing file named "WriteLines.txt".
 				using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "WriteLines.txt"), true))
 				{
-					// TODO: convert to JSON instead of tostring
 					outputFile.WriteLine(ToJsonString(errors));
 				}
 				return docPath;
