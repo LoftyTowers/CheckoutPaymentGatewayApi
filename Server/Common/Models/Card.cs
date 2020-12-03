@@ -14,7 +14,7 @@ namespace Common.Models
 		/// <summary>
 		/// The 16 digit unmber on the front of the card
 		/// </summary>
-		public long CardNumber { get; set; }
+		public string CardNumber { get; set; }
 		/// <summary>
 		/// CVC on the back of the card
 		/// </summary>

@@ -10,7 +10,7 @@ using Repositories.PaymentsDb.DbContexts;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(PaymentsDbContext))]
-    [Migration("20201202140208_InitialPaymentDbCreation")]
+    [Migration("20201203161553_InitialPaymentDbCreation")]
     partial class InitialPaymentDbCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,33 @@ namespace Repositories.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
+            modelBuilder.Entity("Repositories.PaymentsDb.Models.Card", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CVC")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cards");
+                });
+
             modelBuilder.Entity("Repositories.PaymentsDb.Models.Payment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -30,6 +57,9 @@ namespace Repositories.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("BankPaymentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CardId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CurrencyCode")
@@ -53,14 +83,11 @@ namespace Repositories.Migrations
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PaymentStatusId");
+                    b.HasIndex("CardId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PaymentStatusId");
 
                     b.ToTable("Payment");
                 });
@@ -167,19 +194,33 @@ namespace Repositories.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("Repositories.PaymentsDb.Models.Card", b =>
+                {
+                    b.HasOne("Repositories.PaymentsDb.Models.User", null)
+                        .WithMany("Cards")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Repositories.PaymentsDb.Models.Payment", b =>
                 {
+                    b.HasOne("Repositories.PaymentsDb.Models.Card", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Repositories.PaymentsDb.Models.PaymentStatus", null)
                         .WithMany("Payments")
                         .HasForeignKey("PaymentStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("Repositories.PaymentsDb.Models.User", null)
-                        .WithMany("Payments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("Repositories.PaymentsDb.Models.Card", b =>
+                {
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("Repositories.PaymentsDb.Models.PaymentStatus", b =>
@@ -189,7 +230,7 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Repositories.PaymentsDb.Models.User", b =>
                 {
-                    b.Navigation("Payments");
+                    b.Navigation("Cards");
                 });
 #pragma warning restore 612, 618
         }

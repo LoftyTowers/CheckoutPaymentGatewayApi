@@ -31,42 +31,42 @@ namespace PaymentGatewayService.BankEndpoints
 			{
 				switch (payment.CardNumber)
 				{
-					case 374245455400126:
+					case "374245455400126":
 						{
 							payment.Status = PaymentStatus.InsuffucentFunds;
 							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Insuffucent Funds";
 							break;
 						}
-					case 378282246310005:
+					case "378282246310005":
 						{
 							payment.Status = PaymentStatus.CardNotActivated;
 							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Card Not Activated";
 							break;
 						}
-					case 6250941006528599:
+					case "6250941006528599":
 						{
 							payment.Status = PaymentStatus.StolenCancelled;
 							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Stolen/Cancelled";
 							break;
 						}
-					case 60115564485789458:
+					case "60115564485789458":
 						{
 							payment.Status = PaymentStatus.InvalidCardCredentials;
 							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Invalid Card Credentials";
 							break;
 						}
-					case 6011000991300009:
+					case "6011000991300009":
 						{
 							payment.Status = PaymentStatus.CardExpired;
 							payment.IsSuccessful = false;
 							payment.Message = "Card Declined: Card Expired";
 							break;
 						}
-					case 3566000020000410:
+					case "3566000020000410":
 						{
 							throw new AggregateException("Internal Error: Please try again later or contact support.");
 						}

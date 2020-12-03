@@ -24,7 +24,6 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Common.Models;
 using PaymentGatewayService.Interfaces;
-using Common.Enums;
 using Newtonsoft.Json.Bson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
@@ -97,17 +96,17 @@ namespace CheckoutPaymentGateway.Controllers
 
 				var response = MyMapper.Map<PaymentResponse>(result);
 
-				if (result.Status == PaymentStatus.RequestSucceded)
+				if (response.Status == PaymentStatus.RequestSucceded)
 				{
 					Log.LogDebug($"Payment response 200 {body.Id}");
 					return Ok(response);
 				}
-				else if (result.Status == PaymentStatus.DuplicateRequest)
+				else if (response.Status == PaymentStatus.DuplicateRequest)
 				{
 					Log.LogDebug($"Payment response 409 {body.Id}");
 					return Conflict(response);
 				}
-				else if (result.Status == PaymentStatus.Error)
+				else if (response.Status == PaymentStatus.Error)
 				{
 					Log.LogDebug($"Payment response 500 {body.Id}");
 					return StatusCode(500, response);
@@ -149,17 +148,17 @@ namespace CheckoutPaymentGateway.Controllers
 
 				var response = MyMapper.Map<PaymentResponse>(result);
 
-				if (result.Status == PaymentStatus.RequestSucceded)
+				if (response.Status == PaymentStatus.RequestSucceded)
 				{
 					Log.LogDebug($"Payment response 200 {body}");
 					return Ok(response);
 				}
-				else if (result.Status == PaymentStatus.RequestDoesNotExist)
+				else if (response.Status == PaymentStatus.RequestDoesNotExist)
 				{
 					Log.LogDebug($"Payment response 404 {body}");
 					return NotFound(response);
 				}
-				else if (result.Status == PaymentStatus.Error)
+				else if (response.Status == PaymentStatus.Error)
 				{
 					Log.LogDebug($"Payment response 500 {body}");
 					return StatusCode(500, response);

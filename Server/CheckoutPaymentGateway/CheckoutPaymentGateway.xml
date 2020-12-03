@@ -122,6 +122,11 @@
             <param name="echo"></param>
             <returns></returns>
         </member>
+        <member name="T:CheckoutPaymentGateway.Models.PaymentStatus">
+            <summary>
+            options for the status of a payment
+            </summary>
+        </member>
         <member name="T:CheckoutPaymentGateway.Models.PaymentRequest">
             <summary>
             This is the payment request contract for the merchant
@@ -267,6 +272,11 @@
         <member name="P:CheckoutPaymentGateway.Models.PaymentResponse.Message">
             <summary>
             Shows any further information if required (i.e. useful error messages)
+            </summary>
+        </member>
+        <member name="P:CheckoutPaymentGateway.Models.PaymentResponse.Status">
+            <summary>
+            The current status of the payment
             </summary>
         </member>
         <member name="M:CheckoutPaymentGateway.Models.PaymentResponse.ToString">

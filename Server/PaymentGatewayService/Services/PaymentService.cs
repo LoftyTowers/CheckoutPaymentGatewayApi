@@ -41,6 +41,9 @@ namespace PaymentGatewayService.Services
 				Log.LogInformation($"Getting User Id for payment {paymentRequest.PaymentId}");
 				paymentRequest.User = PaymentRepo.AddUser(paymentRequest.User);
 
+				Log.LogInformation($"Getting Card Id for payment {paymentRequest.PaymentId}");
+				paymentRequest.Card = PaymentRepo.AddCard(paymentRequest.Card, paymentRequest.User.Id);
+
 				Log.LogInformation($"Creating Payment: {paymentRequest.PaymentId}");
 				paymentRequest = PaymentRepo.StorePayment(paymentRequest);
 

@@ -3,7 +3,6 @@ using AutoMapper;
 using CheckoutPaymentGateway.Controllers;
 using CheckoutPaymentGateway.Interfaces;
 using CheckoutPaymentGateway.Models;
-using Common.Enums;
 using Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -34,13 +33,13 @@ namespace CheckoutPaymentGatewayTests.Controllers
 				{
 					Amount = 10,
 					CardExpiryDate = DateTime.Now,
-					CardNumber = 5425233430109903,
+					CardNumber = "5425233430109903",
 					CurrencyCode = "GDP",
 					CVC = 132,
 					FullName = "John Doe",
 					PaymentId = new Guid("af188a89-0d2a-4863-a596-f7844364ac09"),
 					RequestDate = DateTime.Now,
-					Status = PaymentStatus.RequestSucceded,
+					Status = Common.Enums.PaymentStatus.RequestSucceded,
 					RecievingBankName = "TestBank",
 					IsSuccessful = true
 				});
@@ -49,13 +48,13 @@ namespace CheckoutPaymentGatewayTests.Controllers
 				{
 					Amount = 10,
 					CardExpiryDate = DateTime.Now,
-					CardNumber = 5425233430109903,
+					CardNumber = "5425233430109903",
 					CurrencyCode = "GDP",
 					CVC = 132,
 					FullName = "John Doe",
 					PaymentId = new Guid("ff58f525-5528-46e2-8b68-aacec43cd4c1"),
 					RequestDate = DateTime.Now,
-					Status = PaymentStatus.DuplicateRequest,
+					Status = Common.Enums.PaymentStatus.DuplicateRequest,
 					RecievingBankName = "TestBank",
 					IsSuccessful = false,
 					Message = "Internal Error Please try again later"
@@ -65,13 +64,13 @@ namespace CheckoutPaymentGatewayTests.Controllers
 				{
 					Amount = 10,
 					CardExpiryDate = DateTime.Now,
-					CardNumber = 5425233430109903,
+					CardNumber = "5425233430109903",
 					CurrencyCode = "GDP",
 					CVC = 132,
 					FullName = "John Doe",
 					PaymentId = new Guid("5cf9b529-5c88-4b35-accd-dfcafe96e180"),
 					RequestDate = DateTime.Now,
-					Status = PaymentStatus.Error,
+					Status = Common.Enums.PaymentStatus.Error,
 					RecievingBankName = "TestBank",
 					IsSuccessful = false,
 					Message = "Internal Error Please try again later"
@@ -81,13 +80,13 @@ namespace CheckoutPaymentGatewayTests.Controllers
 				{
 					Amount = 10,
 					CardExpiryDate = DateTime.Now,
-					CardNumber = 5425233430109903,
+					CardNumber = "5425233430109903",
 					CurrencyCode = "GDP",
 					CVC = 132,
 					FullName = "John Doe",
 					PaymentId = new Guid("bf2887a9-9eaf-4f75-a38a-e2d27b885c88"),
 					RequestDate = DateTime.Now,
-					Status = PaymentStatus.CardNotActivated,
+					Status = Common.Enums.PaymentStatus.CardNotActivated,
 					RecievingBankName = "TestBank",
 					IsSuccessful = false,
 					Message = "The customers card is not activated"
@@ -99,32 +98,32 @@ namespace CheckoutPaymentGatewayTests.Controllers
 				{
 					Amount = 10,
 					CardExpiryDate = DateTime.Now,
-					CardNumber = 5425233430109903,
+					CardNumber = "5425233430109903",
 					CurrencyCode = "GDP",
 					CVC = 132,
 					FullName = "John Doe",
 					IsSuccessful = true,
 					PaymentId = paymentId,
 					RequestDate = DateTime.Now.AddDays(-1),
-					Status = PaymentStatus.RequestSucceded,
+					Status = Common.Enums.PaymentStatus.RequestSucceded,
 					RecievingBankName = "TestBank"
 				});
 			MockPaymentService.Setup(m => m.GetPayment(It.Is<Guid>(i => i == new Guid("14077807-b564-4b0b-9e7a-6b8dbd26e615"))))
 				.Returns((Guid paymentId) => new Payment
 				{
 					PaymentId = new Guid("14077807-b564-4b0b-9e7a-6b8dbd26e615"),
-					Status = PaymentStatus.RequestDoesNotExist,
+					Status = Common.Enums.PaymentStatus.RequestDoesNotExist,
 					Message = $"The payment: 14077807-b564-4b0b-9e7a-6b8dbd26e615 does not exist"
 				});
 			MockPaymentService.Setup(m => m.GetPayment(It.Is<Guid>(i => i == new Guid("13b702ef-18be-427e-931d-21b866aed500"))))
 				.Returns((Guid paymentId) => new Payment
 				{
-					Status = PaymentStatus.Error
+					Status = Common.Enums.PaymentStatus.Error
 				});
 			MockPaymentService.Setup(m => m.GetPayment(It.Is<Guid>(i => i == new Guid("682f6880-5415-44a9-a7bf-c8d1f9a6f43e"))))
 				.Returns((Guid paymentId) => new Payment
 				{
-					Status = PaymentStatus.Unknown
+					Status = Common.Enums.PaymentStatus.Unknown
 				});
 
 			#endregion
@@ -195,7 +194,7 @@ namespace CheckoutPaymentGatewayTests.Controllers
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 5425233430109903,
+				CardNumber = "5425233430109903",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -224,7 +223,7 @@ namespace CheckoutPaymentGatewayTests.Controllers
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 5425233430109903,
+				CardNumber = "5425233430109903",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -253,7 +252,7 @@ namespace CheckoutPaymentGatewayTests.Controllers
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 5425233430109903,
+				CardNumber = "5425233430109903",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -283,7 +282,7 @@ namespace CheckoutPaymentGatewayTests.Controllers
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 5425233430109903,
+				CardNumber = "5425233430109903",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",

@@ -251,6 +251,7 @@ namespace CheckoutPaymentGateway
 					.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PaymentId))
 					.ReverseMap();
 				cfg.CreateMap<User, Repositories.PaymentsDb.Models.User>().ReverseMap();
+				cfg.CreateMap<Card, Repositories.PaymentsDb.Models.Card>().ReverseMap();
 			})).AsSelf().SingleInstance();
 
 			builder.Register(c =>

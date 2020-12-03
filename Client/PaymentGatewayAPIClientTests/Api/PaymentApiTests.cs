@@ -115,7 +115,7 @@ namespace PaymentGatewayAPIClient.Test
 		{
 			var genPayment = new PaymentsSetup(SetupMockLogger.Object, MockPaymentApi.Object);
 
-			var response = instance.CheckoutpaymentgatewayPaymentrequestPost(genPayment.GeneratePayment(5425233430109903));
+			var response = instance.CheckoutpaymentgatewayPaymentrequestPost(genPayment.GeneratePayment("5425233430109903"));
 			Assert.IsInstanceOf<CheckoutPaymentGatewayModelsPaymentResponse>(response, "response is CheckoutPaymentGatewayModelsPaymentResponse");
 			Assert.IsNotNull(response);
 			Assert.IsNotNull(response.Amount);

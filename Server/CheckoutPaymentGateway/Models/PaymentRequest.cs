@@ -60,7 +60,7 @@ namespace CheckoutPaymentGateway.Models
 		/// </summary>
 		[Required]
 		[DataMember(Name = "cardNumber")]
-		public long? CardNumber { get; set; }
+		public string CardNumber { get; set; }
 
 		/// <summary>
 		/// The FullName of the customer as shown on the card

@@ -59,7 +59,7 @@ namespace CheckoutPaymentGateway.Models
 		/// The CardNumber for the transaction
 		/// </summary>
 		[DataMember(Name = "cardNumber")]
-		public long? CardNumber { get; set; }
+		public string CardNumber { get; set; }
 
 		/// <summary>
 		/// The FullName of the customer as shown on the card
@@ -94,6 +94,13 @@ namespace CheckoutPaymentGateway.Models
 		/// </summary>
 		[DataMember(Name = "message")]
 		public string Message { get; set; }
+
+		/// <summary>
+		/// The current status of the payment
+		/// </summary>
+		[Required]
+		[DataMember(Name = "status")]
+		public PaymentStatus Status { get; set; }
 
 		/// <summary>
 		/// Returns the string presentation of the object

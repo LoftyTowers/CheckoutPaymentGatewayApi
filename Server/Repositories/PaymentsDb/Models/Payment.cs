@@ -19,7 +19,7 @@ namespace Repositories.PaymentsDb.Models
 		public bool IsSuccessful { get; set; }
 		public string Message { get; set; }
 
-		public Guid UserId { get; set; }
+		public Guid CardId { get; set; }
 		public Common.Enums.PaymentStatus PaymentStatusId { get; set; }
 	}
 }

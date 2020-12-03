@@ -17,6 +17,7 @@ https://apifriends.com/api-management/api-metrics/
 https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-powershell
 
 https://www.youtube.com/watch?v=4V7CwC_4oss
+	---- add-migration InitialPaymentDbCreation
 
 //docker commandline 
 https://docs.docker.com/engine/reference/commandline/docker/
@@ -28,9 +29,6 @@ docker images | more
 
 docker-compose up 
 
-
-
-bearer token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJQZXRlciI6IlB1bXB5IiwiZXhwIjoxNjk4NTc3NTI0LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo2MDAxIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMSJ9.8_qyzWbfrw8CfAymD7gaZJk2bw83zNc_PxkC_7-8qUE
 
 
 //Test Prom

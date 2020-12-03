@@ -41,7 +41,7 @@ namespace PaymentGatewayServiceTests
 				{
 					Amount = 10,
 					CardExpiryDate = DateTime.Now,
-					CardNumber = 5425233430109903,
+					CardNumber = "5425233430109903",
 					CurrencyCode = "GDP",
 					CVC = 132,
 					FullName = "John Doe",
@@ -68,7 +68,7 @@ namespace PaymentGatewayServiceTests
 			#region MockBankEndpoint
 
 			MockTestBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 374245455400126)))
+				It.Is<Payment>(payment => payment.CardNumber == "374245455400126")))
 				.Returns<Payment>(payment => payment = new Payment
 				{
 					Status = PaymentStatus.InsuffucentFunds,
@@ -76,7 +76,7 @@ namespace PaymentGatewayServiceTests
 					Message = "Card Declined: Insuffucent Funds"
 				});
 			MockTestBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 378282246310005)))
+				It.Is<Payment>(payment => payment.CardNumber == "378282246310005")))
 				.Returns<Payment>(payment => payment = new Payment
 				{
 					Status = PaymentStatus.CardNotActivated,
@@ -84,7 +84,7 @@ namespace PaymentGatewayServiceTests
 					Message = "Card Declined: Card Not Activated"
 				});
 			MockTestBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 6250941006528599)))
+				It.Is<Payment>(payment => payment.CardNumber == "6250941006528599")))
 				.Returns<Payment>(payment => payment = new Payment
 				{
 					Status = PaymentStatus.StolenCancelled,
@@ -92,7 +92,7 @@ namespace PaymentGatewayServiceTests
 					Message = "Card Declined: Stolen/Cancelled"
 				});
 			MockTestBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 60115564485789458)))
+				It.Is<Payment>(payment => payment.CardNumber == "60115564485789458")))
 				.Returns<Payment>(payment => payment = new Payment
 				{
 					Status = PaymentStatus.InvalidCardCredentials,
@@ -100,7 +100,7 @@ namespace PaymentGatewayServiceTests
 					Message = "Card Declined: Invalid Card Credentials"
 				});
 			MockTestBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 6011000991300009)))
+				It.Is<Payment>(payment => payment.CardNumber == "6011000991300009")))
 				.Returns<Payment>(payment => payment = new Payment
 				{
 					Status = PaymentStatus.CardExpired,
@@ -108,7 +108,7 @@ namespace PaymentGatewayServiceTests
 					Message = "Card Declined: Card Expired"
 				});
 			MockTestBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 3566000020000410)))
+				It.Is<Payment>(payment => payment.CardNumber == "3566000020000410")))
 				.Returns<Payment>(payment => payment = new Payment
 				{
 					Status = PaymentStatus.Error,
@@ -116,7 +116,7 @@ namespace PaymentGatewayServiceTests
 					Message = "Internal Error: Please try again later or contact support."
 				});
 			MockTestBankEndpoint.Setup(m => m.SendPayment(
-				It.Is<Payment>(payment => payment.CardNumber == 5425233430109903)))
+				It.Is<Payment>(payment => payment.CardNumber == "5425233430109903")))
 				.Returns<Payment>(payment => payment = new Payment
 				{
 					Status = PaymentStatus.RequestSucceded,
@@ -157,7 +157,7 @@ namespace PaymentGatewayServiceTests
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 5425233430109903,
+				CardNumber = "5425233430109903",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -168,7 +168,7 @@ namespace PaymentGatewayServiceTests
 				Card = new Card
 				{
 					BankName = "TestBank",
-					CardNumber = 5425233430109903,
+					CardNumber = "5425233430109903",
 					CVC = 132,
 					ExpiryDate = DateTime.Now,
 					Id = Guid.NewGuid()
@@ -201,7 +201,7 @@ namespace PaymentGatewayServiceTests
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 374245455400126,
+				CardNumber = "374245455400126",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -212,7 +212,7 @@ namespace PaymentGatewayServiceTests
 				Card = new Card
 				{
 					BankName = "TestBank",
-					CardNumber = 374245455400126,
+					CardNumber = "374245455400126",
 					CVC = 132,
 					ExpiryDate = DateTime.Now,
 					Id = Guid.NewGuid()
@@ -246,7 +246,7 @@ namespace PaymentGatewayServiceTests
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 378282246310005,
+				CardNumber = "378282246310005",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -257,7 +257,7 @@ namespace PaymentGatewayServiceTests
 				Card = new Card
 				{
 					BankName = "TestBank",
-					CardNumber = 378282246310005,
+					CardNumber = "378282246310005",
 					CVC = 132,
 					ExpiryDate = DateTime.Now,
 					Id = Guid.NewGuid()
@@ -291,7 +291,7 @@ namespace PaymentGatewayServiceTests
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 6250941006528599,
+				CardNumber = "6250941006528599",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -302,7 +302,7 @@ namespace PaymentGatewayServiceTests
 				Card = new Card
 				{
 					BankName = "TestBank",
-					CardNumber = 6250941006528599,
+					CardNumber = "6250941006528599",
 					CVC = 132,
 					ExpiryDate = DateTime.Now,
 					Id = Guid.NewGuid()
@@ -336,7 +336,7 @@ namespace PaymentGatewayServiceTests
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 60115564485789458,
+				CardNumber = "60115564485789458",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -347,7 +347,7 @@ namespace PaymentGatewayServiceTests
 				Card = new Card
 				{
 					BankName = "TestBank",
-					CardNumber = 60115564485789458,
+					CardNumber = "60115564485789458",
 					CVC = 132,
 					ExpiryDate = DateTime.Now,
 					Id = Guid.NewGuid()
@@ -381,7 +381,7 @@ namespace PaymentGatewayServiceTests
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 6011000991300009,
+				CardNumber = "6011000991300009",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -392,7 +392,7 @@ namespace PaymentGatewayServiceTests
 				Card = new Card
 				{
 					BankName = "TestBank",
-					CardNumber = 6011000991300009,
+					CardNumber = "6011000991300009",
 					CVC = 132,
 					ExpiryDate = DateTime.Now,
 					Id = Guid.NewGuid()
@@ -426,7 +426,7 @@ namespace PaymentGatewayServiceTests
 			{
 				Amount = 10,
 				CardExpiryDate = DateTime.Now,
-				CardNumber = 3566000020000410,
+				CardNumber = "3566000020000410",
 				CurrencyCode = "GDP",
 				CVC = 132,
 				FullName = "John Doe",
@@ -437,7 +437,7 @@ namespace PaymentGatewayServiceTests
 				Card = new Card
 				{
 					BankName = "TestBank",
-					CardNumber = 3566000020000410,
+					CardNumber = "3566000020000410",
 					CVC = 132,
 					ExpiryDate = DateTime.Now,
 					Id = Guid.NewGuid()

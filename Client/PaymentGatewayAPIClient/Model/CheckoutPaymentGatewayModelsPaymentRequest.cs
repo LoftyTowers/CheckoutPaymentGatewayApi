@@ -43,7 +43,7 @@ namespace PaymentGatewayAPIClient.Model
 		/// <param name="requestDate">The date the transaction was initilised (required).</param>
 		/// <param name="sendingBankName">NAme of the bank the payment is made from (required).</param>
 		/// <param name="recievingBankName">Name of the bank the payment is sent to (required).</param>
-		public CheckoutPaymentGatewayModelsPaymentRequest(Guid? id = default(Guid?), string currencyCode = default(string), double? amount = default(double?), int? cvc = default(int?), long? cardNumber = default(long?), string fullName = default(string), DateTime? dateOfBirth = default(DateTime?), DateTime? cardExpiryDate = default(DateTime?), DateTime? requestDate = default(DateTime?), string sendingBankName = default(string), string recievingBankName = default(string))
+		public CheckoutPaymentGatewayModelsPaymentRequest(Guid? id = default(Guid?), string currencyCode = default(string), double? amount = default(double?), int? cvc = default(int?), string cardNumber = default(string), string fullName = default(string), DateTime? dateOfBirth = default(DateTime?), DateTime? cardExpiryDate = default(DateTime?), DateTime? requestDate = default(DateTime?), string sendingBankName = default(string), string recievingBankName = default(string))
 		{
 			// to ensure "id" is required (not null)
 			if (id == null)
@@ -179,7 +179,7 @@ namespace PaymentGatewayAPIClient.Model
 		/// </summary>
 		/// <value>The CardNumber for the transaction</value>
 		[DataMember(Name = "cardNumber", EmitDefaultValue = false)]
-		public long? CardNumber { get; set; }
+		public string CardNumber { get; set; }
 
 		/// <summary>
 		/// The FullName of the customer as shown on the card

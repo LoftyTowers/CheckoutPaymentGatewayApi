@@ -35,7 +35,7 @@ namespace Common.Models
 		/// <summary>
 		/// The CardNumber for the transaction
 		/// </summary>
-		public long? CardNumber { get; set; }
+		public string CardNumber { get; set; }
 
 		/// <summary>
 		/// The FullName of the customer as shown on the card

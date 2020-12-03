@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Common.Enums;
 using Microsoft.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace Repositories.PaymentsDb.Repos
 {
@@ -60,6 +61,56 @@ namespace Repositories.PaymentsDb.Repos
 					throw ex;
 				}
 			}
+		}
+
+		/// <summary>
+		/// adds a card
+		/// </summary>
+		/// <param name="card"></param>
+		/// <returns></returns>
+		public Common.Models.Card AddCard(Common.Models.Card card, Guid userId)
+		{
+			using (var context = new PaymentsDbContext(ContextOptions))
+			{
+				try
+				{
+					var cardnumber = card.CardNumber;
+					card.CardNumber = MaskCardNumber(cardnumber);
+					var dbCard = context.Cards.FirstOrDefault(c => c.CardNumber == card.CardNumber && c.CVC == card.CVC && c.UserId == userId && c.ExpiryDate == card.ExpiryDate);
+					if (dbCard == null || string.IsNullOrWhiteSpace(dbCard.Id.ToString()))
+					{
+						card.Id = Guid.NewGuid();
+						var newCard = MyMapper.Map<Models.Card>(card);
+						newCard.UserId = userId;
+						context.Cards.Add(newCard);
+						context.SaveChanges();
+					}
+					else
+					{
+						card.Id = dbCard.Id;
+					}
+					return card;
+					//var toReturn = MyMapper.Map<Common.Models.Card>(result);
+
+					//return toReturn;
+				}
+				catch (Exception ex)
+				{
+					Log.LogError(ex, "");
+					Log.LogError(ex, $"Failed to create user");
+					throw ex;
+				}
+			}
+		}
+
+		private string MaskCardNumber(string cardNumber)
+		{
+			string pattern = @"\d(?=\d{4})";
+			string substitution = @"*";
+			string input = @"374245455400126";
+
+			Regex regex = new Regex(pattern);
+			return regex.Replace(input, substitution);
 		}
 
 		/// <summary>
@@ -118,7 +169,8 @@ namespace Repositories.PaymentsDb.Repos
 						Message = $"The payment: {paymentId} does not exist"
 					};
 					var payment = (from p in context.Payments
-												 join u in context.Users on p.UserId equals u.Id
+												 join c in context.Cards on p.CardId equals c.Id
+												 join u in context.Users on c.UserId equals u.Id
 												 where p.Id == paymentId
 												 select new Common.Models.Payment
 												 {
@@ -131,7 +183,10 @@ namespace Repositories.PaymentsDb.Repos
 													 PaymentId = p.Id,
 													 RequestCompleted = p.RequestCompleted,
 													 RequestDate = p.RequestDate,
-													 Status = p.PaymentStatusId
+													 Status = p.PaymentStatusId,
+													 CardExpiryDate = c.ExpiryDate,
+													 CardNumber = c.CardNumber,
+													 CVC = c.CVC
 												 }).FirstOrDefault();
 
 					if (payment == null)

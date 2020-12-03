@@ -20,7 +20,7 @@ namespace GatewayLoadTest
 				case 1:
 					//Success
 					Cvc = 111;
-					CardNumber = 927245455675248;
+					CardNumber = "927245455675248";
 					FullName = "Jim Frost";
 					DateOfBirth = DateTime.Parse("1977-08-22");
 					CardExpiryDate = DateTime.Parse("2022-10-22");
@@ -30,7 +30,7 @@ namespace GatewayLoadTest
 				case 2:
 					//Success
 					Cvc = 222;
-					CardNumber = 5425233430109903;
+					CardNumber = "5425233430109903";
 					FullName = "John Doe";
 					DateOfBirth = DateTime.Parse("1980-04-02");
 					CardExpiryDate = DateTime.Parse("2024-03-11");
@@ -40,7 +40,7 @@ namespace GatewayLoadTest
 				case 3:
 					// InsuffucentFunds
 					Cvc = 333;
-					CardNumber = 374245455400126;
+					CardNumber = "374245455400126";
 					FullName = "Cindy Vapid";
 					DateOfBirth = DateTime.Parse("1990-01-30");
 					CardExpiryDate = DateTime.Parse("2021-06-18");
@@ -50,7 +50,7 @@ namespace GatewayLoadTest
 				case 4:
 					//CardNotActivated
 					Cvc = 444;
-					CardNumber = 378282246310005;
+					CardNumber = "378282246310005";
 					FullName = "Coconut Styles";
 					DateOfBirth = DateTime.Parse("1952-03-09");
 					CardExpiryDate = DateTime.Parse("2020-12-15");
@@ -60,7 +60,7 @@ namespace GatewayLoadTest
 				case 5:
 					//StolenCancelled
 					Cvc = 555;
-					CardNumber = 6250941006528599;
+					CardNumber = "6250941006528599";
 					FullName = "Bernie Crampons";
 					DateOfBirth = DateTime.Parse("2000-01-01");
 					CardExpiryDate = DateTime.Parse("2022-06-22");
@@ -70,7 +70,7 @@ namespace GatewayLoadTest
 				case 6:
 					//InvalidCardCredentials
 					Cvc = 666;
-					CardNumber = 60115564485789458;
+					CardNumber = "60115564485789458";
 					FullName = "Zoltan Zoltan";
 					DateOfBirth = DateTime.Parse("1996-09-29");
 					CardExpiryDate = DateTime.Parse("2022-01-12");
@@ -80,7 +80,7 @@ namespace GatewayLoadTest
 				case 7:
 					//CardExpired
 					Cvc = 777;
-					CardNumber = 6011000991300009;
+					CardNumber = "6011000991300009";
 					FullName = "Veronica Hammock";
 					DateOfBirth = DateTime.Parse("1993-04-20");
 					CardExpiryDate = DateTime.Parse("2025-11-14");
@@ -90,7 +90,7 @@ namespace GatewayLoadTest
 				case 8:
 					//Error
 					Cvc = 888;
-					CardNumber = 3566000020000410;
+					CardNumber = "3566000020000410";
 					FullName = "Chet Vacant";
 					DateOfBirth = DateTime.Parse("1999-06-08");
 					CardExpiryDate = DateTime.Parse("2023-05-05");
@@ -99,7 +99,7 @@ namespace GatewayLoadTest
 					break;
 				default:
 					Cvc = 999;
-					CardNumber = 5425233430109903;
+					CardNumber = "5425233430109903";
 					FullName = "Simon Doe";
 					DateOfBirth = DateTime.Parse("1970-05-16");
 					CardExpiryDate = DateTime.Parse("2024-09-11");
@@ -109,7 +109,7 @@ namespace GatewayLoadTest
 			}
 		}
 		public int Cvc { get; set; }
-		public long CardNumber { get; set; }
+		public string CardNumber { get; set; }
 		public string FullName { get; set; }
 		public DateTime DateOfBirth { get; set; }
 		public DateTime CardExpiryDate { get; set; }

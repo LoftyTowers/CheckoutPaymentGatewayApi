@@ -22,6 +22,6 @@ namespace Repositories.PaymentsDb.Models
 		/// </summary>
 		public DateTime DateOfBirth { get; set; }
 
-		public ICollection<Payment> Payments { get; set; }
+		public ICollection<Card> Cards { get; set; }
 	}
 }

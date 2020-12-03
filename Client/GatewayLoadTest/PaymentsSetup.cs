@@ -23,13 +23,13 @@ namespace GatewayLoadTest
 
 			for (var payment = 0; payment < numberOfPayments; payment++)
 			{
-				payments.Add(GeneratePayment());
+				payments.Add(GeneratePayment(string.Empty));
 			}
 
 			return payments;
 		}
 
-		public CheckoutPaymentGatewayModelsPaymentRequest GeneratePayment(long cardNumber = 0)
+		public CheckoutPaymentGatewayModelsPaymentRequest GeneratePayment(string cardNumber)
 		{
 			Random random = new Random();
 			var user = new UserData(random.Next(0, 9), random.Next(0, 100));
@@ -38,7 +38,7 @@ namespace GatewayLoadTest
 					 "GDP",// CurrencyCode
 					 random.GetRandomNumber(1, 999.99),// Amount
 					 user.Cvc,// Cvc
-					 cardNumber == 0 ? user.CardNumber : cardNumber,// CardNumber
+					 string.IsNullOrWhiteSpace(cardNumber) ? user.CardNumber : cardNumber,// CardNumber
 					 user.FullName,// FullName
 					 user.DateOfBirth,// DateOfBirth
 					 user.CardExpiryDate,// CardExpiryDate

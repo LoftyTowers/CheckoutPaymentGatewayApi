@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = PaymentGatewayAPIClient.Client.SwaggerDateConverter;
+using PaymentGatewayAPIClient.Model;
 
 namespace PaymentGatewayAPIClient.Model
 {
@@ -42,7 +43,7 @@ namespace PaymentGatewayAPIClient.Model
 		/// <param name="requestDate">The date the transaction was initilised (required).</param>
 		/// <param name="isSuccessful">Descibes whether the payment was succesful or not (required) (default to false).</param>
 		/// <param name="message">Shows any further information if required (i.e. useful error messages).</param>
-		public CheckoutPaymentGatewayModelsPaymentResponse(Guid? id = default(Guid?), string currencyCode = default(string), double? amount = default(double?), int? cvc = default(int?), long? cardNumber = default(long?), string fullName = default(string), DateTime? cardExpiryDate = default(DateTime?), DateTime? requestDate = default(DateTime?), bool? isSuccessful = false, string message = default(string))
+		public CheckoutPaymentGatewayModelsPaymentResponse(Guid? id = default(Guid?), string currencyCode = default(string), double? amount = default(double?), int? cvc = default(int?), string cardNumber = default(string), string fullName = default(string), DateTime? cardExpiryDate = default(DateTime?), DateTime? requestDate = default(DateTime?), bool? isSuccessful = false, string message = default(string), PaymentStatus status = default(PaymentStatus))
 		{
 			// to ensure "id" is required (not null)
 			if (id == null)
@@ -102,6 +103,7 @@ namespace PaymentGatewayAPIClient.Model
 			this.CardNumber = cardNumber;
 			this.CardExpiryDate = cardExpiryDate;
 			this.Message = message;
+			this.Status = status;
 		}
 
 		/// <summary>
@@ -137,7 +139,7 @@ namespace PaymentGatewayAPIClient.Model
 		/// </summary>
 		/// <value>The CardNumber for the transaction</value>
 		[DataMember(Name = "cardNumber", EmitDefaultValue = false)]
-		public long? CardNumber { get; set; }
+		public string CardNumber { get; set; }
 
 		/// <summary>
 		/// The FullName of the customer as shown on the card
@@ -175,6 +177,13 @@ namespace PaymentGatewayAPIClient.Model
 		public string Message { get; set; }
 
 		/// <summary>
+		/// Describes what state the payment is in.
+		/// </summary>
+		/// <value>Describes what state the payment is in.</value>
+		[DataMember(Name = "status")]
+		public PaymentGatewayAPIClient.Model.PaymentStatus Status { get; set; }
+
+		/// <summary>
 		/// Returns the string presentation of the object
 		/// </summary>
 		/// <returns>String presentation of the object</returns>
@@ -192,6 +201,7 @@ namespace PaymentGatewayAPIClient.Model
 			sb.Append("  RequestDate: ").Append(RequestDate).Append("\n");
 			sb.Append("  IsSuccessful: ").Append(IsSuccessful).Append("\n");
 			sb.Append("  Message: ").Append(Message).Append("\n");
+			sb.Append("  Status: ").Append(Status).Append("\n");
 			sb.Append("}\n");
 			return sb.ToString();
 		}
@@ -275,6 +285,11 @@ namespace PaymentGatewayAPIClient.Model
 							this.Message == input.Message ||
 							(this.Message != null &&
 							this.Message.Equals(input.Message))
+					) &&
+					(
+							this.Status == input.Status ||
+							(this.Status != null &&
+							this.Status.Equals(input.Status))
 					);
 		}
 
@@ -307,6 +322,8 @@ namespace PaymentGatewayAPIClient.Model
 					hashCode = hashCode * 59 + this.IsSuccessful.GetHashCode();
 				if (this.Message != null)
 					hashCode = hashCode * 59 + this.Message.GetHashCode();
+				if (this.Status != null)
+					hashCode = hashCode * 59 + this.Status.GetHashCode();
 				return hashCode;
 			}
 		}
