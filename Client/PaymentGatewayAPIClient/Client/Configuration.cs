@@ -39,7 +39,7 @@ namespace PaymentGatewayAPIClient.Client
 		public const string ISO8601_DATETIME_FORMAT = "o";
 		private const string BearerTokenKey = "Authorization";
 		private const string BearerTokenPrefix = "Bearer";
-		private const string BearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJQZXRlciI6IlB1bXB5IiwiZXhwIjoxNjk4NTc3NTI0LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo2MDAxIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMSJ9.8_qyzWbfrw8CfAymD7gaZJk2bw83zNc_PxkC_7-8qUE";
+		private const string BearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDaGVja291dFRlc3RDbGFpbSI6IkNoZWNrdXAiLCJleHAiOjE2OTg1Nzc1MjQsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjYwMDEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo2MDAxIn0.mfR4GNH63EwgoOq8jlqYrD0XKVkaUF3XQztLjpLhRNo";
 
 		#endregion Constants
 
