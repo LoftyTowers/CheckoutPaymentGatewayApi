@@ -15,7 +15,7 @@ Validates payment requests, stores card information, forwards payment requests a
 
 -   Swagger.UI was used to create the API contracts and generate the endpoint shell. This also handled a lot of the endpoint documentation.
 - The API client project is entirely swagger generated code with the exception of the added bearer token because it worked without having to hqand craft anything. I would have implemented it differently if I created it by hand.
-	- A NUnit test project and a console app have been added to make hitting the server endpoints and load testing easier.
+	- A NUnit test project and a console app have been added to the client in order to test server endpoints and make load testing relatively simple.
     
 ### Autofac
 
@@ -142,6 +142,5 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMTQ4NDAxNzYsLTEyMzc1OTk2MjhdfQ
-==
+eyJoaXN0b3J5IjpbLTQ1ODk4MjMwNiwtMTIzNzU5OTYyOF19
 -->
