@@ -60,7 +60,7 @@ Validates payment requests, stores card information, forwards payment requests a
 
 - This project actually lends itself to an async implementation and if I were to plan this again I would have written the API this way.
 
-- 
+- When adding a user or a card to the database I catch then throw the error. I am not happ
 
 ## Run
 
@@ -146,6 +146,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MjgwNzA5NTgsLTcxOTU0MzM3OCwtMT
-IzNzU5OTYyOF19
+eyJoaXN0b3J5IjpbMTAwMDAzNDM2MywtMTkyODA3MDk1OCwtNz
+E5NTQzMzc4LC0xMjM3NTk5NjI4XX0=
 -->
