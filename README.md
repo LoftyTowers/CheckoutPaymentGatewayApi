@@ -79,31 +79,18 @@ Validates payment requests, stores card information, forwards payment requests a
 2.  Build the solution:
 	1.  Please note the command actually runs from the solution folder but needs to be in the project folder to get the docker file.
 > docker build -f Dockerfile -t checkoutpaymentgateway ..
-
 3.  Check the image has been created:
-    
-
-docker images | more
-
-  
-
+> docker images | more
 4.  Create the docker container:
-    
-
-docker-compose up -d
-
-  
-
+> docker-compose up -d
 5.  Navigate to the Api:
-    
-
-https://localhost:6001/Swagger
-
+> https://localhost:6001/Swagger
 ![](https://lh3.googleusercontent.com/NTS7R5SS6ZJVmJ4_rcNirj9_TO6PuP0IDJD9Oe5QXs_1Jd0wvyG7oaFBHZqubbDSEn99W0-c4oMpTS0YT-Ndj_r8mnR5dOJKk-I_KYmCCRdSbKj6QySk_A6E-EWhAhdZ2s98VQJU)
 
-Connecting to the database
+#### Connecting to the database
 
-Server: 127.0.0.1,1633 || localhost,1633 || paymentdb, 1633
+Server: 
+> 127.0.0.1,1633 || localhost,1633 || paymentdb, 1633
 
 Authentication: SQL Server Authentication
 
@@ -286,7 +273,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgxODMyNTM3NywyMTIwODI1NjAxLDEyNz
-E1NzQzMjEsLTk2NTQxMTE3NywtMTkyODA3MDk1OCwtNzE5NTQz
-Mzc4LC0xMjM3NTk5NjI4XX0=
+eyJoaXN0b3J5IjpbLTEzNjM5MzA2ODcsMjEyMDgyNTYwMSwxMj
+cxNTc0MzIxLC05NjU0MTExNzcsLTE5MjgwNzA5NTgsLTcxOTU0
+MzM3OCwtMTIzNzU5OTYyOF19
 -->
