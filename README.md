@@ -19,7 +19,7 @@ Validates payment requests, stores card information, forwards payment requests a
     
 ### Autofac
 
--   Used
+- 
     
 ### Automapper
 
@@ -142,5 +142,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ1ODk4MjMwNiwtMTIzNzU5OTYyOF19
+eyJoaXN0b3J5IjpbLTEzNjI3OTI0ODUsLTEyMzc1OTk2MjhdfQ
+==
 -->
