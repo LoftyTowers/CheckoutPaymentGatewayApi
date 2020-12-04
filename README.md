@@ -175,7 +175,9 @@ A dashboard can also be built from scratch
 > http://
 2. Click the hamburger in the top left
 3. Click Discover
+![](https://lh4.googleusercontent.com/c5kzP2p9WWn_ONsPpQKDTfbSSpPnL8WXipxdaet6j2BtqDAGGujPbPwT_xnDqTD1hs_Z9aI8HHTkj8PR5GIgmxWoM3-rabEiO8swFwfkjpZBzVBs2aJMOyYhu7dIx-7dIO-E7-5W)
 
+4. 
 
 
 ## Run
@@ -262,8 +264,8 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTczNTUzODYzLC0xMDE5NzkwNjc2LDE2MT
-k1OTgxNjAsLTUyMTc1ODUxOSwyMTA2NjI5MTUsMjEyMDgyNTYw
-MSwxMjcxNTc0MzIxLC05NjU0MTExNzcsLTE5MjgwNzA5NTgsLT
-cxOTU0MzM3OCwtMTIzNzU5OTYyOF19
+eyJoaXN0b3J5IjpbMTUxMjAzMTg0NiwtMTAxOTc5MDY3NiwxNj
+E5NTk4MTYwLC01MjE3NTg1MTksMjEwNjYyOTE1LDIxMjA4MjU2
+MDEsMTI3MTU3NDMyMSwtOTY1NDExMTc3LC0xOTI4MDcwOTU4LC
+03MTk1NDMzNzgsLTEyMzc1OTk2MjhdfQ==
 -->
