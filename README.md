@@ -3,7 +3,7 @@
 Validates payment requests, stores card information, forwards payment requests and accepts responses from the acquiring bank.
 
 ## Task Assumptions
--
+- 
 
 ## Technologies Used
 
@@ -152,6 +152,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI3MTU3NDMyMSwtOTY1NDExMTc3LC0xOT
-I4MDcwOTU4LC03MTk1NDMzNzgsLTEyMzc1OTk2MjhdfQ==
+eyJoaXN0b3J5IjpbMjEyMDgyNTYwMSwxMjcxNTc0MzIxLC05Nj
+U0MTExNzcsLTE5MjgwNzA5NTgsLTcxOTU0MzM3OCwtMTIzNzU5
+OTYyOF19
 -->
