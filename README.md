@@ -185,7 +185,7 @@ A dashboard can also be built from scratch
 2.  Select @timestamp from the dropdown
 3.  Click Create Index Pattern![](https://lh5.googleusercontent.com/HHVsqN-LU2_CVRu7mEV-0HWHSEiruQkkVl5DTRIl5N2VKHrO7VO67Kgeb6W3O9yynsl7IZfeGXRRbxxr84Oe-hu03B4c68sa3swwqAzBx6tgh1IGgIwKfirRMR-PReYi1MU6gRBi)
 
-  Navigate to the Discover page again to see the logs
+4.  Navigate to the Discover page again to see the logs
 
 
 ## Run
@@ -272,9 +272,8 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMDg5MjQwOTcsMTUxMjAzMTg0NiwtMT
-AxOTc5MDY3NiwxNjE5NTk4MTYwLC01MjE3NTg1MTksMjEwNjYy
-OTE1LDIxMjA4MjU2MDEsMTI3MTU3NDMyMSwtOTY1NDExMTc3LC
-0xOTI4MDcwOTU4LC03MTk1NDMzNzgsLTEyMzc1OTk2MjhdfQ==
-
+eyJoaXN0b3J5IjpbNDc3NDE4MjMzLDE1MTIwMzE4NDYsLTEwMT
+k3OTA2NzYsMTYxOTU5ODE2MCwtNTIxNzU4NTE5LDIxMDY2Mjkx
+NSwyMTIwODI1NjAxLDEyNzE1NzQzMjEsLTk2NTQxMTE3NywtMT
+kyODA3MDk1OCwtNzE5NTQzMzc4LC0xMjM3NTk5NjI4XX0=
 -->
