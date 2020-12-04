@@ -27,11 +27,11 @@ Validates payment requests, stores card information, forwards payment requests a
     
 ### JWT Authentication
 
--   
+-   Added to authenticate the calls to the server endpoint .
     
 ### Serilog
 
-- Was used as the logging framework for the simple set up and ease of integration with elastic search.
+- Was used as the logging framework for the simple set up and that it integrates with elastic search. 
 
 ### Prometheus
 
@@ -142,6 +142,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIzNzU2NiwtNzE5NTQzMzc4LC0xMjM3NT
-k5NjI4XX0=
+eyJoaXN0b3J5IjpbOTg0Nzg5NTIxLC03MTk1NDMzNzgsLTEyMz
+c1OTk2MjhdfQ==
 -->
