@@ -154,9 +154,11 @@ Click Save & Test
 Click the + on the left of the screen
 ![](https://lh5.googleusercontent.com/UVMcgiknn40bJttin6gKniAExnpUt0J9CuJbu5iWh_FXEa_Rmu8EyA-t_lSftKUONc9nMjaZW7Jcyt3FG3zyG_kbdiqA6-l5zO1U1enm1HKeGWY-80tH_PaJzm6DPP7jOBnpH2i3)
 
-Type the id:
+To load preset dashboards type the id:
 > 10427
-> or the id 10915 to load preset dashboards
+
+Or the id:
+> 10915
 
 ![](https://lh6.googleusercontent.com/qCBdikg7fvjUh3Tk_y1cNiwlct_aGpQ0hKLt_3pmoAexyfiCNJRnVXDjBjkYd5_B-s1nNU_GD-lCJ5XWbqSEUTsM4EYW89hy5HQkq1YLpLpc1BBBcNcMutvwZpL3o318PwlY2X8T)
 
@@ -258,8 +260,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzY1NzI2NTI1LC01MjE3NTg1MTksMjEwNj
-YyOTE1LDIxMjA4MjU2MDEsMTI3MTU3NDMyMSwtOTY1NDExMTc3
-LC0xOTI4MDcwOTU4LC03MTk1NDMzNzgsLTEyMzc1OTk2MjhdfQ
-==
+eyJoaXN0b3J5IjpbNzY3MTU0MDksLTUyMTc1ODUxOSwyMTA2Nj
+I5MTUsMjEyMDgyNTYwMSwxMjcxNTc0MzIxLC05NjU0MTExNzcs
+LTE5MjgwNzA5NTgsLTcxOTU0MzM3OCwtMTIzNzU5OTYyOF19
 -->
