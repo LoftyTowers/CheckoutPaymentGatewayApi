@@ -107,29 +107,17 @@ Password:
 #### Use Command Line
 
 1.  Navigate to Prometheus for metrics:
-    
+> http://localhost:9090/graph
 
-http://localhost:9090/graph
-
-  
-
-2.  Select the metrics to show:
-    
-
-Paymentgatewayapi_counter
-
+2. Select the metrics to show:
+> Paymentgatewayapi_counter
 ![](https://lh3.googleusercontent.com/Z7684lLTYZ-T0BwMYpnp1mIsIvGb8aUQVsOD8deobd26L5at9EHlFfYwzgT61xGNN4Obql_NT1_wBCqMG76POzA8tw3tNN2M2aljy4zuJLpW-_7lWuImuwyIftBRxtx8F27p613O)
 
 3.  Click Execute
     
+### Grafana
 
-  
-  
-
-## Grafana
-
-Use Command Line
-
+####Use Command Line
 1.  Navigate to Grafana:
     
 
@@ -273,7 +261,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ1NzQyNzIxNiwyMTIwODI1NjAxLDEyNz
+eyJoaXN0b3J5IjpbMTMyNjQ0ODY3OSwyMTIwODI1NjAxLDEyNz
 E1NzQzMjEsLTk2NTQxMTE3NywtMTkyODA3MDk1OCwtNzE5NTQz
 Mzc4LC0xMjM3NTk5NjI4XX0=
 -->
