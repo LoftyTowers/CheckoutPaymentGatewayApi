@@ -68,30 +68,17 @@ Validates payment requests, stores card information, forwards payment requests a
 	- I also think that the failure to add a user or card to the database is not a critical error in terms of the payment flow. 
 	- However, this was something I should have queired in order to get a solid requirement
 
-Installation
+## Installation
 
-  
+### Checkout Payment Gateway
 
-Checkout Payment Gateway
-
-Use Command Line
+#### Use Command Line
 
 1.  Navigate to the containing folder:
-    
-
-cd {Path}\CheckoutPaymentGatewayApi\Server\CheckoutPaymentGateway
-
-  
-
+ > cd {Path}\CheckoutPaymentGatewayApi\Server\CheckoutPaymentGateway
 2.  Build the solution:
-    
-
-1.  Please note the command actually runs from the solution folder but needs to be in the project folder to get the docker file.
-    
-
-docker build -f Dockerfile -t checkoutpaymentgateway ..
-
-  
+	1.  Please note the command actually runs from the solution folder but needs to be in the project folder to get the docker file.
+> docker build -f Dockerfile -t checkoutpaymentgateway ..
 
 3.  Check the image has been created:
     
@@ -128,7 +115,7 @@ Password: %zYG614&
 
 ![](https://lh3.googleusercontent.com/EytPwg3J6sxCE5eXZ8iYXMK3tJ9TZNa9p5h0VDIQrAd5sKtpW5TG6IjLfREj9EpWG1uN_FU1vduUlBz0JueGoribhAYGQTYkGN87AwKWi-LTYMF4HcaqOGHUENMz87cX8PQPS1Px)
 
-Prometheus
+## Prometheus
 
 Use Command Line
 
@@ -152,7 +139,7 @@ Paymentgatewayapi_counter
   
   
 
-Grafana
+## Grafana
 
 Use Command Line
 
@@ -299,7 +286,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTY2MTYyNTgwLDIxMjA4MjU2MDEsMTI3MT
-U3NDMyMSwtOTY1NDExMTc3LC0xOTI4MDcwOTU4LC03MTk1NDMz
-NzgsLTEyMzc1OTk2MjhdfQ==
+eyJoaXN0b3J5IjpbLTgxODMyNTM3NywyMTIwODI1NjAxLDEyNz
+E1NzQzMjEsLTk2NTQxMTE3NywtMTkyODA3MDk1OCwtNzE5NTQz
+Mzc4LC0xMjM3NTk5NjI4XX0=
 -->
