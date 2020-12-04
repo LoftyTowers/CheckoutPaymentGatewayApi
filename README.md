@@ -117,12 +117,9 @@ Password:
     
 ### Grafana
 
-####Use Command Line
+#### Use Command Line
 1.  Navigate to Grafana:
-    
-
-http://localhost:3000/login
-
+> http://localhost:3000/login
 ![](https://lh6.googleusercontent.com/m1SHRPuJKOT85S-IO0QNVfs_-GbpBUXiflVjhN7gy0zw7eJg25RZvRxPNaWzdOabQiHoMaeYOHV9HO48xusRNA0kyOnP6YzjZTN7a8qpAq91BYzcJ6abSvy3WAUw1lc1OadKaMqH)
 
 2.  Log in:
@@ -261,7 +258,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMyNjQ0ODY3OSwyMTIwODI1NjAxLDEyNz
-E1NzQzMjEsLTk2NTQxMTE3NywtMTkyODA3MDk1OCwtNzE5NTQz
-Mzc4LC0xMjM3NTk5NjI4XX0=
+eyJoaXN0b3J5IjpbMjEwNjYyOTE1LDIxMjA4MjU2MDEsMTI3MT
+U3NDMyMSwtOTY1NDExMTc3LC0xOTI4MDcwOTU4LC03MTk1NDMz
+NzgsLTEyMzc1OTk2MjhdfQ==
 -->
