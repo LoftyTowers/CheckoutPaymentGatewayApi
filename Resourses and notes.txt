@@ -5,6 +5,8 @@ https://jwt.io/
 //Docker certificate issues
 https://tomssl.com/how-to-run-asp-net-core-3-1-over-https-in-docker-using-linux-containers/
 
+https://docs.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-5.0
+
 //Validate middle layer pocos
 http://learnwitherik.com/post/poco-validation
 
