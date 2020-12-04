@@ -68,8 +68,6 @@ Validates payment requests, stores card information, forwards payment requests a
 	- I also think that the failure to add a user or card to the database is not a critical error in terms of the payment flow. 
 	- However, this was something I should have queired in order to get a solid requirement
 
-- 
-
 ## Run
 
 Bearer Token:
@@ -154,6 +152,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk2NTQxMTE3NywtMTkyODA3MDk1OCwtNz
-E5NTQzMzc4LC0xMjM3NTk5NjI4XX0=
+eyJoaXN0b3J5IjpbLTUyOTM2NjU4LC05NjU0MTExNzcsLTE5Mj
+gwNzA5NTgsLTcxOTU0MzM3OCwtMTIzNzU5OTYyOF19
 -->
