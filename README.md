@@ -23,11 +23,11 @@ Validates payment requests, stores card information, forwards payment requests a
     
 ### Automapper
 
--   Automapper was configured to convert between the endpoint contracts to internal pocos and then to database objects. This was to simply code and make less 
+-   Automapper was configured to convert between the endpoint contracts to internal pocos and then to database objects. This was to simply code and remove potential duplicate mapping,
     
 ### JWT Authentication
 
--   Used
+-   
     
 ### Serilog
 
@@ -142,5 +142,5 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTEzMjM3MDQ0OSwtMTIzNzU5OTYyOF19
+eyJoaXN0b3J5IjpbLTcxOTU0MzM3OCwtMTIzNzU5OTYyOF19
 -->
