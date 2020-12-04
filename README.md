@@ -56,6 +56,7 @@ Validates payment requests, stores card information, forwards payment requests a
 -   Appsettings.json and the environment versions should not hold the connection settings to the database or at least have them encrypted.
 
 -   Assigning the response codes in the response controller should have had a mapping from my enums using automapper rather than manually mapping the responses.
+- I would have liked to have had code to match the supplied bankname to the 
 
 ## Run
 
@@ -141,6 +142,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMzExMTk2MTYsLTcxOTU0MzM3OCwtMT
+eyJoaXN0b3J5IjpbLTExODEyNTY2MjksLTcxOTU0MzM3OCwtMT
 IzNzU5OTYyOF19
 -->
