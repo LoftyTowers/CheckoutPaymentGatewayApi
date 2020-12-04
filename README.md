@@ -163,15 +163,8 @@ Or the id:
 ![](https://lh6.googleusercontent.com/qCBdikg7fvjUh3Tk_y1cNiwlct_aGpQ0hKLt_3pmoAexyfiCNJRnVXDjBjkYd5_B-s1nNU_GD-lCJ5XWbqSEUTsM4EYW89hy5HQkq1YLpLpc1BBBcNcMutvwZpL3o318PwlY2X8T)
 
 Click Load
-
-  
-
 Select the data source you created from the drop-down (above import)
-
-  
-
 Click Import
-
 ![](https://lh4.googleusercontent.com/5-kGNZ1ODOLT4M9l7_B_3rgsY_MgNJ1bBrVA8EJa_qcP9yLR6_nykgMwGwK1Ppd4fiEtVzW24UGdLaMqXymfpBhL040pKP542-sDIQ5jgANenCYr6UZ7OGftwPxvz3nMWjWc1S23)
 
 A dashboard can also be built from scratch
@@ -260,7 +253,8 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzY3MTU0MDksLTUyMTc1ODUxOSwyMTA2Nj
-I5MTUsMjEyMDgyNTYwMSwxMjcxNTc0MzIxLC05NjU0MTExNzcs
-LTE5MjgwNzA5NTgsLTcxOTU0MzM3OCwtMTIzNzU5OTYyOF19
+eyJoaXN0b3J5IjpbLTE0NzMwMjI1MywtNTIxNzU4NTE5LDIxMD
+Y2MjkxNSwyMTIwODI1NjAxLDEyNzE1NzQzMjEsLTk2NTQxMTE3
+NywtMTkyODA3MDk1OCwtNzE5NTQzMzc4LC0xMjM3NTk5NjI4XX
+0=
 -->
