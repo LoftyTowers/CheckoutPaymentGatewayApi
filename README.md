@@ -177,7 +177,15 @@ A dashboard can also be built from scratch
 3. Click Discover
 ![](https://lh4.googleusercontent.com/c5kzP2p9WWn_ONsPpQKDTfbSSpPnL8WXipxdaet6j2BtqDAGGujPbPwT_xnDqTD1hs_Z9aI8HHTkj8PR5GIgmxWoM3-rabEiO8swFwfkjpZBzVBs2aJMOyYhu7dIx-7dIO-E7-5W)
 
-4. 
+4.  Add the index pattern below and click next step
+> checkoutpaymentgateway-*
+
+![](https://lh5.googleusercontent.com/agAZcoumX5Ltv35MwsSc2MG47sBr2onj_u5zrMAcBUO5dDYM2JLsXLdRYchZIeqH7wSXD6TfppKLudBlF_4f-fmtM5DMuXKm_QoBzehb6Arx8pRyVscZj9YnsWMsvsKIX7-CvbWC)
+
+2.  Select @timestamp from the dropdown
+3.  Click Create Index Pattern![](https://lh5.googleusercontent.com/HHVsqN-LU2_CVRu7mEV-0HWHSEiruQkkVl5DTRIl5N2VKHrO7VO67Kgeb6W3O9yynsl7IZfeGXRRbxxr84Oe-hu03B4c68sa3swwqAzBx6tgh1IGgIwKfirRMR-PReYi1MU6gRBi)
+
+  Navigate to the Discover page again to see the logs
 
 
 ## Run
@@ -264,8 +272,9 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUxMjAzMTg0NiwtMTAxOTc5MDY3NiwxNj
-E5NTk4MTYwLC01MjE3NTg1MTksMjEwNjYyOTE1LDIxMjA4MjU2
-MDEsMTI3MTU3NDMyMSwtOTY1NDExMTc3LC0xOTI4MDcwOTU4LC
-03MTk1NDMzNzgsLTEyMzc1OTk2MjhdfQ==
+eyJoaXN0b3J5IjpbLTIwMDg5MjQwOTcsMTUxMjAzMTg0NiwtMT
+AxOTc5MDY3NiwxNjE5NTk4MTYwLC01MjE3NTg1MTksMjEwNjYy
+OTE1LDIxMjA4MjU2MDEsMTI3MTU3NDMyMSwtOTY1NDExMTc3LC
+0xOTI4MDcwOTU4LC03MTk1NDMzNzgsLTEyMzc1OTk2MjhdfQ==
+
 -->
