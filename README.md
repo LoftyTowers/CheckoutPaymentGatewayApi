@@ -19,11 +19,11 @@ Validates payment requests, stores card information, forwards payment requests a
     
 ### Autofac
 
-- I chose to use Autofac for my Dependency Injection (DI) because I had the greater familiarity to the build int .netcore DI
+- I chose to use Autofac for my Dependency Injection (DI) because I had the greater familiarity to the build in .netcore DI. In hindsite this was added complexity and perehaps the native DI would have been a better choise.
     
 ### Automapper
 
--   Used
+-   U
     
 ### JWT
 
@@ -142,5 +142,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjM5Mjk4ODMyLC0xMjM3NTk5NjI4XX0=
+eyJoaXN0b3J5IjpbLTE3MzYwODM2NDksLTEyMzc1OTk2MjhdfQ
+==
 -->
