@@ -47,14 +47,13 @@ Validates payment requests, stores card information, forwards payment requests a
 -   SQL Server was dockerised in order to keep the project all self-contained in a network.
     
 -   In a live situation, it might not be an ideal solution to put SQL Server in a docker container.
-    
+
 -   For this project I have used the SA account to connect to the database, this is to save time setting up the project and usually, I would create separate application and user login credentials.
+	-   Setting up a user to use windows auth would have been better.
     
 ### Applications
 
 -   Appsettings.json and the environment versions should not hold the connection settings to the database or at least have them encrypted.
-
--   Setting up a user to use windows auth would have been ideal.
 
 -   Assigning the response codes in the response controller should have had a mapping from my enums using automapper rather than manually mapping the responses.
 
@@ -142,6 +141,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUyOTIxNTQyNywtNzE5NTQzMzc4LC0xMj
-M3NTk5NjI4XX0=
+eyJoaXN0b3J5IjpbLTEwMzExMTk2MTYsLTcxOTU0MzM3OCwtMT
+IzNzU5OTYyOF19
 -->
