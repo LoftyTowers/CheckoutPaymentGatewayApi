@@ -58,6 +58,8 @@ Validates payment requests, stores card information, forwards payment requests a
 
 - I would have liked to have had code to match the supplied bankname to the bin on the card number but I felt that this was a stretch goal that I did not have time to implement.
 
+- This project actually lends itself to an async implementation and if I were to plan this again I would have written the API this way.
+
 - 
 
 ## Run
@@ -144,6 +146,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTczNDI2NTczNSwtNzE5NTQzMzc4LC0xMj
-M3NTk5NjI4XX0=
+eyJoaXN0b3J5IjpbLTE5MjgwNzA5NTgsLTcxOTU0MzM3OCwtMT
+IzNzU5OTYyOF19
 -->
