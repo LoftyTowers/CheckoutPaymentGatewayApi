@@ -92,19 +92,19 @@ Validates payment requests, stores card information, forwards payment requests a
 Server: 
 > 127.0.0.1,1633 || localhost,1633 || paymentdb, 1633
 
-Authentication: SQL Server Authentication
+Authentication:
+> SQL Server Authentication
 
-Login: SA
+Login:
+> SA
 
-Password: %zYG614&
-
-  
-
+Password:
+> %zYG614&
 ![](https://lh3.googleusercontent.com/EytPwg3J6sxCE5eXZ8iYXMK3tJ9TZNa9p5h0VDIQrAd5sKtpW5TG6IjLfREj9EpWG1uN_FU1vduUlBz0JueGoribhAYGQTYkGN87AwKWi-LTYMF4HcaqOGHUENMz87cX8PQPS1Px)
 
-## Prometheus
+### Prometheus
 
-Use Command Line
+#### Use Command Line
 
 1.  Navigate to Prometheus for metrics:
     
@@ -273,7 +273,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNjM5MzA2ODcsMjEyMDgyNTYwMSwxMj
-cxNTc0MzIxLC05NjU0MTExNzcsLTE5MjgwNzA5NTgsLTcxOTU0
-MzM3OCwtMTIzNzU5OTYyOF19
+eyJoaXN0b3J5IjpbMTQ1NzQyNzIxNiwyMTIwODI1NjAxLDEyNz
+E1NzQzMjEsLTk2NTQxMTE3NywtMTkyODA3MDk1OCwtNzE5NTQz
+Mzc4LC0xMjM3NTk5NjI4XX0=
 -->
