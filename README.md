@@ -23,7 +23,7 @@ Validates payment requests, stores card information, forwards payment requests a
     
 ### Automapper
 
--   
+-   Automapper was configured to convert between the 
     
 ### JWT Authentication
 
@@ -142,6 +142,5 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNTY2MzcwMjQsLTEyMzc1OTk2MjhdfQ
-==
+eyJoaXN0b3J5IjpbNzQyMTg5MDEyLC0xMjM3NTk5NjI4XX0=
 -->
