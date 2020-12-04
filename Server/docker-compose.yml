@@ -28,8 +28,37 @@ services:
     networks:
       - checkoutpaymentgateway
 
+  elasticsearch:
+   container_name: elasticsearch
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+   ports:
+    - 9200:9200
+   volumes:
+    - elasticsearch-data:/usr/share/elasticsearch/data
+   environment:
+    - xpack.monitoring.enabled=true
+    - xpack.watcher.enabled=false
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - discovery.type=single-node
+   networks:
+    - checkoutpaymentgateway
+
+  kibana:
+   container_name: kibana
+   image: docker.elastic.co/kibana/kibana:7.9.2
+   ports:
+    - 5601:5601
+   depends_on:
+    - elasticsearch
+   environment:
+    - ELASTICSEARCH_URL=http://localhost:9200
+   networks:
+    - checkoutpaymentgateway
+
   prometheus:
     image: prom/prometheus
+    depends_on:
+      - checkoutpaymentgateway
     restart: always
     ports:
       - 9090:9090
@@ -40,16 +69,21 @@ services:
       - checkoutpaymentgateway
 
   grafana: 
-    image: grafana/grafana
-    #command:
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=P@ssw0rd
-    restart: always
-    ports:
-      - 3000:3000
-    networks:
-      - checkoutpaymentgateway
+   image: grafana/grafana
+   depends_on:
+    - prometheus
+   environment:
+    - GF_SECURITY_ADMIN_PASSWORD=P@ssw0rd
+   restart: always
+   ports:
+    - 3000:3000
+   networks:
+    - checkoutpaymentgateway
 
 ### put all the networks here
 networks:
   checkoutpaymentgateway:
+    driver: bridge
+
+volumes:
+  elasticsearch-data:

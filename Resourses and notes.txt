@@ -5,7 +5,7 @@ https://jwt.io/
 //Docker certificate issues
 https://tomssl.com/how-to-run-asp-net-core-3-1-over-https-in-docker-using-linux-containers/
 
-//Validate mniddle layer pocos
+//Validate middle layer pocos
 http://learnwitherik.com/post/poco-validation
 
 //Metrics
@@ -21,6 +21,10 @@ https://www.youtube.com/watch?v=4V7CwC_4oss
 
 //docker commandline 
 https://docs.docker.com/engine/reference/commandline/docker/
+
+//Kibana
+
+https://www.humankode.com/asp-net-core/logging-with-elasticsearch-kibana-asp-net-core-and-docker
 
 //deploy docker
 cd G:\Programming\CheckoutPaymentGatewayApi\Server
