@@ -31,8 +31,8 @@ Validates payment requests, stores card information, forwards payment requests a
     
 ### Serilog
 
--   Used
-- 
+- Was used as the logging framework for the simple set up and ease of integration with elastic search.
+
 ### Prometheus
 
 **NOTE:** This is currently not able to scrape the metrics when containerised. I am working to fix this.
@@ -142,5 +142,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcxOTU0MzM3OCwtMTIzNzU5OTYyOF19
+eyJoaXN0b3J5IjpbMTIzNzU2NiwtNzE5NTQzMzc4LC0xMjM3NT
+k5NjI4XX0=
 -->
