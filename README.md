@@ -33,7 +33,7 @@ Validates payment requests, stores card information, forwards payment requests a
 - 
 ### Prometheus
 **NOTE:** This is currently not able to scrape the metrics. 
--   Used
+-   Prometheus was chosen to gather the metrics because it was simple to set up and had a vareity of metrics to choose 
     
 ## Improvements
 
@@ -137,6 +137,5 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwOTk3MDYxNTgsLTEyMzc1OTk2MjhdfQ
-==
+eyJoaXN0b3J5IjpbMTMxNTY4NDMxLC0xMjM3NTk5NjI4XX0=
 -->
