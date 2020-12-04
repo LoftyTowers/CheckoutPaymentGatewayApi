@@ -169,6 +169,7 @@ Click Import
 
 A dashboard can also be built from scratch
 
+### Kibana
 
 
 ## Run
@@ -255,7 +256,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkxMTIwNDc1MywtNTIxNzU4NTE5LDIxMD
+eyJoaXN0b3J5IjpbMTYxOTU5ODE2MCwtNTIxNzU4NTE5LDIxMD
 Y2MjkxNSwyMTIwODI1NjAxLDEyNzE1NzQzMjEsLTk2NTQxMTE3
 NywtMTkyODA3MDk1OCwtNzE5NTQzMzc4LC0xMjM3NTk5NjI4XX
 0=
