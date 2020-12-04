@@ -27,7 +27,7 @@ Validates payment requests, stores card information, forwards payment requests a
     
 ### JWT Authentication
 
--   Added to authenticate the calls to the server endpoint .
+-   Added to authenticate the calls to the server endpoint.
     
 ### Serilog
 
@@ -142,6 +142,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTg0Nzg5NTIxLC03MTk1NDMzNzgsLTEyMz
-c1OTk2MjhdfQ==
+eyJoaXN0b3J5IjpbMTUyOTIxNTQyNywtNzE5NTQzMzc4LC0xMj
+M3NTk5NjI4XX0=
 -->
