@@ -68,6 +68,163 @@ Validates payment requests, stores card information, forwards payment requests a
 	- I also think that the failure to add a user or card to the database is not a critical error in terms of the payment flow. 
 	- However, this was something I should have queired in order to get a solid requirement
 
+Installation
+
+  
+
+Checkout Payment Gateway
+
+Use Command Line
+
+1.  Navigate to the containing folder:
+    
+
+cd {Path}\CheckoutPaymentGatewayApi\Server\CheckoutPaymentGateway
+
+  
+
+2.  Build the solution:
+    
+
+1.  Please note the command actually runs from the solution folder but needs to be in the project folder to get the docker file.
+    
+
+docker build -f Dockerfile -t checkoutpaymentgateway ..
+
+  
+
+3.  Check the image has been created:
+    
+
+docker images | more
+
+  
+
+4.  Create the docker container:
+    
+
+docker-compose up -d
+
+  
+
+5.  Navigate to the Api:
+    
+
+https://localhost:6001/Swagger
+
+![](https://lh3.googleusercontent.com/NTS7R5SS6ZJVmJ4_rcNirj9_TO6PuP0IDJD9Oe5QXs_1Jd0wvyG7oaFBHZqubbDSEn99W0-c4oMpTS0YT-Ndj_r8mnR5dOJKk-I_KYmCCRdSbKj6QySk_A6E-EWhAhdZ2s98VQJU)
+
+Connecting to the database
+
+Server: 127.0.0.1,1633 || localhost,1633 || paymentdb, 1633
+
+Authentication: SQL Server Authentication
+
+Login: SA
+
+Password: %zYG614&
+
+  
+
+![](https://lh3.googleusercontent.com/EytPwg3J6sxCE5eXZ8iYXMK3tJ9TZNa9p5h0VDIQrAd5sKtpW5TG6IjLfREj9EpWG1uN_FU1vduUlBz0JueGoribhAYGQTYkGN87AwKWi-LTYMF4HcaqOGHUENMz87cX8PQPS1Px)
+
+Prometheus
+
+Use Command Line
+
+1.  Navigate to Prometheus for metrics:
+    
+
+http://localhost:9090/graph
+
+  
+
+2.  Select the metrics to show:
+    
+
+Paymentgatewayapi_counter
+
+![](https://lh3.googleusercontent.com/Z7684lLTYZ-T0BwMYpnp1mIsIvGb8aUQVsOD8deobd26L5at9EHlFfYwzgT61xGNN4Obql_NT1_wBCqMG76POzA8tw3tNN2M2aljy4zuJLpW-_7lWuImuwyIftBRxtx8F27p613O)
+
+3.  Click Execute
+    
+
+  
+  
+
+Grafana
+
+Use Command Line
+
+1.  Navigate to Grafana:
+    
+
+http://localhost:3000/login
+
+![](https://lh6.googleusercontent.com/m1SHRPuJKOT85S-IO0QNVfs_-GbpBUXiflVjhN7gy0zw7eJg25RZvRxPNaWzdOabQiHoMaeYOHV9HO48xusRNA0kyOnP6YzjZTN7a8qpAq91BYzcJ6abSvy3WAUw1lc1OadKaMqH)
+
+2.  Log in:
+username: admin
+
+  
+
+password: P@ssw0rd
+
+  
+
+3.  Add Datasource
+    
+
+Click Add your first data sourse
+
+![](https://lh3.googleusercontent.com/Ok5gWWhF8U0oNLdhjb7Z-hjC07j21FBX53_8O_FrScNCG28fhV_sO5TYp7QUZvN6mbTcVN1JfnZSwP0-55X3nNcohOi6-BwnK4NdQcqphZtqypIrouvRYW3Czas9CkPOzii89UkI)
+
+Click Prometheus
+
+![](https://lh4.googleusercontent.com/yl-cdODQ-Iui8HaLrKmPqsQ6WzRYzCQKYHh39A3UPQM9dnQiMl824ni5jUymfwc_ByStCEIlYZxTvubI8cgi4kxHXmAHavgX4_UYiicnefL0Eh9UrJFLKB9ARPDIamULShQ9hbRV)
+
+Create a useful name i.e. checkout gateway metrics
+
+  
+
+Add the URL: http://localhost:9090/
+
+![](https://lh3.googleusercontent.com/9nb5c_OLFf6OyR-MR4CX1CwTYtxW52tNbd6HrNxFh1reH5yxq21w42RgobjncUDGNgpuzw_MsoGJc9MgFe4cqsEGqFasmdH_FQ23JpLB-hUIPzgD8q4Apa0x1Z4PJm3KZrpNon8x)
+
+Click Save & Test
+
+![](https://lh4.googleusercontent.com/dOae9Il5NXUitymEg_1Wn4vBWY6UT58sk1XUmEuyurOG9DOxTTINoOVUghgXRcz95lXgQFJteD3jnCcDAOiyqdBKPDEsVklf-Ixj51wd4HuTyvbP9_GnD_7R49S3ZkWscA5cjss3)
+
+  
+
+4.  Add Dashboard
+    
+
+1.  Example dashboard imports:
+    
+
+Click the + on the left of the screen
+
+![](https://lh5.googleusercontent.com/UVMcgiknn40bJttin6gKniAExnpUt0J9CuJbu5iWh_FXEa_Rmu8EyA-t_lSftKUONc9nMjaZW7Jcyt3FG3zyG_kbdiqA6-l5zO1U1enm1HKeGWY-80tH_PaJzm6DPP7jOBnpH2i3)
+
+Type the id: 10427 or the id 10915 to load preset dashboards
+
+![](https://lh6.googleusercontent.com/qCBdikg7fvjUh3Tk_y1cNiwlct_aGpQ0hKLt_3pmoAexyfiCNJRnVXDjBjkYd5_B-s1nNU_GD-lCJ5XWbqSEUTsM4EYW89hy5HQkq1YLpLpc1BBBcNcMutvwZpL3o318PwlY2X8T)
+
+Click Load
+
+  
+
+Select the data source you created from the drop-down (above import)
+
+  
+
+Click Import
+
+![](https://lh4.googleusercontent.com/5-kGNZ1ODOLT4M9l7_B_3rgsY_MgNJ1bBrVA8EJa_qcP9yLR6_nykgMwGwK1Ppd4fiEtVzW24UGdLaMqXymfpBhL040pKP542-sDIQ5jgANenCYr6UZ7OGftwPxvz3nMWjWc1S23)
+
+A dashboard can also be built from scratch
+
 ## Run
 
 Bearer Token:
@@ -152,7 +309,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEyMDgyNTYwMSwxMjcxNTc0MzIxLC05Nj
-U0MTExNzcsLTE5MjgwNzA5NTgsLTcxOTU0MzM3OCwtMTIzNzU5
-OTYyOF19
+eyJoaXN0b3J5IjpbMTAzODkyODkxMCwyMTIwODI1NjAxLDEyNz
+E1NzQzMjEsLTk2NTQxMTE3NywtMTkyODA3MDk1OCwtNzE5NTQz
+Mzc4LC0xMjM3NTk5NjI4XX0=
 -->
