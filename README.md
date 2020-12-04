@@ -174,30 +174,22 @@ password:
 3.  Add Datasource
     
 Click Add your first data sourse
-
 ![](https://lh3.googleusercontent.com/Ok5gWWhF8U0oNLdhjb7Z-hjC07j21FBX53_8O_FrScNCG28fhV_sO5TYp7QUZvN6mbTcVN1JfnZSwP0-55X3nNcohOi6-BwnK4NdQcqphZtqypIrouvRYW3Czas9CkPOzii89UkI)
 
 Click Prometheus
-
 ![](https://lh4.googleusercontent.com/yl-cdODQ-Iui8HaLrKmPqsQ6WzRYzCQKYHh39A3UPQM9dnQiMl824ni5jUymfwc_ByStCEIlYZxTvubI8cgi4kxHXmAHavgX4_UYiicnefL0Eh9UrJFLKB9ARPDIamULShQ9hbRV)
 
 Create a useful name i.e. checkout gateway metrics
-
-  
 
 Add the URL: http://localhost:9090/
 
 ![](https://lh3.googleusercontent.com/9nb5c_OLFf6OyR-MR4CX1CwTYtxW52tNbd6HrNxFh1reH5yxq21w42RgobjncUDGNgpuzw_MsoGJc9MgFe4cqsEGqFasmdH_FQ23JpLB-hUIPzgD8q4Apa0x1Z4PJm3KZrpNon8x)
 
 Click Save & Test
-
 ![](https://lh4.googleusercontent.com/dOae9Il5NXUitymEg_1Wn4vBWY6UT58sk1XUmEuyurOG9DOxTTINoOVUghgXRcz95lXgQFJteD3jnCcDAOiyqdBKPDEsVklf-Ixj51wd4HuTyvbP9_GnD_7R49S3ZkWscA5cjss3)
 
   
-
-4.  Add Dashboard
-    
-
+#### Add Dashboard
 1.  Example dashboard imports:
     
 
@@ -307,7 +299,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMDgwNjQwNjIsMjEyMDgyNTYwMSwxMj
-cxNTc0MzIxLC05NjU0MTExNzcsLTE5MjgwNzA5NTgsLTcxOTU0
-MzM3OCwtMTIzNzU5OTYyOF19
+eyJoaXN0b3J5IjpbOTY2MTYyNTgwLDIxMjA4MjU2MDEsMTI3MT
+U3NDMyMSwtOTY1NDExMTc3LC0xOTI4MDcwOTU4LC03MTk1NDMz
+NzgsLTEyMzc1OTk2MjhdfQ==
 -->
