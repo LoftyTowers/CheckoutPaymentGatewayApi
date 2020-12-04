@@ -164,17 +164,15 @@ http://localhost:3000/login
 ![](https://lh6.googleusercontent.com/m1SHRPuJKOT85S-IO0QNVfs_-GbpBUXiflVjhN7gy0zw7eJg25RZvRxPNaWzdOabQiHoMaeYOHV9HO48xusRNA0kyOnP6YzjZTN7a8qpAq91BYzcJ6abSvy3WAUw1lc1OadKaMqH)
 
 2.  Log in:
-username: admin
 
-  
+Username: 
+> admin
 
-password: P@ssw0rd
-
-  
+password: 
+> P@ssw0rd
 
 3.  Add Datasource
     
-
 Click Add your first data sourse
 
 ![](https://lh3.googleusercontent.com/Ok5gWWhF8U0oNLdhjb7Z-hjC07j21FBX53_8O_FrScNCG28fhV_sO5TYp7QUZvN6mbTcVN1JfnZSwP0-55X3nNcohOi6-BwnK4NdQcqphZtqypIrouvRYW3Czas9CkPOzii89UkI)
@@ -309,7 +307,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTAzODkyODkxMCwyMTIwODI1NjAxLDEyNz
-E1NzQzMjEsLTk2NTQxMTE3NywtMTkyODA3MDk1OCwtNzE5NTQz
-Mzc4LC0xMjM3NTk5NjI4XX0=
+eyJoaXN0b3J5IjpbLTIxMDgwNjQwNjIsMjEyMDgyNTYwMSwxMj
+cxNTc0MzIxLC05NjU0MTExNzcsLTE5MjgwNzA5NTgsLTcxOTU0
+MzM3OCwtMTIzNzU5OTYyOF19
 -->
