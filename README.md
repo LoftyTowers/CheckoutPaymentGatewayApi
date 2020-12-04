@@ -35,7 +35,7 @@ Validates payment requests, stores card information, forwards payment requests a
 
 ### Docker
 
--
+- I used Docker to containerise all the server code into its own docker network.
 
 ### Prometheus
 
@@ -152,6 +152,6 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUyOTM2NjU4LC05NjU0MTExNzcsLTE5Mj
-gwNzA5NTgsLTcxOTU0MzM3OCwtMTIzNzU5OTYyOF19
+eyJoaXN0b3J5IjpbMTI3MTU3NDMyMSwtOTY1NDExMTc3LC0xOT
+I4MDcwOTU4LC03MTk1NDMzNzgsLTEyMzc1OTk2MjhdfQ==
 -->
