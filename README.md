@@ -171,6 +171,10 @@ A dashboard can also be built from scratch
 
 ### Kibana
 
+1. Navigate to:
+> http://
+2. Click the hamburger in the top left
+3. Click Discover
 
 
 
@@ -258,8 +262,8 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMTk3OTA2NzYsMTYxOTU5ODE2MCwtNT
-IxNzU4NTE5LDIxMDY2MjkxNSwyMTIwODI1NjAxLDEyNzE1NzQz
-MjEsLTk2NTQxMTE3NywtMTkyODA3MDk1OCwtNzE5NTQzMzc4LC
-0xMjM3NTk5NjI4XX0=
+eyJoaXN0b3J5IjpbNTczNTUzODYzLC0xMDE5NzkwNjc2LDE2MT
+k1OTgxNjAsLTUyMTc1ODUxOSwyMTA2NjI5MTUsMjEyMDgyNTYw
+MSwxMjcxNTc0MzIxLC05NjU0MTExNzcsLTE5MjgwNzA5NTgsLT
+cxOTU0MzM3OCwtMTIzNzU5OTYyOF19
 -->
