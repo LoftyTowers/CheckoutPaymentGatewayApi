@@ -140,7 +140,8 @@ Click Prometheus
 
 Create a useful name i.e. checkout gateway metrics
 
-Add the URL: http://localhost:9090/
+Add the URL: 
+> http://localhost:9090/
 
 ![](https://lh3.googleusercontent.com/9nb5c_OLFf6OyR-MR4CX1CwTYtxW52tNbd6HrNxFh1reH5yxq21w42RgobjncUDGNgpuzw_MsoGJc9MgFe4cqsEGqFasmdH_FQ23JpLB-hUIPzgD8q4Apa0x1Z4PJm3KZrpNon8x)
 
@@ -150,10 +151,7 @@ Click Save & Test
   
 #### Add Dashboard
 1.  Example dashboard imports:
-    
-
 Click the + on the left of the screen
-
 ![](https://lh5.googleusercontent.com/UVMcgiknn40bJttin6gKniAExnpUt0J9CuJbu5iWh_FXEa_Rmu8EyA-t_lSftKUONc9nMjaZW7Jcyt3FG3zyG_kbdiqA6-l5zO1U1enm1HKeGWY-80tH_PaJzm6DPP7jOBnpH2i3)
 
 Type the id: 10427 or the id 10915 to load preset dashboards
@@ -258,7 +256,7 @@ Pass your own string value to the echo endpoint
 	3.  Total failing requests
 	4.  A file path to a JSON output file of all the failed requests
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEwNjYyOTE1LDIxMjA4MjU2MDEsMTI3MT
-U3NDMyMSwtOTY1NDExMTc3LC0xOTI4MDcwOTU4LC03MTk1NDMz
-NzgsLTEyMzc1OTk2MjhdfQ==
+eyJoaXN0b3J5IjpbLTUyMTc1ODUxOSwyMTA2NjI5MTUsMjEyMD
+gyNTYwMSwxMjcxNTc0MzIxLC05NjU0MTExNzcsLTE5MjgwNzA5
+NTgsLTcxOTU0MzM3OCwtMTIzNzU5OTYyOF19
 -->
