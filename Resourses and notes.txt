@@ -1,0 +1,51 @@
+
+//JWT Token issue/Test
+https://jwt.io/
+
+//Docker certificate issues
+https://tomssl.com/how-to-run-asp-net-core-3-1-over-https-in-docker-using-linux-containers/
+
+https://docs.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-5.0
+
+//Validate middle layer pocos
+http://learnwitherik.com/post/poco-validation
+
+//Metrics
+https://medium.com/@dale.bingham_30375/net-core-web-api-metrics-with-prometheus-and-grafana-fe84a52d9843
+
+https://apifriends.com/api-management/api-metrics/
+
+//Sql Containers
+https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-powershell
+
+https://www.youtube.com/watch?v=4V7CwC_4oss
+	---- add-migration InitialPaymentDbCreation
+
+//docker commandline 
+https://docs.docker.com/engine/reference/commandline/docker/
+
+//Kibana
+
+https://www.humankode.com/asp-net-core/logging-with-elasticsearch-kibana-asp-net-core-and-docker
+
+//deploy docker
+cd G:\Programming\CheckoutPaymentGatewayApi\Server
+docker build -f Dockerfile -t checkoutpaymentgateway ..
+docker images | more 
+
+docker-compose up 
+
+
+
+//Test Prom
+cd G:\Programming\dotnet-core-prometheus-grafana 
+cd peopleapi 
+docker build -f Dockerfile -t peopleapi . 
+cd ../locationsapi 
+docker build -f Dockerfile -t locationsapi . 
+cd .. 
+docker images | more 
+
+docker-compose up 
+
+telnet host port

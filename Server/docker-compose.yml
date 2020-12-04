@@ -1,0 +1,91 @@
+version: '3.4'
+
+services:
+  paymentdb:
+    image: microsoft/mssql-server-linux:latest
+    #image: mcr.microsoft.com/mssql/server:2019-latest
+  #  container_name: paymentsdb-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "%zYG614&"
+      MSSQL_PID: Express
+    ports:
+      - "1633:1433"
+    networks:
+      - checkoutpaymentgateway
+
+  checkoutpaymentgateway:
+    image: ${DOCKER_REGISTRY-}checkoutpaymentgateway
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=443
+    ports:
+      - "6000:80"
+      - "6001:443"
+    depends_on:
+      - paymentdb
+    build:
+      context: .
+      dockerfile: CheckoutPaymentGateway/Dockerfile
+    networks:
+      - checkoutpaymentgateway
+
+  elasticsearch:
+   container_name: elasticsearch
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+   ports:
+    - 9200:9200
+   volumes:
+    - elasticsearch-data:/usr/share/elasticsearch/data
+   environment:
+    - xpack.monitoring.enabled=true
+    - xpack.watcher.enabled=false
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - discovery.type=single-node
+   networks:
+    - checkoutpaymentgateway
+
+  kibana:
+   container_name: kibana
+   image: docker.elastic.co/kibana/kibana:7.9.2
+   ports:
+    - 5601:5601
+   depends_on:
+    - elasticsearch
+   environment:
+    - ELASTICSEARCH_URL=http://elasticsearch:9200
+   networks:
+    - checkoutpaymentgateway
+
+  prometheus:
+    image: prom/prometheus
+    depends_on:
+      - checkoutpaymentgateway
+    restart: always
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command: "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      - checkoutpaymentgateway
+
+  grafana: 
+   image: grafana/grafana
+   depends_on:
+    - prometheus
+   environment:
+    - GF_SECURITY_ADMIN_PASSWORD=P@ssw0rd
+   restart: always
+   ports:
+    - 3000:3000
+   networks:
+    - checkoutpaymentgateway
+
+### put all the networks here
+networks:
+  checkoutpaymentgateway:
+    driver: bridge
+
+volumes:
+  elasticsearch-data:
