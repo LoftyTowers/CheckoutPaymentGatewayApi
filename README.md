@@ -2,9 +2,6 @@
 
 Validates payment requests, stores card information, forwards payment requests and accepts responses from the acquiring bank.
 
-## Task Assumptions
-- 
-
 ## Technologies Used
 
 ### .Net 5
